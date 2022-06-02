@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 import { Link } from 'react-router-dom'
 
 const StartPage = () => {
@@ -9,18 +9,36 @@ const StartPage = () => {
 
             <InputWrapper>
             <Form>
+                <label>Username or email</label>
                 <input 
                 type="text"
                 placeholder="username"
                 id="username"
+                required={true}
                 />
+                
+
+                <label>Password</label>
                 <input 
                 type="password"
                 placeholder="password"
                 id="password"
+                required={true}
                 />
+                
+
                 <button>Sign in</button>
+
                 </Form>
+
+                <label>I agree to the terms and conditions
+                <input
+                type="checkbox"
+                id="terms"
+                required={true}
+                />
+                </label>
+
             </InputWrapper>
 
             <div>
@@ -48,6 +66,7 @@ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 
 const InputWrapper = styled.div`
 display: flex;
+flex-direction: column;
 justify-content: center;
 background-color: #EFEDDB;
 border: 1px solid black;
