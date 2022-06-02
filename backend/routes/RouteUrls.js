@@ -40,11 +40,14 @@ router.post('/signup', (req, res) => {
         })
 })
 
-router.post('/notes', (req,res) => {
-  const { title, date, activatingEvent, automatingThoughts, consequences } = req.body
+router.post('/notes', authenticateUser)
+router.post('/notes', async (req,res) => {
+  const { title, activatingEvent, automatingThoughts, consequences } = req.body
+  const getUser = await User.findOne({ accessToken: req.header('Authorization') })
    const newNote = new Note({
+        ownerId: getUser.accessToken,
         title: title,
-        date: date,
+        date: Date.now(),
         activatingEvent: activatingEvent,
         automatingThoughts: automatingThoughts,
         consequences: consequences
@@ -90,19 +93,14 @@ router.post('/signin', async (req, res) => {
     }
 })
 
-router.get('/memberzone', authenticateUser)
-router.get('/memberzone', async (req, res) => {
-    const getUser = await User.findOne({ accessToken: req.header('Authorization') })
-    res.json({
-        message: "Hello",
-        username: getUser.username,
-        memberSince: getUser.date
-    })
-})
-
+router.get('/notes', authenticateUser)
 router.get('/notes', async (req, res) => {
-    const notes = await Note.find()
-    res.json(notes)
+    const getUser = await User.findOne({ accessToken: req.header('Authorization') })
+    const getNotes = await Note.find({ ownerId: req.header('Authorization') })
+    res.json({
+        username: getUser.username,
+        data: getNotes
+    })
 })
 
 module.exports = router
