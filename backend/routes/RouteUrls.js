@@ -40,32 +40,6 @@ router.post('/signup', (req, res) => {
         })
 })
 
-router.post('/notes', authenticateUser)
-router.post('/notes', async (req,res) => {
-  const { title, activatingEvent, automatingThoughts, consequences } = req.body
-  const getUser = await User.findOne({ accessToken: req.header('Authorization') })
-   const newNote = new Note({
-        ownerId: getUser.accessToken,
-        title: title,
-        date: Date.now(),
-        activatingEvent: activatingEvent,
-        automatingThoughts: automatingThoughts,
-        consequences: consequences
-    })
-    newNote.save()
-        .then(() => {
-            res.status(201).json({
-                success: true
-            })
-        })
-        .catch(err => {
-            res.json(400).json({
-                message: "Please try again",
-                errors: err.errors,
-                success: false
-            })
-        })
-})
 
 router.post('/signin', async (req, res) => {
     const { email, username, password } = req.body
@@ -93,14 +67,38 @@ router.post('/signin', async (req, res) => {
     }
 })
 
+router.post('/notes', authenticateUser)
+router.post('/notes', async (req,res) => {
+  const { title, activatingEvent, automatingThoughts, consequences } = req.body
+   const newNote = new Note({
+        title: title,
+        date: Date.now(),
+        activatingEvent: activatingEvent,
+        automatingThoughts: automatingThoughts,
+        consequences: consequences
+    })
+    newNote.save()
+        .then(() => {
+            res.status(201).json({
+                success: true
+            })
+        })
+        .catch(err => {
+            res.json(400).json({
+                message: "Please try again",
+                errors: err.errors,
+                success: false
+            })
+        })
+})
+
 router.get('/notes', authenticateUser)
 router.get('/notes', async (req, res) => {
-    const getUser = await User.findOne({ accessToken: req.header('Authorization') })
-    const getNotes = await Note.find({ ownerId: req.header('Authorization') })
+    const getNotes = await Note.find({ ownerId: User._id})
     res.json({
-        username: getUser.username,
         data: getNotes
     })
 })
+
 
 module.exports = router

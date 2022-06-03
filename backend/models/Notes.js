@@ -1,26 +1,24 @@
 import mongoose from "mongoose"
 
 const noteTemplate = new mongoose.Schema({
-    ownerId:{
+    ownerId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    title: {
         type: String,
     },
-    title:{
-        type: String,
-    },
-    date:{
+    date: {
         type: Date,
         default: Date.now(),
         required: true
     },
-    activatingEvent:{
+    activatingEvent: {
         type: String,
         required: true
     },
-    automatingThoughts:{
+    automatingThoughts: {
         type: String,
         required: true
     },
-    consequences:{
+    consequences: {
         type: String,
         required: true
     }
