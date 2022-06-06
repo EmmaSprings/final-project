@@ -45,9 +45,9 @@ router.post('/signin', async (req, res) => {
     const { email, username, password } = req.body
     let conditions
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-        conditions = {email : email}
+        conditions = { email: email }
     } else if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(username)) {
-        conditions = {email : username}
+        conditions = { email: username }
     } else {
         conditions = !!username ? { username: username } : { username: email };
     }
@@ -61,16 +61,17 @@ router.post('/signin', async (req, res) => {
             accessToken: user.accessToken
         })
     } else {
-        res.json({ 
+        res.json({
             success: false,
-            notFound: true })
+            notFound: true
+        })
     }
 })
 
 router.post('/notes', authenticateUser)
-router.post('/notes', async (req,res) => {
-  const { title, activatingEvent, automatingThoughts, consequences } = req.body
-   const newNote = new Note({
+router.post('/notes', async (req, res) => {
+    const { title, activatingEvent, automatingThoughts, consequences } = req.body
+    const newNote = new Note({
         title: title,
         date: Date.now(),
         activatingEvent: activatingEvent,
@@ -94,10 +95,48 @@ router.post('/notes', async (req,res) => {
 
 router.get('/notes', authenticateUser)
 router.get('/notes', async (req, res) => {
-    const getNotes = await Note.find({ ownerId: User._id})
+    const getNotes = await Note.find({ ownerId: User._id })
     res.json({
         data: getNotes
     })
+})
+
+
+router.get('/notes/:noteId', authenticateUser)
+router.get('/notes/:noteId', async (req, res) => {
+    const getNotes = await Note.findOne({ _id: req.params.noteId })
+    res.json({
+        data: getNotes
+    })
+})
+
+router.patch('/notes/:noteId', async (req, res) => {
+    const { title, activatingEvent, automatingThoughts, consequences } = req.body
+    try {
+        const updatedNote = await Note.updateOne(
+            { _id: req.params.noteId },
+            {
+                $set: {
+                    title: title,
+                    activatingEvent: activatingEvent,
+                    automatingThoughts: automatingThoughts,
+                    consequences: consequences
+                }
+            }
+        )
+        res.json(updatedNote)
+    } catch (err) {
+        res.json({ message: err })
+    }
+})
+
+router.delete('/notes/:noteId', async (req, res) => {
+    try {
+        const removedNote = await Note.remove({ _id: req.params.noteId })
+        res.json(removedNote)
+    } catch (err) {
+        res.json({ message: err })
+    }
 })
 
 
