@@ -21,6 +21,10 @@ const noteTemplate = new mongoose.Schema({
     consequences: {
         type: String,
         required: true
+    },
+    isPinned: {
+        type: Boolean,
+        default: false
     }
 })
 

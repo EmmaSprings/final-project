@@ -70,13 +70,14 @@ router.post('/signin', async (req, res) => {
 
 router.post('/notes', authenticateUser)
 router.post('/notes', async (req, res) => {
-    const { title, activatingEvent, automatingThoughts, consequences } = req.body
+    const { title, activatingEvent, automatingThoughts, consequences, isPinned } = req.body
     const newNote = new Note({
         title: title,
         date: Date.now(),
         activatingEvent: activatingEvent,
         automatingThoughts: automatingThoughts,
-        consequences: consequences
+        consequences: consequences,
+        isPinned: isPinned
     })
     newNote.save()
         .then(() => {
@@ -111,7 +112,7 @@ router.get('/notes/:noteId', async (req, res) => {
 })
 
 router.patch('/notes/:noteId', async (req, res) => {
-    const { title, activatingEvent, automatingThoughts, consequences } = req.body
+    const { title, activatingEvent, automatingThoughts, consequences, isPinned } = req.body
     try {
         const updatedNote = await Note.updateOne(
             { _id: req.params.noteId },
@@ -120,7 +121,8 @@ router.patch('/notes/:noteId', async (req, res) => {
                     title: title,
                     activatingEvent: activatingEvent,
                     automatingThoughts: automatingThoughts,
-                    consequences: consequences
+                    consequences: consequences,
+                    isPinned: isPinned
                 }
             }
         )
