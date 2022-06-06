@@ -6,6 +6,9 @@ import AddNote from './components/AddNote';
 import Diary from './components/Diary';
 import SignUp from './components/SignUp';
 import StartPage from './components/StartPage';
+import Note from './components/Note';
+import About from './components/About';
+import SignUpSuccess from './components/SignUpSuccess';
 
 function App() {
   return (
@@ -16,6 +19,9 @@ function App() {
       <Route path="/addnote" element={<AddNote />}/>
       <Route path="/signup" element={<SignUp />}/>
       <Route path="/diary" element={<Diary />}/>
+      <Route path="/note" element={<Note />}/>
+      <Route path="/about" element={<About />}/>
+      <Route path="/success" element={<SignUpSuccess />}/>
     </Routes>
     </Main>
     </BrowserRouter>

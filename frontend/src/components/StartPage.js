@@ -1,12 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components/macro'
 import { Link } from 'react-router-dom'
 
 const StartPage = () => {
+
+
+
+   
+
     return(
         <MainWrapper>
             <Title>ABC CBT</Title>
-
+<Link to="/about">About</Link>
             <InputWrapper>
             <Form>
                 <label>Username or email</label>
@@ -31,13 +36,15 @@ const StartPage = () => {
 
                 </Form>
 
-                <label>I agree to the terms and conditions
+                
+                <label>I agree to the terms and conditions</label>
                 <input
                 type="checkbox"
                 id="terms"
                 required={true}
                 />
-                </label>
+                
+                
 
             </InputWrapper>
 
