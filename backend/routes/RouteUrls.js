@@ -77,11 +77,11 @@ router.post('/signin', async (req, res) => {
 
 router.post('/notes', authenticateUser)
 router.post('/notes', async (req, res) => {
+    const userId = await User.findOne({ accessToken: req.header('Authorization') })
     const { title, activatingEvent, automatingThoughts, consequences, isPinned } = req.body
-    const getUserId = await User.findById({ ownerId: User._id })
     const newNote = new Note({
         title: title,
-        ownerId: getUserId,
+        ownerId: userId._id,
         date: Date.now(),
         activatingEvent: activatingEvent,
         automatingThoughts: automatingThoughts,
@@ -105,7 +105,8 @@ router.post('/notes', async (req, res) => {
 
 router.get('/notes', authenticateUser)
 router.get('/notes', async (req, res) => {
-    const getNotes = await Note.find({ ownerId: User._id })
+    const userId = await User.findOne({ accessToken: req.header('Authorization') })
+    const getNotes = await Note.find({ ownerId: userId._id})
     res.json({
         data: getNotes
     })
@@ -115,7 +116,7 @@ router.get('/notes', async (req, res) => {
 
 router.get('/notes/:noteId', authenticateUser)
 router.get('/notes/:noteId', async (req, res) => {
-    const getNotes = await Note.findOne({ _id: req.params.noteId })
+    const getNotes = await Note.findOne({ ownerId: req.params.noteId })
     res.json({
         data: getNotes
     })

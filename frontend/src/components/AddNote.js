@@ -14,6 +14,8 @@ const AddNote = ({title, activatingEvent, beliefs}) => {
             method: "POST",
             headers: {Authorization: "accessToken"},
           };
+
+          // Add a fetch ? 
     }
     
     return(
@@ -36,34 +38,34 @@ const AddNote = ({title, activatingEvent, beliefs}) => {
             <Textarea placeholder="Beliefs" value={beliefs}></Textarea>
              </Form>
 
-            <Emotions>
+            <Emotions >
             {/* <p>Emotions</p> */}
             {/* <EmoBtn></EmoBtn> */}
             {BadEmotions.map( emotion => {
                 return (
                     <div>
-                        <EmoBtn>{emotion.emotion}</EmoBtn>
+                        <EmoBtn key={emotion.id}>{emotion.emotion}</EmoBtn>
                     </div>
                 )
             })}
             
             </Emotions>
 
-            <Reaction>
+            <Reaction >
             {GoodEmotions.map( goodEmo => {
                 return (
                     <div>
-                        <ReactionBtn>{goodEmo.emotion}</ReactionBtn>
+                        <ReactionBtn key={goodEmo.id}>{goodEmo.emotion}</ReactionBtn>
                     </div>
                 )
             })}
             </Reaction>
 
-            <Emotions>
+            <Emotions >
                 {reactions.map( reaction => {
                     return(
                         <div>
-                    <GoodBtn>{reaction.reaction}</GoodBtn>
+                    <GoodBtn key={reaction.id}>{reaction.reaction}</GoodBtn>
                     </div>
                     )
                 })}

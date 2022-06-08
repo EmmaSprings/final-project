@@ -1,7 +1,10 @@
 import mongoose from "mongoose"
 
 const noteTemplate = new mongoose.Schema({
-    ownerId: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    // ownerId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    ownerId: {
+        type: String
+    },
     title: {
         type: String,
     },
