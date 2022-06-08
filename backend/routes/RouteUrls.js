@@ -18,6 +18,13 @@ const authenticateUser = async (req, res, next) => {
 
 const salt = bcrypt.genSaltSync()
 router.post('/signup', (req, res) => {
+    const duplicateUser = User.findOne({ email: req.body.email} || {username: req.body.username})
+    if (!!duplicateUser){
+       return res.status(400).json({
+            message: "Username or email has already been used. Please try again.",
+            success: false
+        })
+    }
     const newUser = new User({
         email: req.body.email,
         username: req.body.username,
@@ -32,8 +39,8 @@ router.post('/signup', (req, res) => {
             })
         })
         .catch(err => {
-            res.json(400).json({
-                message: "Please try again",
+            res.status(400).json({
+                message: "An error occurs, please try again.",
                 errors: err.errors,
                 success: false
             })
