@@ -41,6 +41,9 @@ export const BadEmotions = [
   {
     emotion: "Nervous"
   },
+  {
+    emotion: "Worthless"
+  },
   
 ]
 
@@ -106,7 +109,7 @@ export const reactions = [
   reaction: "Jaw clenching"
 },
 {
-  reaction: "Heart race"
+  reaction: "Heart racing"
 },
 {
   reaction: "Shortage of breath"
@@ -115,16 +118,8 @@ export const reactions = [
   reaction: "Panic attack"
 },
 {
-  reaction: ""
+  reaction: "Other"
 },
-{
-  reaction: ""
-},
-{
-  reaction: ""
-},
-{
-  reaction: ""
-},
+
 
 ]

@@ -4,14 +4,38 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import { API_URL } from '../urls/api'
 
-const StartPage = () => {
+const SignIn = () => {
 
-const [username, setUsername] = useState('')
-const [password, setPassword] = useState('')
+const [loginInput, setLoginInput] = useState("")
+const [isCorrectCredentials, setIsCorrectCredentials] = useState(true)
+const [currentUser, setCurrentUser] = useState(null)
+// const [username, setUsername] = useState('')
+const [passwordInput, setPasswordInput] = useState("")
 
 const navigate = useNavigate()
 
 
+const isEmail = (str) => {
+    // Check if email
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(str)) {
+      return true
+    }
+    else {
+      return false
+    }
+  }
+
+  const onLoginValueChange = (event) => {
+    setLoginInput(event.target.value)
+    setIsCorrectCredentials(true)
+  }
+
+
+  const onPasswordValueChange = (event) => {
+    setPasswordInput(event.target.value)
+    setIsCorrectCredentials(true)
+  }
+  
     const onUserSubmit = (e) => {
         e.preventDefault()
     
@@ -21,13 +45,35 @@ const navigate = useNavigate()
               "Content-Type": "application/json",
              
             },
-            body: JSON.stringify({ username: username, password: password }),
+            
           };
+
+          const body =
+          {
+              password: passwordInput
+          }
+
+          if(isEmail(loginInput)) {
+              body.email = loginInput
+          } else {
+              body.username = loginInput
+          }
+          options.body = JSON.stringify(body)
     
     fetch(API_URL("signin"), options)
     .then(res => res.json())
-    .then(() => navigate("/diary"))
+    .then((data) => {
+        if (data.success) {
+            sessionStorage.setItem("accessToken", data.accessToken)
+            sessionStorage.setItem("username", data.username)
+            setCurrentUser(true)
+            navigate("/welcome")
+        } else {
+            setIsCorrectCredentials(false)
+            navigate("/signup")
+        }
     }
+    )}
     
 
    
@@ -41,11 +87,11 @@ const navigate = useNavigate()
                 <label>Username or email</label>
                 <input 
                 type="text"
-                placeholder="username"
+                placeholder="username or email"
                 id="username"
                 required={true}
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                value={loginInput}
+                onChange={onLoginValueChange}
                 />
                 
 
@@ -55,8 +101,8 @@ const navigate = useNavigate()
                 placeholder="password"
                 id="password"
                 required={true}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={passwordInput}
+                onChange={onPasswordValueChange}
                 />
                 
 
@@ -117,4 +163,4 @@ margin: 10px;
 
 `
 
-export default StartPage
+export default SignIn

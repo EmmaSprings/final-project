@@ -74,6 +74,7 @@ const AddNote = ({title, activatingEvent, beliefs}) => {
             </Form>
 
         </NotesWrapper>
+        <Link to="/welcome">Back</Link>
 
         <Link to="/">Home</Link>
 

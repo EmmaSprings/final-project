@@ -78,8 +78,10 @@ router.post('/signin', async (req, res) => {
 router.post('/notes', authenticateUser)
 router.post('/notes', async (req, res) => {
     const { title, activatingEvent, automatingThoughts, consequences, isPinned } = req.body
+    const getUserId = await User.findById({ ownerId: User._id })
     const newNote = new Note({
         title: title,
+        ownerId: getUserId,
         date: Date.now(),
         activatingEvent: activatingEvent,
         automatingThoughts: automatingThoughts,
@@ -108,6 +110,7 @@ router.get('/notes', async (req, res) => {
         data: getNotes
     })
 })
+
 
 
 router.get('/notes/:noteId', authenticateUser)

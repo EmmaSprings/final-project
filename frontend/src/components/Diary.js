@@ -1,8 +1,26 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components/macro'
 import { Link } from 'react-router-dom'
 
+import { API_URL } from '../urls/api'
+
+
 const Diary = () => {
+  const [notes, setNotes] = useState([])
+  const accessToken = sessionStorage.getItem("accessToken")
+
+  const options = {
+    method: "GET",
+    headers: { Authorization: accessToken }
+  }
+
+  useEffect( () => {
+   fetch(API_URL("notes"), options)
+   .then( res => res.json())
+   .then( data => setNotes(data))
+  }, [])
+  console.log(notes)
+
 
     const current = new Date();
   const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
@@ -14,10 +32,13 @@ const Diary = () => {
         </div>
 
         <Note>
-      <p>Title</p>
-      <p>created: {date}</p>
+        {notes.data?.map( note => {
+      <p>{note.title}</p>
+    })}
+      {/* <p>{date}</p> */}
       <Icon src="./icons/pen.png" alt="pen" />
         </Note>
+        <Link to="/welcome">Back</Link>
 
         <Link to="/">Home</Link>
 
