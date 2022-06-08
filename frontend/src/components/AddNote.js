@@ -1,6 +1,9 @@
 import React from 'react'
 import styled from 'styled-components/macro'
 import { Link } from 'react-router-dom'
+import { BadEmotions, GoodEmotions, reactions } from '../data'
+
+
 
 const AddNote = ({title, activatingEvent, beliefs}) => {
 
@@ -34,9 +37,36 @@ const AddNote = ({title, activatingEvent, beliefs}) => {
              </Form>
 
             <Emotions>
-            <p>Emotions</p>
-            <EmoBtn></EmoBtn>
-            <ReactionBtn></ReactionBtn>
+            {/* <p>Emotions</p> */}
+            {/* <EmoBtn></EmoBtn> */}
+            {BadEmotions.map( emotion => {
+                return (
+                    <div>
+                        <EmoBtn>{emotion.emotion}</EmoBtn>
+                    </div>
+                )
+            })}
+            
+            </Emotions>
+
+            <Reaction>
+            {GoodEmotions.map( goodEmo => {
+                return (
+                    <div>
+                        <ReactionBtn>{goodEmo.emotion}</ReactionBtn>
+                    </div>
+                )
+            })}
+            </Reaction>
+
+            <Emotions>
+                {reactions.map( reaction => {
+                    return(
+                        <div>
+                    <GoodBtn>{reaction.reaction}</GoodBtn>
+                    </div>
+                    )
+                })}
             </Emotions>
  
              <Form>
@@ -64,20 +94,28 @@ width: 80vw;
 `
 
 const Emotions = styled.div`
+display: flex;
 border: 1px solid black;
 `
 
+const Reaction = styled(Emotions)`
+`
+
 const EmoBtn = styled.button`
-width: 40px;
-height: 40px;
+width: 60px;
+height: 60px;
 background-color: paleturquoise;
 border-radius: 50%;
 border:none;
 margin: 3px;
+cursor: pointer;
 `
 const ReactionBtn = styled(EmoBtn)`
 background-color: palevioletred;
 `
+
+const GoodBtn = styled(EmoBtn)`
+background-color: palegreen;`
 
 const TitleInput = styled.input`
 width: 80vw;

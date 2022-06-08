@@ -1,10 +1,34 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/macro'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+
+import { API_URL } from '../urls/api'
 
 const StartPage = () => {
 
+const [username, setUsername] = useState('')
+const [password, setPassword] = useState('')
 
+const navigate = useNavigate()
+
+
+    const onUserSubmit = (e) => {
+        e.preventDefault()
+    
+        const options = {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+             
+            },
+            body: JSON.stringify({ username: username, password: password }),
+          };
+    
+    fetch(API_URL("signin"), options)
+    .then(res => res.json())
+    .then(() => navigate("/diary"))
+    }
+    
 
    
 
@@ -13,13 +37,15 @@ const StartPage = () => {
             <Title>ABC CBT</Title>
 <Link to="/about">About</Link>
             <InputWrapper>
-            <Form>
+            <Form onSubmit={onUserSubmit}>
                 <label>Username or email</label>
                 <input 
                 type="text"
                 placeholder="username"
                 id="username"
                 required={true}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 />
                 
 
@@ -29,6 +55,8 @@ const StartPage = () => {
                 placeholder="password"
                 id="password"
                 required={true}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 />
                 
 
@@ -37,12 +65,12 @@ const StartPage = () => {
                 </Form>
 
                 
-                <label>I agree to the terms and conditions</label>
+                {/* <label>I agree to the terms and conditions</label>
                 <input
                 type="checkbox"
                 id="terms"
                 required={true}
-                />
+                /> */}
                 
                 
 
