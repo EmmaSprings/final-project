@@ -20,6 +20,7 @@ const Diary = () => {
    .then( data => setNotes(data))
   }, [])
   console.log(notes)
+ 
 
 
     const current = new Date();
@@ -31,13 +32,17 @@ const Diary = () => {
             <h1>Diary</h1>
         </div>
 
-        <Note>
         {notes.data?.map( note => {
-      <p>{note.title}</p>
-    })}
-      {/* <p>{date}</p> */}
+          return(
+            <Note>
+            <p>{note.title}</p>
+      <p>{date}</p>
       <Icon src="./icons/pen.png" alt="pen" />
-        </Note>
+            </Note>
+          )
+        })}
+
+       
         <Link to="/welcome">Back</Link>
 
         <Link to="/">Home</Link>
