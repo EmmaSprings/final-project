@@ -6,16 +6,13 @@ import { API_URL } from '../urls/api'
 
 const SignIn = () => {
 
-const [loginInput, setLoginInput] = useState("")
-const [isCorrectCredentials, setIsCorrectCredentials] = useState(true)
-const [currentUser, setCurrentUser] = useState(null)
-// const [username, setUsername] = useState('')
-const [passwordInput, setPasswordInput] = useState("")
+  const [loginInput, setLoginInput] = useState("")
+  const [isCorrectCredentials, setIsCorrectCredentials] = useState(true)
+  const [passwordInput, setPasswordInput] = useState("")
 
-const navigate = useNavigate()
+  const navigate = useNavigate()
 
-
-const isEmail = (str) => {
+  const isEmail = (str) => {
     // Check if email
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(str)) {
       return true
@@ -35,102 +32,84 @@ const isEmail = (str) => {
     setPasswordInput(event.target.value)
     setIsCorrectCredentials(true)
   }
-  
-    const onUserSubmit = (e) => {
-        e.preventDefault()
-    
-        const options = {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-             
-            },
-            
-          };
 
-          const body =
-          {
-              password: passwordInput
-          }
+  const onUserSubmit = (e) => {
+    e.preventDefault()
 
-          if(isEmail(loginInput)) {
-              body.email = loginInput
-          } else {
-              body.username = loginInput
-          }
-          options.body = JSON.stringify(body)
-    
-    fetch(API_URL("signin"), options)
-    .then(res => res.json())
-    .then((data) => {
-        if (data.success) {
-            sessionStorage.setItem("accessToken", data.accessToken)
-            sessionStorage.setItem("username", data.username)
-            setCurrentUser(true)
-            navigate("/welcome")
-        } else {
-            setIsCorrectCredentials(false)
-            navigate("/signup")
-        }
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+
+      },
+
+    };
+
+    const body =
+    {
+      password: passwordInput
     }
-    )}
-    
 
-   
+    if (isEmail(loginInput)) {
+      body.email = loginInput
+    } else {
+      body.username = loginInput
+    }
+    options.body = JSON.stringify(body)
 
-    return(
-        <MainWrapper>
-            <Title>ABC CBT</Title>
-<Link to="/about">About</Link>
-            <InputWrapper>
-            <Form onSubmit={onUserSubmit}>
-                <label>Username or email</label>
-                <input 
-                type="text"
-                placeholder="username or email"
-                id="username"
-                required={true}
-                value={loginInput}
-                onChange={onLoginValueChange}
-                />
-                
+    fetch(API_URL("signin"), options)
+      .then(res => res.json())
+      .then((data) => {
+        if (data.success) {
+          sessionStorage.setItem("accessToken", data.accessToken)
+          sessionStorage.setItem("username", data.username)
+          navigate("/welcome")
+        } else {
+          setIsCorrectCredentials(false)
+        }
+      }
+      )
+  }
 
-                <label>Password</label>
-                <input 
-                type="password"
-                placeholder="password"
-                id="password"
-                required={true}
-                value={passwordInput}
-                onChange={onPasswordValueChange}
-                />
-                
+return (
+  <MainWrapper>
+    <Title>ABC CBT</Title>
+    <Link to="/about">About</Link>
+    <InputWrapper>
+      <Form onSubmit={onUserSubmit}>
+        <label>Username or email</label>
+        <input
+          type="text"
+          placeholder="username or email"
+          id="username"
+          required={true}
+          value={loginInput}
+          onChange={onLoginValueChange}
+        />
 
-                <button>Sign in</button>
+        <label>Password</label>
+        <input
+          type="password"
+          placeholder="password"
+          id="password"
+          required={true}
+          value={passwordInput}
+          onChange={onPasswordValueChange}
+        />
+        <Validation isCorrectCredentials={isCorrectCredentials}><p>Wrong username, email or password. Please try again.</p></Validation>
 
-                </Form>
+        <button>Sign in</button>
 
-                
-                {/* <label>I agree to the terms and conditions</label>
-                <input
-                type="checkbox"
-                id="terms"
-                required={true}
-                /> */}
-                
-                
-
-            </InputWrapper>
-
-            <div>
-                <Link to="/signup">Don't have an account? Sign up here</Link>
-            </div>
-
-            <div>
-                <button>Demo</button>
-            </div>
-        </MainWrapper>
-    )
+      </Form>
+    </InputWrapper>
+    <div>
+      <Link to="/signup">Don't have an account? Sign up here</Link>
+    </div>
+    <div>
+      <button>Demo</button>
+    </div>
+  </MainWrapper>
+)
 }
 
 const MainWrapper = styled.div`
@@ -161,6 +140,22 @@ display: flex;
 flex-direction: column;
 margin: 10px;
 
+`
+
+
+const Validation = styled.div`
+${props => {
+  if (props.isCorrectCredentials) {
+    return `
+    display: none;
+    `;
+  } else {
+    return `
+    width: 100;
+    `;
+  }
+}
+}
 `
 
 export default SignIn

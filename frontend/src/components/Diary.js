@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components/macro'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { API_URL } from '../urls/api'
 
@@ -8,6 +8,13 @@ import { API_URL } from '../urls/api'
 const Diary = () => {
   const [notes, setNotes] = useState([])
   const accessToken = sessionStorage.getItem("accessToken")
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (!accessToken) {
+      navigate("/");
+    }
+  }, [])
 
   const options = {
     method: "GET",
@@ -19,10 +26,7 @@ const Diary = () => {
    .then( res => res.json())
    .then( data => setNotes(data))
   }, [])
-  // console.log(notes)
  
-
-
     const current = new Date();
   const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
 
@@ -33,7 +37,6 @@ const Diary = () => {
         </div>
 
         {notes.data?.map( note => {
-          
           return(
             <Note>
             <Link to={`/note/${note._id}`}>{note.title}</Link>
@@ -42,10 +45,8 @@ const Diary = () => {
             </Note>
           )
         })}
-
        
         <Link to="/welcome">Back</Link>
-
         <Link to="/">Home</Link>
 
         </MainWrapper>

@@ -4,12 +4,26 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { API_URL } from "../urls/api";
 
-const SignUp = ({ onFormSubmit }) => {
-  const [isAgreed, setIsAgreed] = useState(true);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
+const SignUp = () => {
+  const [isAgreed, setIsAgreed] = useState(false);
+  const [newUser, setNewUser] = useState({
+    email: "",
+    username: "",
+    password: ""
+  })
+  const [isDuplicate, setIsDuplicate] = useState(false)
   const navigate = useNavigate();
+
+  const onNewUserValueChange = (event) => {
+    setIsDuplicate(false)
+    const { name, value } = event.target
+    setNewUser((prev) => {
+      return {
+        ...prev,
+        [name]: value
+      }
+    })
+  }
 
   const onUserSubmit = (e) => {
     e.preventDefault();
@@ -20,18 +34,22 @@ const SignUp = ({ onFormSubmit }) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: email,
-        username: username,
-        password: password,
+        email: newUser.email,
+        username: newUser.username,
+        password: newUser.password
       }),
     };
 
     fetch(API_URL("signup"), options)
       .then((res) => res.json())
-      .then(() => navigate("/success"))
-      
-  };
-
+      .then((data) => {
+        if (!!data.success) {
+          navigate("/welcome")
+        } else {
+          setIsDuplicate(true)
+        }
+      })
+  }
 
   return (
     <MainWrapper>
@@ -43,27 +61,33 @@ const SignUp = ({ onFormSubmit }) => {
             <input
               type="email"
               placeholder="email"
-              id="email"
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
+              name="email"
+              onChange={onNewUserValueChange}
+              value={newUser.email}
             />
           </label>
           <label htmlFor="username"></label>
           <input
             type="text"
             placeholder="username"
-            id="username"
-            onChange={(e) => setUsername(e.target.value)}
-            value={username}
+            name="username"
+            onChange={onNewUserValueChange}
+            value={newUser.username}
           />
           <label htmlFor="password"></label>
           <input
             type="password"
             placeholder="password"
-            id="password"
-            onChange={(e) => setPassword(e.target.value)}
-            value={password}
+            name="password"
+            onChange={onNewUserValueChange}
+            value={newUser.password}
           />
+          <Validation isDuplicate={isDuplicate}>
+            <p>
+              The username or email has already been taken.
+              Please use different usernanme or information.
+            </p>
+          </Validation>
           <button type="submit">Sign up</button>
 
           <label>
@@ -76,10 +100,10 @@ const SignUp = ({ onFormSubmit }) => {
             />
           </label>
         </Form>
-
-        <div className={`${isAgreed ? "shown" : "hidden"}`}>
+        <Terms isAgreed={isAgreed}>
           <p>We dont save anything</p>
-        </div>
+        </Terms>
+        <Link to="/signup">Already have an account? Sign in here</Link>
       </InputWrapper>
 
       <div>
@@ -88,6 +112,35 @@ const SignUp = ({ onFormSubmit }) => {
     </MainWrapper>
   );
 };
+
+
+const Validation = styled.div`
+${props => {
+  if (props.isDuplicate) {
+    return `
+    width: 100;
+  `;
+  } else {
+    return `
+  display: none;
+`;
+  }
+}}
+`;
+const Terms = styled.div`
+${props => {
+  if (props.isAgreed) {
+    return `
+    display: none;
+`;
+  } else {
+    return `
+    margin-left: 10px;
+`;
+  }
+}}
+`;
+
 
 const MainWrapper = styled.div`
   display: flex;

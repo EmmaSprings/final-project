@@ -1,97 +1,98 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components/macro'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { BadEmotions, GoodEmotions, reactions } from '../data'
 import { API_URL } from '../urls/api'
-
-
 
 const AddNote = () => {
     const [emotion, setEmotion] = useState([])
     const [addNote, setAddNote] = useState([])
     const accessToken = sessionStorage.getItem("accessToken")
+    const navigate = useNavigate()
 
-  
-        const options = {
-            method: "POST",
-            headers: { Authorization: accessToken },
-            // body: JSON.stringify({
-            //     email: email,
-            //     username: username,
-            //     password: password,
-            //   })
-        
-          };
-          
-        
+    useEffect(() => {
+        if (!accessToken) {
+          navigate("/");
+        }
+      }, [])
+
+    const options = {
+        method: "POST",
+        headers: { Authorization: accessToken },
+        // body: JSON.stringify({
+        //     email: email,
+        //     username: username,
+        //     password: password,
+        //   })
+
+    };
 
     useEffect(() => {
         fetch(API_URL("notes"), options)
-        .then(res => res.json())
-        .then( data => setAddNote(data))
-    },[])
+            .then(res => res.json())
+            .then(data => setAddNote(data))
+    }, [])
 
-    
-    return(
+    return (
         <MainWrapper>
-        <div>
-            <h1>Add note</h1>
-        </div>
+            <div>
+                <h1>Add note</h1>
+            </div>
 
-        <NotesWrapper>
-        <Form>
-            <TitleInput
-            type="text"
-            id="title"
-            placeholder="Title"
-            maxLength={25}
-            />
-            
-            <Textarea placeholder="Activating event" ></Textarea>
-            <Textarea placeholder="Beliefs" ></Textarea>
-             </Form>
+            <NotesWrapper>
+                <Form>
+                    <TitleInput
+                        type="text"
+                        id="title"
+                        placeholder="Title"
+                        maxLength={25}
+                    />
 
-            <Emotions >
-            {/* <p>Emotions</p> */}
-            {/* <EmoBtn></EmoBtn> */}
-            {BadEmotions.map( emotion => {
-                return (
-                    <div>
-                        <EmoBtn value={emotion.emotion} key={emotion.id}>{emotion.emotion}</EmoBtn>
-                    </div>
-                )
-            })}
-            
-            </Emotions>
+                    <Textarea placeholder="Activating event" ></Textarea>
+                    <Textarea placeholder="Beliefs" ></Textarea>
+                </Form>
 
-            <Reaction >
-            {GoodEmotions.map( goodEmo => {
-                return (
-                    <div>
-                        <ReactionBtn key={goodEmo.id}>{goodEmo.emotion}</ReactionBtn>
-                    </div>
-                )
-            })}
-            </Reaction>
+                <Emotions >
+                    {/* <p>Emotions</p> */}
+                    {/* <EmoBtn></EmoBtn> */}
+                    {BadEmotions.map(emotion => {
+                        return (
+                            <div>
+                                <EmoBtn value={emotion.emotion} key={emotion.id}>{emotion.emotion}</EmoBtn>
+                            </div>
+                        )
+                    })}
 
-            <Emotions >
-                {reactions.map( reaction => {
-                    return(
-                        <div>
-                    <GoodBtn key={reaction.id}>{reaction.reaction}</GoodBtn>
-                    </div>
-                    )
-                })}
-            </Emotions>
- 
-             <Form onSubmit={() => options}>
-            <button type="submit">Add</button>
-            </Form>
+                </Emotions>
 
-        </NotesWrapper>
-        <Link to="/welcome">Back</Link>
+                <Reaction >
+                    {GoodEmotions.map(goodEmo => {
+                        return (
+                            <div>
+                                <ReactionBtn key={goodEmo.id}>{goodEmo.emotion}</ReactionBtn>
+                            </div>
+                        )
+                    })}
+                </Reaction>
 
-        <Link to="/">Home</Link>
+                <Emotions >
+                    {reactions.map(reaction => {
+                        return (
+                            <div>
+                                <GoodBtn key={reaction.id}>{reaction.reaction}</GoodBtn>
+                            </div>
+                        )
+                    })}
+                </Emotions>
+
+                <Form onSubmit={() => options}>
+                    <button type="submit">Add</button>
+                </Form>
+
+            </NotesWrapper>
+            <Link to="/welcome">Back</Link>
+
+            <Link to="/">Home</Link>
 
         </MainWrapper>
     )

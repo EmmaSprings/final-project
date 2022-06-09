@@ -1,15 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components/macro'
-import { Link, useParams } from 'react-router-dom'
-import { API_URL, GET_NOTE } from '../urls/api'
+import { Link, useParams, useNavigate } from 'react-router-dom'
+import { GET_NOTE } from '../urls/api'
 
-const Note = ({title, activatingEvent, beliefs}) => {
+const Note = () => {
 const accessToken = sessionStorage.getItem("accessToken")
 const username = sessionStorage.getItem("username")
-
+const navigate = useNavigate()
 const [notes, setNotes] = useState([])
 
 const { noteId } = useParams()
+
+useEffect(() => {
+  if (!accessToken) {
+    navigate("/");
+  }
+}, [])
 
   const options = {
     method: "GET",
