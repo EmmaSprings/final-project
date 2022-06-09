@@ -113,35 +113,6 @@ const SignUp = () => {
   );
 };
 
-
-const Validation = styled.div`
-${props => {
-  if (props.isDuplicate) {
-    return `
-    width: 100;
-  `;
-  } else {
-    return `
-  display: none;
-`;
-  }
-}}
-`;
-const Terms = styled.div`
-${props => {
-  if (props.isAgreed) {
-    return `
-    display: none;
-`;
-  } else {
-    return `
-    margin-left: 10px;
-`;
-  }
-}}
-`;
-
-
 const MainWrapper = styled.div`
   display: flex;
   margin-top: 20px;
@@ -169,6 +140,35 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   margin: 10px;
+`;
+
+
+const Validation = styled.div`
+${props => {
+  if (props.isDuplicate) {
+    return `
+    width: 100;
+  `;
+  } else {
+    return `
+  display: none;
+`;
+  }
+}}
+`;
+
+const Terms = styled.div`
+${props => {
+  if (props.isAgreed) {
+    return `
+    display: none;
+`;
+  } else {
+    return `
+    margin-left: 10px;
+`;
+  }
+}}
 `;
 
 export default SignUp;

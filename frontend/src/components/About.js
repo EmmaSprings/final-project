@@ -4,8 +4,6 @@ import { Link } from "react-router-dom";
 
 const About = () => {
 
-  
-
   return (
     <MainWrapper>
       <div>
@@ -22,7 +20,7 @@ const About = () => {
           why.
         </p>
         <p>
-          Disclaimer: This is not created by proffessional therapists and is not made 
+          Disclaimer: This is not created by proffessional therapists and is not made
           for proffessional use. It is created in
           the hope of helping everyone who wants to sort their thoghts and
           emotions out in an easy and effective way.
@@ -50,7 +48,6 @@ const Note = styled.div`
   border: 1px solid black;
   background-color: #efeddb;
 `;
-
 
 
 export default About;

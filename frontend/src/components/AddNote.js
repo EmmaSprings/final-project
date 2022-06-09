@@ -12,9 +12,9 @@ const AddNote = () => {
 
     useEffect(() => {
         if (!accessToken) {
-          navigate("/");
+            navigate("/");
         }
-      }, [])
+    }, [])
 
     const options = {
         method: "POST",

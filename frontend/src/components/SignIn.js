@@ -71,45 +71,47 @@ const SignIn = () => {
       )
   }
 
-return (
-  <MainWrapper>
-    <Title>ABC CBT</Title>
-    <Link to="/about">About</Link>
-    <InputWrapper>
-      <Form onSubmit={onUserSubmit}>
-        <label>Username or email</label>
-        <input
-          type="text"
-          placeholder="username or email"
-          id="username"
-          required={true}
-          value={loginInput}
-          onChange={onLoginValueChange}
-        />
+  return (
+    <MainWrapper>
+      <Title>ABC CBT</Title>
+      <Link to="/about">About</Link>
+      <InputWrapper>
+        <Form onSubmit={onUserSubmit}>
+          <label>Username or email</label>
+          <input
+            type="text"
+            placeholder="username or email"
+            id="username"
+            required={true}
+            value={loginInput}
+            onChange={onLoginValueChange}
+          />
 
-        <label>Password</label>
-        <input
-          type="password"
-          placeholder="password"
-          id="password"
-          required={true}
-          value={passwordInput}
-          onChange={onPasswordValueChange}
-        />
-        <Validation isCorrectCredentials={isCorrectCredentials}><p>Wrong username, email or password. Please try again.</p></Validation>
+          <label>Password</label>
+          <input
+            type="password"
+            placeholder="password"
+            id="password"
+            required={true}
+            value={passwordInput}
+            onChange={onPasswordValueChange}
+          />
+          <Validation isCorrectCredentials={isCorrectCredentials}>
+            <p>Wrong username, email or password. Please try again.</p>
+          </Validation>
 
-        <button>Sign in</button>
+          <button>Sign in</button>
 
-      </Form>
-    </InputWrapper>
-    <div>
-      <Link to="/signup">Don't have an account? Sign up here</Link>
-    </div>
-    <div>
-      <button>Demo</button>
-    </div>
-  </MainWrapper>
-)
+        </Form>
+      </InputWrapper>
+      <div>
+        <Link to="/signup">Don't have an account? Sign up here</Link>
+      </div>
+      <div>
+        <button>Demo</button>
+      </div>
+    </MainWrapper>
+  )
 }
 
 const MainWrapper = styled.div`
@@ -142,20 +144,19 @@ margin: 10px;
 
 `
 
-
 const Validation = styled.div`
 ${props => {
-  if (props.isCorrectCredentials) {
-    return `
+    if (props.isCorrectCredentials) {
+      return `
     display: none;
     `;
-  } else {
-    return `
+    } else {
+      return `
     width: 100;
     `;
+    }
   }
-}
-}
+  }
 `
 
 export default SignIn

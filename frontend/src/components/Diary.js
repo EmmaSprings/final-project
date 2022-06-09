@@ -21,36 +21,36 @@ const Diary = () => {
     headers: { Authorization: accessToken }
   }
 
-  useEffect( () => {
-   fetch(API_URL("notes"), options)
-   .then( res => res.json())
-   .then( data => setNotes(data))
+  useEffect(() => {
+    fetch(API_URL("notes"), options)
+      .then(res => res.json())
+      .then(data => setNotes(data))
   }, [])
- 
-    const current = new Date();
-  const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
 
-    return(
-        <MainWrapper>
-        <div>
-            <h1>Diary</h1>
-        </div>
+  const current = new Date();
+  const date = `${current.getDate()}/${current.getMonth() + 1}/${current.getFullYear()}`;
 
-        {notes.data?.map( note => {
-          return(
-            <Note>
+  return (
+    <MainWrapper>
+      <div>
+        <h1>Diary</h1>
+      </div>
+
+      {notes.data?.map(note => {
+        return (
+          <Note>
             <Link to={`/note/${note._id}`}>{note.title}</Link>
-      <p>{date}</p>
-      <Icon src="./icons/pen.png" alt="pen" />
-            </Note>
-          )
-        })}
-       
-        <Link to="/welcome">Back</Link>
-        <Link to="/">Home</Link>
+            <p>{date}</p>
+            <Icon src="./icons/pen.png" alt="pen" />
+          </Note>
+        )
+      })}
 
-        </MainWrapper>
-    )
+      <Link to="/welcome">Back</Link>
+      <Link to="/">Home</Link>
+
+    </MainWrapper>
+  )
 }
 
 const MainWrapper = styled.div`

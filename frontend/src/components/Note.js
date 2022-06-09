@@ -4,51 +4,50 @@ import { Link, useParams, useNavigate } from 'react-router-dom'
 import { GET_NOTE } from '../urls/api'
 
 const Note = () => {
-const accessToken = sessionStorage.getItem("accessToken")
-const username = sessionStorage.getItem("username")
-const navigate = useNavigate()
-const [notes, setNotes] = useState([])
+  const accessToken = sessionStorage.getItem("accessToken")
+  const navigate = useNavigate()
+  const [notes, setNotes] = useState([])
 
-const { noteId } = useParams()
+  const { noteId } = useParams()
 
-useEffect(() => {
-  if (!accessToken) {
-    navigate("/");
-  }
-}, [])
+  useEffect(() => {
+    if (!accessToken) {
+      navigate("/");
+    }
+  }, [])
 
   const options = {
     method: "GET",
     headers: { Authorization: accessToken }
-  } //Ask daniel
+  }
 
-useEffect( () => {
-  fetch(GET_NOTE(noteId), options)
-  .then(res => res.json())
-  .then(data => setNotes(data))
-}, [])
-console.log(notes)
+  useEffect(() => {
+    fetch(GET_NOTE(noteId), options)
+      .then(res => res.json())
+      .then(data => setNotes(data))
+  }, [])
+  console.log(notes)
 
 
-    return(
-        <MainWrapper>
-        <div>
-            <h1>My note</h1>
-        </div>
+  return (
+    <MainWrapper>
+      <div>
+        <h1>My note</h1>
+      </div>
 
-        {notes.map( note => {
+      {notes.map(note => {
 
-          return(
+        return (
           <NotesWrapper>
             <p>{note.title}</p>
             <p>{note.activatingEvent}</p>
             <p>{note.automatingThoughts}</p>
             <p>{note.consequences}</p>
           </NotesWrapper>
-          )
-        })}
+        )
+      })}
 
-        {/* <NotesWrapper>
+      {/* <NotesWrapper>
         <h4>hello `${username}`</h4>
             <p>T {title}</p>
             <Event><p>A {activatingEvent}</p></Event>
@@ -56,11 +55,11 @@ console.log(notes)
             <Emotions>Emotions</Emotions>
         </NotesWrapper> */}
 
-        <Link to="/welcome">Profile</Link>
-        <Link to="/">Home</Link>
+      <Link to="/welcome">Profile</Link>
+      <Link to="/">Home</Link>
 
-        </MainWrapper>
-    )
+    </MainWrapper>
+  )
 }
 
 const MainWrapper = styled.div`
