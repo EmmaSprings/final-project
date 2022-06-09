@@ -1,22 +1,36 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components/macro'
 import { Link } from 'react-router-dom'
 import { BadEmotions, GoodEmotions, reactions } from '../data'
+import { API_URL } from '../urls/api'
 
 
 
-const AddNote = ({title, activatingEvent, beliefs}) => {
+const AddNote = () => {
+    const [emotion, setEmotion] = useState([])
+    const [addNote, setAddNote] = useState([])
+    const accessToken = sessionStorage.getItem("accessToken")
 
-    const onFormSubmit = (e) => {
-        e.preventDefault()
-
+  
         const options = {
             method: "POST",
-            headers: {Authorization: "accessToken"},
+            headers: { Authorization: accessToken },
+            // body: JSON.stringify({
+            //     email: email,
+            //     username: username,
+            //     password: password,
+            //   })
+        
           };
+          
+        
 
-          // Add a fetch ? 
-    }
+    useEffect(() => {
+        fetch(API_URL("notes"), options)
+        .then(res => res.json())
+        .then( data => setAddNote(data))
+    },[])
+
     
     return(
         <MainWrapper>
@@ -25,17 +39,16 @@ const AddNote = ({title, activatingEvent, beliefs}) => {
         </div>
 
         <NotesWrapper>
-        <Form onSubmit={onFormSubmit}>
+        <Form>
             <TitleInput
             type="text"
             id="title"
             placeholder="Title"
-            value={title}
             maxLength={25}
             />
             
-            <Textarea placeholder="Activating event" value={activatingEvent}></Textarea>
-            <Textarea placeholder="Beliefs" value={beliefs}></Textarea>
+            <Textarea placeholder="Activating event" ></Textarea>
+            <Textarea placeholder="Beliefs" ></Textarea>
              </Form>
 
             <Emotions >
@@ -44,7 +57,7 @@ const AddNote = ({title, activatingEvent, beliefs}) => {
             {BadEmotions.map( emotion => {
                 return (
                     <div>
-                        <EmoBtn key={emotion.id}>{emotion.emotion}</EmoBtn>
+                        <EmoBtn value={emotion.emotion} key={emotion.id}>{emotion.emotion}</EmoBtn>
                     </div>
                 )
             })}
@@ -71,8 +84,8 @@ const AddNote = ({title, activatingEvent, beliefs}) => {
                 })}
             </Emotions>
  
-             <Form>
-            <button type="submit" onClick={onFormSubmit}>Add</button>
+             <Form onSubmit={() => options}>
+            <button type="submit">Add</button>
             </Form>
 
         </NotesWrapper>

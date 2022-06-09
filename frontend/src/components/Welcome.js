@@ -8,13 +8,23 @@ const accessToken = sessionStorage.getItem("accessToken")
 const username = sessionStorage.getItem("username")
 
   return(
-    <div>
+    <MainWrapper>
 
       <h5>{`Welcome ${username}`}</h5>
-      <Link to="/diary">Diary</Link>
-      <Link to="/addnote">Add note</Link>
-    </div>
+      <LinkTo to="/diary">Diary</LinkTo>
+      <LinkTo to="/addnote">Add note</LinkTo>
+    </MainWrapper>
   )
 }
+
+const MainWrapper = styled.div`
+display: flex;
+flex-direction: column;
+margin: 20px;
+`
+
+const LinkTo = styled(Link)`
+margin-bottom: 20px;
+`
 
 export default Welcome

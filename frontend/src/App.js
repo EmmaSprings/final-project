@@ -20,7 +20,7 @@ function App() {
       <Route path="/addnote" element={<AddNote />}/>
       <Route path="/signup" element={<SignUp />}/>
       <Route path="/diary" element={<Diary />}/>
-      <Route path="/note" element={<Note />}/>
+      <Route path="/note/:noteId" element={<Note />}/>
       <Route path="/about" element={<About />}/>
       <Route path="/success" element={<SignUpSuccess />}/>
       <Route path="/welcome" element={<Welcome />}/>

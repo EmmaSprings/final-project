@@ -1,10 +1,27 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components/macro'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
+import { API_URL, GET_NOTE } from '../urls/api'
 
 const Note = ({title, activatingEvent, beliefs}) => {
 const accessToken = sessionStorage.getItem("accessToken")
 const username = sessionStorage.getItem("username")
+
+const [notes, setNotes] = useState([])
+
+const { noteId } = useParams()
+
+  const options = {
+    method: "GET",
+    headers: { Authorization: accessToken }
+  } //Ask daniel
+
+useEffect( () => {
+  fetch(GET_NOTE(noteId), options)
+  .then(res => res.json())
+  .then(data => setNotes(data))
+}, [])
+console.log(notes)
 
 
     return(
@@ -13,14 +30,27 @@ const username = sessionStorage.getItem("username")
             <h1>My note</h1>
         </div>
 
-        <NotesWrapper>
+        {notes.map( note => {
+
+          return(
+          <NotesWrapper>
+            <p>{note.title}</p>
+            <p>{note.activatingEvent}</p>
+            <p>{note.automatingThoughts}</p>
+            <p>{note.consequences}</p>
+          </NotesWrapper>
+          )
+        })}
+
+        {/* <NotesWrapper>
         <h4>hello `${username}`</h4>
             <p>T {title}</p>
             <Event><p>A {activatingEvent}</p></Event>
             <Thought><p>B {beliefs}</p></Thought>
             <Emotions>Emotions</Emotions>
-        </NotesWrapper>
+        </NotesWrapper> */}
 
+        <Link to="/welcome">Profile</Link>
         <Link to="/">Home</Link>
 
         </MainWrapper>

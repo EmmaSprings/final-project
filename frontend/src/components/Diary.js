@@ -19,7 +19,7 @@ const Diary = () => {
    .then( res => res.json())
    .then( data => setNotes(data))
   }, [])
-  console.log(notes)
+  // console.log(notes)
  
 
 
@@ -33,9 +33,10 @@ const Diary = () => {
         </div>
 
         {notes.data?.map( note => {
+          
           return(
             <Note>
-            <p>{note.title}</p>
+            <Link to={`/note/${note._id}`}>{note.title}</Link>
       <p>{date}</p>
       <Icon src="./icons/pen.png" alt="pen" />
             </Note>
