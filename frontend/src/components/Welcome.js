@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import styled from 'styled-components/macro'
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -8,6 +8,12 @@ const accessToken = sessionStorage.getItem("accessToken")
 const username = sessionStorage.getItem("username")
 
 const navigate = useNavigate()
+
+useEffect(() => {
+  if (!accessToken) {
+    navigate("/");
+  }
+}, [])
   return(
     <MainWrapper>
 
