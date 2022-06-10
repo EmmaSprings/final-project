@@ -1,4 +1,4 @@
-export const positiveEmotions = [
+export const negativeEmotions = [
   {
     id: 1,
     emotion: "Sad"
@@ -62,7 +62,7 @@ export const positiveEmotions = [
   
 ]
 
-export const negativeEmotions = [
+export const positiveEmotions = [
   {
     id: 1,
     emotion: "Happy"

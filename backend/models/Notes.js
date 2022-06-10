@@ -22,7 +22,7 @@ const noteTemplate = new mongoose.Schema({
         required: true
     },
     consequences: {
-        type: String,
+        type: Array,
         required: true
     },
     isPinned: {
@@ -32,4 +32,3 @@ const noteTemplate = new mongoose.Schema({
 })
 
 module.exports = mongoose.model('Note', noteTemplate)
-
