@@ -46,6 +46,7 @@ const Diary = () => {
         )
       })}
 
+      
       <Link to="/welcome">Back</Link>
       <Link to="/">Home</Link>
 

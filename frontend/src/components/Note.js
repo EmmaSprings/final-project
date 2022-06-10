@@ -55,6 +55,7 @@ const Note = () => {
             <Emotions>Emotions</Emotions>
         </NotesWrapper> */}
 
+        <Link to="/diary">Diary</Link>
       <Link to="/welcome">Profile</Link>
       <Link to="/">Home</Link>
 

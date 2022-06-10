@@ -1,37 +1,82 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components/macro'
 import { Link, useNavigate } from 'react-router-dom'
-import { BadEmotions, GoodEmotions, reactions } from '../data'
+import { negativeEmotions, positiveEmotions, physicalReactions } from '../data'
 import { API_URL } from '../urls/api'
 
 const AddNote = () => {
-    const [emotion, setEmotion] = useState([])
-    const [addNote, setAddNote] = useState([])
-    const accessToken = sessionStorage.getItem("accessToken")
     const navigate = useNavigate()
+    const accessToken = sessionStorage.getItem("accessToken")
+    const [newNote, setNewNote] = useState({
+        title: "",
+        activatingEvent: "",
+        automatingThoughts: "",
+    })
 
+    const [posEmotions, setPosEmotions] = useState("")
+    const [consequences, setConsequences] = useState({
+        positiveEmotions: [],
+        negativeEmotions: [],
+        physicalReactions: []
+    })
+    
+    const onPositiveEmotionsChange = (event) => {
+        setPosEmotions(event.target.value)
+    }
+    console.log(posEmotions)
+
+      const onNewNoteValueChange = (event) => {
+        const { name, value } = event.target
+        setNewNote((prev) => {
+          return {
+              ...prev,
+            [name]: value
+          }
+        })
+      }
+
+      
     useEffect(() => {
         if (!accessToken) {
             navigate("/");
         }
     }, [])
 
+ const onNoteSubmit = () => {   
     const options = {
         method: "POST",
-        headers: { Authorization: accessToken },
-        // body: JSON.stringify({
-        //     email: email,
-        //     username: username,
-        //     password: password,
-        //   })
+        headers: {
+            "Authorization": accessToken,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            title: newNote.title,
+            activatingEvent: newNote.activatingEvent,
+            automatingThoughts: newNote.automatingThoughts,
+            consequences: posEmotions
+           
+          })
 
     };
-
-    useEffect(() => {
         fetch(API_URL("notes"), options)
             .then(res => res.json())
-            .then(data => setAddNote(data))
-    }, [])
+            navigate("/diary")
+ }
+
+ const onEmotionsChange = (event) => {
+     event.preventDefault()
+     const {name, value} = event.target
+     setConsequences((prev) => {
+         return {
+             ...prev,
+             [name] : value
+         }
+     })   
+ }
+
+
+
+ console.log(consequences.positiveEmotions, consequences.negativeEmotions, consequences.physicalReactions)
 
     return (
         <MainWrapper>
@@ -40,25 +85,37 @@ const AddNote = () => {
             </div>
 
             <NotesWrapper>
-                <Form>
+                <Form onSubmit={onNoteSubmit}>
                     <TitleInput
                         type="text"
-                        id="title"
                         placeholder="Title"
                         maxLength={25}
+                        name="title"
+                        value={newNote.title}
+                        onChange={onNewNoteValueChange}
                     />
 
-                    <Textarea placeholder="Activating event" ></Textarea>
-                    <Textarea placeholder="Beliefs" ></Textarea>
-                </Form>
+                    <Textarea 
+                    placeholder="Activating event" 
+                    name="activatingEvent"
+                    value={newNote.activatingEvent}
+                    onChange={onNewNoteValueChange}
+                    >
+
+                    </Textarea>
+                    <Textarea 
+                    placeholder="Beliefs" 
+                    name="automatingThoughts"
+                    value={newNote.automatingThoughts}
+                    onChange={onNewNoteValueChange}
+                    >
+                    </Textarea>
 
                 <Emotions >
-                    {/* <p>Emotions</p> */}
-                    {/* <EmoBtn></EmoBtn> */}
-                    {BadEmotions.map(emotion => {
+                    {negativeEmotions.map(negEmo => {
                         return (
                             <div>
-                                <EmoBtn value={emotion.emotion} key={emotion.id}>{emotion.emotion}</EmoBtn>
+                                <EmoBtn onChange={onEmotionsChange} value={negEmo.emotion} key={negEmo.id}>{negEmo.emotion}</EmoBtn>
                             </div>
                         )
                     })}
@@ -66,34 +123,47 @@ const AddNote = () => {
                 </Emotions>
 
                 <Reaction >
-                    {GoodEmotions.map(goodEmo => {
+                    {positiveEmotions.map(posEmo => {
                         return (
                             <div>
-                                <ReactionBtn key={goodEmo.id}>{goodEmo.emotion}</ReactionBtn>
-                            </div>
+                            <label>{posEmo.emotion}
+                                <input
+                                 name={posEmo.emotion}
+                                 type="radio"
+                                 onChange={onPositiveEmotionsChange} 
+                                 value={posEmo.emotion} 
+                                 key={posEmo.id}
+                                 />
+                                 </label>
+                                 </div>
                         )
                     })}
                 </Reaction>
 
                 <Emotions >
-                    {reactions.map(reaction => {
+                    {physicalReactions.map(reaction => {
                         return (
                             <div>
-                                <GoodBtn key={reaction.id}>{reaction.reaction}</GoodBtn>
+                                <label>{reaction.reaction}
+                                <input 
+                                 type="radio"
+                                 name={reaction.reaction}
+                                 onChange={onEmotionsChange} 
+                                 value={reaction.reaction} 
+                                 key={reaction.id} 
+                              />
+                              </label>
                             </div>
                         )
                     })}
                 </Emotions>
 
-                <Form onSubmit={() => options}>
-                    <button type="submit">Add</button>
+                <button type="submit">Add</button>
                 </Form>
 
             </NotesWrapper>
             <Link to="/welcome">Back</Link>
-
             <Link to="/">Home</Link>
-
         </MainWrapper>
     )
 }

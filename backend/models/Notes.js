@@ -22,7 +22,7 @@ const noteTemplate = new mongoose.Schema({
         required: true
     },
     consequences: {
-        type: [String],
+        type: String,
         required: true
     },
     isPinned: {

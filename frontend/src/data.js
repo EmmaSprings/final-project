@@ -1,4 +1,4 @@
-export const BadEmotions = [
+export const positiveEmotions = [
   {
     id: 1,
     emotion: "Sad"
@@ -62,7 +62,7 @@ export const BadEmotions = [
   
 ]
 
-export const GoodEmotions = [
+export const negativeEmotions = [
   {
     id: 1,
     emotion: "Happy"
@@ -117,7 +117,7 @@ export const GoodEmotions = [
   },
 ]
 
-export const reactions = [
+export const physicalReactions = [
 {
   id: 1,
   reaction: "Shaking"
