@@ -12,9 +12,6 @@ const AddNote = () => {
         activatingEvent: "",
         automatingThoughts: "",
     })
-    const [goodEmotions, setGoodEmotions] = useState("")
-    const [badEmotions, setBadEmotions] = useState("")
-    const [reactions, setReactions] = useState("")
 
     const [consequences, setConsequences] = useState({
         negativeEmotions: [],
@@ -60,27 +57,89 @@ const AddNote = () => {
             navigate("/diary")
  }
 
- const onEmotionsChange = (event) => {
+ const onPositiveEmotionsChange = (event) => {
      event.preventDefault()
      const {value, checked} = event.target
-     const {negativeEmotions, positiveEmotions, physicalReactions} = consequences
+     const {positiveEmotions} = consequences
      if (checked) {
-        setConsequences({
-          negativeEmotions: [...negativeEmotions, value],
-          positiveEmotions: [...positiveEmotions, value],
-          physicalReactions: [...physicalReactions, value]
-        })
-     }
-    
+        setConsequences((prevState => ({
+            ...prevState, 
+            positiveEmotions: [...positiveEmotions, value]
+            })))
+     } 
       // Case 2  : The user unchecks the box
+      //remove the id from the array
       else {
-        setConsequences({
-          negativeEmotions: negativeEmotions.filter((e) => e !== value),
-          positiveEmotions: positiveEmotions.filter((e) => e !== value),
-          physicalReactions: physicalReactions.filter((e) => e !== value),
-        });
+        setConsequences((prevState => ({
+            ...prevState, 
+            positiveEmotions: positiveEmotions.filter((e) => e !== value),
+            })))
       }
     };
+
+ const onNegativeEmotionsChange = (event) => {
+     event.preventDefault()
+     const {value, checked} = event.target
+     const {negativeEmotions} = consequences
+     if (checked) {
+        setConsequences((prevState => ({
+            ...prevState, 
+            negativeEmotions: [...negativeEmotions, value]
+            })))
+     } 
+    
+      // Case 2  : The user unchecks the box
+      //remove the id from the array
+      else {
+        setConsequences((prevState => ({
+            ...prevState, 
+            negativeEmotions: negativeEmotions.filter((e) => e !== value),
+            })))
+      }
+    };
+ const onPhysicalReactionsChange = (event) => {
+     event.preventDefault()
+     const {value, checked} = event.target
+     const {physicalReactions} = consequences
+     if (checked) {
+        setConsequences((prevState => ({
+            ...prevState, 
+            physicalReactions: [...physicalReactions, value]
+            })))
+     }
+      // Case 2  : The user unchecks the box
+      //remove the id from the array
+      else {
+        setConsequences((prevState => ({
+            ...prevState, 
+            physicalReations: physicalReactions.filter((e) => e !== value),
+            })))
+      }
+    };
+//  const onEmotionsChange = (event) => {
+//      event.preventDefault()
+//      const {value, checked} = event.target
+//      const {negativeEmotions, positiveEmotions, physicalReactions} = consequences
+//      if (checked) {
+//         setConsequences({
+//           negativeEmotions: [...negativeEmotions, value],
+//           positiveEmotions: [...positiveEmotions, value],
+//           physicalReactions: [...physicalReactions, value]
+//         })
+//      }
+    
+//       // Case 2  : The user unchecks the box
+//       //remove the id from the array
+//       else {
+//         setConsequences({
+//           negativeEmotions: negativeEmotions.filter((e) => e !== value),
+//           positiveEmotions: positiveEmotions.filter((e) => e !== value),
+//           physicalReactions: physicalReactions.filter((e) => e !== value),
+//         });
+//       }
+//     };
+
+
 
     return (
         <MainWrapper>
@@ -123,7 +182,7 @@ const AddNote = () => {
                                 <input
                                 type="checkbox"
                                 name="negativeEmotions"
-                                onChange={onEmotionsChange} 
+                                onChange={onNegativeEmotionsChange} 
                                 value={negEmo.emotion} 
                                 key={negEmo.id}
                                 />
@@ -143,7 +202,7 @@ const AddNote = () => {
                                 <input
                                  name="positiveEmotions"
                                  type="checkbox"
-                                 onChange={onEmotionsChange}
+                                 onChange={onPositiveEmotionsChange}
                                  value={posEmo.emotion} 
                                  key={posEmo.id}
                                  />
@@ -161,7 +220,7 @@ const AddNote = () => {
                                 <input 
                                  type="checkbox"
                                  name="physicalReactions"
-                                 onChange={onEmotionsChange}
+                                 onChange={onPhysicalReactionsChange}
                                  value={reaction.reaction} 
                                  key={reaction.id} 
                               />

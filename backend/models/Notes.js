@@ -1,4 +1,5 @@
 import mongoose from "mongoose"
+//create a consequences schema and connect it in here.
 
 const noteTemplate = new mongoose.Schema({
     // ownerId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
@@ -22,7 +23,7 @@ const noteTemplate = new mongoose.Schema({
         required: true
     },
     consequences: {
-        type: Array,
+        type: Object,
         required: true
     },
     isPinned: {

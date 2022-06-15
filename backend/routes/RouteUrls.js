@@ -79,14 +79,14 @@ router.post('/signin', async (req, res) => {
 router.post('/notes', authenticateUser)
 router.post('/notes', async (req, res) => {
     const userId = await User.findOne({ accessToken: req.header('Authorization') })
-    const { title, activatingEvent, automatingThoughts, posEmotions, negativeEmotions, physicalReactions, isPinned } = req.body
+    const { title, activatingEvent, automatingThoughts, consequences, isPinned } = req.body
     const newNote = new Note({
         title: title,
         ownerId: userId._id,
         date: Date.now(),
         activatingEvent: activatingEvent,
         automatingThoughts: automatingThoughts,
-        consequences: posEmotions,
+        consequences: consequences,
         isPinned: isPinned
     })
     newNote.save()
