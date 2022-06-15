@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components/macro'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 
-import { API_URL } from '../urls/api'
+import { API_URL, GET_NOTE } from '../urls/api'
+
 
 
 const Diary = () => {
+
+  const {noteId} = useParams()
+
   const [notes, setNotes] = useState([])
   const accessToken = sessionStorage.getItem("accessToken")
   const navigate = useNavigate()
@@ -16,16 +20,29 @@ const Diary = () => {
     }
   }, [])
 
+
   const options = {
     method: "GET",
     headers: { Authorization: accessToken }
   }
 
   useEffect(() => {
+    fetchNotes()
+  }, [])
+
+  const fetchNotes = () => {
+
     fetch(API_URL("notes"), options)
       .then(res => res.json())
       .then(data => setNotes(data))
-  }, [])
+  }
+  console.log(notes)
+
+  const deleteNote = () => {
+    fetch(GET_NOTE(noteId), {method: "DELETE"})
+    .then(res => res.json())
+    .then(data => {fetchNotes(data)})
+  }
 
   const current = new Date();
   const date = `${current.getDate()}/${current.getMonth() + 1}/${current.getFullYear()}`;
@@ -39,9 +56,13 @@ const Diary = () => {
       {notes.data?.map(note => {
         return (
           <Note>
-            <Link to={`/note/${note._id}`}>{note.title}</Link>
+            <Link key={note._id} to={`/note/${note._id}`}>{note.title}</Link>
             <p>{date}</p>
-            <Icon src="./icons/pen.png" alt="pen" />
+            {/* <button>
+            <Icon role="img" src="./icons/pen.png" alt="pen" /> 
+            </button> */}
+            
+             <button onClick={() => deleteNote(note._id)}>Delete</button>
           </Note>
         )
       })}

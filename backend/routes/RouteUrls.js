@@ -146,7 +146,7 @@ router.patch('/notes/:noteId', async (req, res) => {
 
 router.delete('/notes/:noteId', async (req, res) => {
     try {
-        const removedNote = await Note.remove({ _id: req.params.noteId })
+        const removedNote = await Note.deleteOne({ _id: req.params.noteId })
         res.json(removedNote)
     } catch (err) {
         res.json({ message: err })

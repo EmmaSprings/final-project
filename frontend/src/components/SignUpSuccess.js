@@ -7,7 +7,7 @@ const SignUpSuccess = () => {
 
   useEffect( () => {
     setTimeout( () => {
-      navigate("/welcome")
+      navigate("/")
     }, 3000);
 
   })
@@ -19,7 +19,6 @@ const SignUpSuccess = () => {
     Not working? Press <Link to="/welcome">here</Link>
     </div>
     </>   
-
 
   )
 }

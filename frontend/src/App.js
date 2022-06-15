@@ -11,6 +11,8 @@ import About from './components/About';
 import SignUpSuccess from './components/SignUpSuccess';
 import Welcome from './components/Welcome';
 
+
+
 function App() {
   return (
     <BrowserRouter>
@@ -24,6 +26,16 @@ function App() {
       <Route path="/about" element={<About />}/>
       <Route path="/success" element={<SignUpSuccess />}/>
       <Route path="/welcome" element={<Welcome />}/>
+
+      
+
+
+
+
+
+      
+
+
 
     </Routes>
     </Main>
