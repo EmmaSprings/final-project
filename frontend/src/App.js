@@ -10,15 +10,19 @@ import Note from './components/Note';
 import About from './components/About';
 import SignUpSuccess from './components/SignUpSuccess';
 import Welcome from './components/Welcome';
+import Start from './components/Start';
+import Demo from './components/Demo';
 
 
 
 function App() {
+
   return (
     <BrowserRouter>
     <Main>
     <Routes>
-      <Route path="/" element={<SignIn />}/>
+    <Route path="/" element={<Start />}/>
+      <Route path="/signin" element={<SignIn />}/>
       <Route path="/addnote" element={<AddNote />}/>
       <Route path="/signup" element={<SignUp />}/>
       <Route path="/diary" element={<Diary />}/>
@@ -26,6 +30,9 @@ function App() {
       <Route path="/about" element={<About />}/>
       <Route path="/success" element={<SignUpSuccess />}/>
       <Route path="/welcome" element={<Welcome />}/>
+      <Route path="/demo" element={<Demo />}/>
+    
+
 
       
 
@@ -45,7 +52,7 @@ function App() {
 }
 
 const Main = styled.div`
-background-color: #FFFEF6;
+
 min-width: 100vw;
 min-height: 100vh;
 `

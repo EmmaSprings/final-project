@@ -103,7 +103,7 @@ const SignUp = () => {
         <Terms isAgreed={isAgreed}>
           <p>We dont save anything</p>
         </Terms>
-        <Link to="/">Already have an account? Sign in here</Link>
+        <Link to="/signin">Already have an account? Sign in here</Link>
       </InputWrapper>
 
       <div>

@@ -3,22 +3,18 @@ import styled from 'styled-components/macro'
 import { Link, useNavigate } from 'react-router-dom'
 import { negativeEmotions, positiveEmotions, physicalReactions } from '../data'
 import { API_URL } from '../urls/api'
+import Checkboxes from './Checkboxes'
 
 const AddNote = () => {
     const navigate = useNavigate()
     const accessToken = sessionStorage.getItem("accessToken")
+    const consequences = JSON.parse(sessionStorage.getItem("CheckBoxesData"))
+    console.log(consequences)
     const [newNote, setNewNote] = useState({
         title: "",
         activatingEvent: "",
         automatingThoughts: "",
     })
-
-    const [consequences, setConsequences] = useState({
-        negativeEmotions: [],
-        positiveEmotions: [],
-        physicalReactions: []
-    })
-    console.log(consequences)
 
       const onNewNoteValueChange = (event) => {
         const { name, value } = event.target
@@ -33,11 +29,12 @@ const AddNote = () => {
       
     useEffect(() => {
         if (!accessToken) {
-            navigate("/");
+            navigate("/signin");
         }
     }, [])
 
  const onNoteSubmit = () => {   
+    const consequences = JSON.parse(sessionStorage.getItem("CheckBoxesData"))
     const options = {
         method: "POST",
         headers: {
@@ -56,89 +53,6 @@ const AddNote = () => {
             .then(res => res.json())
             navigate("/diary")
  }
-
- const onPositiveEmotionsChange = (event) => {
-     event.preventDefault()
-     const {value, checked} = event.target
-     const {positiveEmotions} = consequences
-     if (checked) {
-        setConsequences((prevState => ({
-            ...prevState, 
-            positiveEmotions: [...positiveEmotions, value]
-            })))
-     } 
-      // Case 2  : The user unchecks the box
-      //remove the id from the array
-      else {
-        setConsequences((prevState => ({
-            ...prevState, 
-            positiveEmotions: positiveEmotions.filter((e) => e !== value),
-            })))
-      }
-    };
-
- const onNegativeEmotionsChange = (event) => {
-     event.preventDefault()
-     const {value, checked} = event.target
-     const {negativeEmotions} = consequences
-     if (checked) {
-        setConsequences((prevState => ({
-            ...prevState, 
-            negativeEmotions: [...negativeEmotions, value]
-            })))
-     } 
-    
-      // Case 2  : The user unchecks the box
-      //remove the id from the array
-      else {
-        setConsequences((prevState => ({
-            ...prevState, 
-            negativeEmotions: negativeEmotions.filter((e) => e !== value),
-            })))
-      }
-    };
- const onPhysicalReactionsChange = (event) => {
-     event.preventDefault()
-     const {value, checked} = event.target
-     const {physicalReactions} = consequences
-     if (checked) {
-        setConsequences((prevState => ({
-            ...prevState, 
-            physicalReactions: [...physicalReactions, value]
-            })))
-     }
-      // Case 2  : The user unchecks the box
-      //remove the id from the array
-      else {
-        setConsequences((prevState => ({
-            ...prevState, 
-            physicalReations: physicalReactions.filter((e) => e !== value),
-            })))
-      }
-    };
-//  const onEmotionsChange = (event) => {
-//      event.preventDefault()
-//      const {value, checked} = event.target
-//      const {negativeEmotions, positiveEmotions, physicalReactions} = consequences
-//      if (checked) {
-//         setConsequences({
-//           negativeEmotions: [...negativeEmotions, value],
-//           positiveEmotions: [...positiveEmotions, value],
-//           physicalReactions: [...physicalReactions, value]
-//         })
-//      }
-    
-//       // Case 2  : The user unchecks the box
-//       //remove the id from the array
-//       else {
-//         setConsequences({
-//           negativeEmotions: negativeEmotions.filter((e) => e !== value),
-//           positiveEmotions: positiveEmotions.filter((e) => e !== value),
-//           physicalReactions: physicalReactions.filter((e) => e !== value),
-//         });
-//       }
-//     };
-
 
 
     return (
@@ -174,61 +88,7 @@ const AddNote = () => {
                     >
                     </Textarea>
 
-                <Emotions >
-                    {negativeEmotions.map(negEmo => {
-                        return (
-                            <div>
-                                <label>  {negEmo.emotion}
-                                <input
-                                type="checkbox"
-                                name="negativeEmotions"
-                                onChange={onNegativeEmotionsChange} 
-                                value={negEmo.emotion} 
-                                key={negEmo.id}
-                                />
-                                  </label>
-                                
-                            </div>
-                        )
-                    })}
-
-                </Emotions>
-
-                <Reaction >
-                    {positiveEmotions.map(posEmo => {
-                        return (
-                            <div>
-                            <label>{posEmo.emotion}
-                                <input
-                                 name="positiveEmotions"
-                                 type="checkbox"
-                                 onChange={onPositiveEmotionsChange}
-                                 value={posEmo.emotion} 
-                                 key={posEmo.id}
-                                 />
-                                 </label>
-                                 </div>
-                        )
-                    })}
-                </Reaction>
-
-                <Emotions >
-                    {physicalReactions.map(reaction => {
-                        return (
-                            <div>
-                                <label>{reaction.reaction}
-                                <input 
-                                 type="checkbox"
-                                 name="physicalReactions"
-                                 onChange={onPhysicalReactionsChange}
-                                 value={reaction.reaction} 
-                                 key={reaction.id} 
-                              />
-                              </label>
-                            </div>
-                        )
-                    })}
-                </Emotions>
+                <Checkboxes />
 
                 <button type="submit">Add</button>
                 </Form>

@@ -5,7 +5,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import { API_URL } from '../urls/api'
 
 const SignIn = () => {
-
+  const [password, setPassword] = useState("");
+  const [passwordShown, setPasswordShown] = useState(false);
   const [loginInput, setLoginInput] = useState("")
   const [isCorrectCredentials, setIsCorrectCredentials] = useState(true)
   const [passwordInput, setPasswordInput] = useState("")
@@ -32,6 +33,30 @@ const SignIn = () => {
     setPasswordInput(event.target.value)
     setIsCorrectCredentials(true)
   }
+
+  ////PAssword whon not shown
+
+  const togglePassword = () => {
+    setPasswordShown(!passwordShown);
+  };
+
+  const passwordIcon = () => {
+    if (!passwordShown) {
+      return (
+        <>
+          <HidePassword type="button">{"\u2600"}</HidePassword>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <ShowPassword type="button">{"\u2601"}</ShowPassword>
+        </>
+      );
+    }
+  };
+
+
 
   const onUserSubmit = (e) => {
     e.preventDefault()
@@ -73,24 +98,32 @@ const SignIn = () => {
 
   return (
     <MainWrapper>
-      <Title>ABC CBT</Title>
-      <Link to="/about">About</Link>
+    <ImageWrap>
+    <Image  src="./images/cloud-css.jpg" alt="forest"/>
+    </ImageWrap>
+
+      <Title>ABC /</Title>
+      <TitleSpan>CBT</TitleSpan>
       <InputWrapper>
         <Form onSubmit={onUserSubmit}>
-          <label>Username or email</label>
-          <input
+          <UserLabel>Username or email</UserLabel>
+          <UserInput
             type="text"
-            placeholder="username or email"
+            placeholder="Please enter"
             id="username"
             required={true}
             value={loginInput}
             onChange={onLoginValueChange}
           />
-
-          <label>Password</label>
-          <input
-            type="password"
-            placeholder="password"
+<div>
+          <PasswordLabel>Password</PasswordLabel>
+          <ShowPassword type="button" onClick={togglePassword}>
+              {passwordIcon()}
+            </ShowPassword>
+            </div>
+          <PasswordInput
+            type={passwordShown ? "text" : "password"}
+            placeholder="Please enter"
             id="password"
             required={true}
             value={passwordInput}
@@ -100,12 +133,17 @@ const SignIn = () => {
             <p>Wrong username, email or password. Please try again.</p>
           </Validation>
 
-          <button>Sign in</button>
+          <SignInBtn>Sign in</SignInBtn>
 
         </Form>
       </InputWrapper>
       <div>
         <Link to="/signup">Don't have an account? Sign up here</Link>
+      </div>
+
+      <div>
+      <Link to="/about">About</Link>
+      <Link to="/">Start</Link>
       </div>
       <div>
         <button>Demo</button>
@@ -115,23 +153,50 @@ const SignIn = () => {
 }
 
 const MainWrapper = styled.div`
+/* background-image: url('./images/forest-css.jpg'); */
 display: flex;
-margin-top: 20px;
+position: relative;
 flex-direction: column;
 justify-content: center;
 align-items: center;
 `
 
+const ImageWrap = styled.div`
+min-width: 375px;
+min-height: 667px;
+object-fit: fill;
+position: absolute;
+z-index: -1;
+
+
+`
+const Image = styled.img`
+z-index: -1;
+width: 600px;
+filter: opacity(50%)
+`
+
 const Title = styled.h1`
-font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+font-family: 'Heebo', sans-serif;
+font-weight: 200;
+margin: 20px 0 0 0;
+font-size: 70px;
+`
+
+const TitleSpan = styled(Title)`
+margin: 0;
+color: yellow;
+position: absolute;
+top: 40px;
+left: 240px;
 `
 
 const InputWrapper = styled.div`
 display: flex;
 flex-direction: column;
 justify-content: center;
-background-color: #EFEDDB;
-border: 1px solid black;
+background-color: #FFFFFA;
+border: .3px solid black;
 width: 70vw;
 height: 40vh;
 margin: 20px 0 20px 0;
@@ -142,6 +207,54 @@ display: flex;
 flex-direction: column;
 margin: 10px;
 
+`
+
+const UserLabel = styled.label`
+font-family: 'Cormorant Garamond', serif;
+font-size: 14px;
+
+`
+
+const PasswordLabel = styled(UserLabel)`
+
+`
+const UserInput = styled.input`
+font-family: 'Cormorant Garamond', serif;
+border: none;
+border-bottom: 0.3px solid black;
+background: none;
+margin-top: 10px;
+padding-bottom: 5px;
+
+&:focus {
+  outline: none;
+}
+`
+const PasswordInput = styled(UserInput)`
+
+`
+
+const SignInBtn = styled.button`
+font-family: 'Cormorant Garamond', serif;
+background: none;
+border: none;
+margin: 10px 0 0 10px;
+
+&:hover {
+font-style: italic;
+}
+`
+
+const ShowPassword = styled.button`
+ background: none;
+  border: none;
+  font-size: 16px;
+  margin: 2px 0 0 0;
+  padding: 0;
+  text-decoration: none;
+`
+
+const HidePassword = styled(ShowPassword)`
 `
 
 const Validation = styled.div`

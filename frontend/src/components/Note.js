@@ -2,16 +2,18 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components/macro'
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import { GET_NOTE } from '../urls/api'
+import Checkboxes from './Checkboxes'
 // import pen from './icons/pen.png'
 
 const Note = () => {
   const accessToken = sessionStorage.getItem("accessToken")
+  const consequences = sessionStorage.getItem("CheckBoxesData")
   const navigate = useNavigate()
   const [notes, setNotes] = useState([])
   const [editTitle, setEditTitle] = useState(null)
   const [editActivatingEvent, setEditActivatingEvent] = useState(null)
   const [editAutomatingThought, setEditAutomatingThought] = useState(null)
-
+  
 
   const { noteId } = useParams()
 
@@ -33,8 +35,9 @@ const Note = () => {
   }, [])
   console.log(notes)
 
-  const onEditNoteSubmit = () => {
-    
+  const onEditNoteSubmit = (event) => {
+
+    event.preventDefault()
 
     const options = {
       method: "PATCH",
@@ -44,8 +47,8 @@ const Note = () => {
       },
       body: JSON.stringify({
         title: editTitle,
-        // activatingEvent: editActivatingEvent,
-        // automatingThoughts: editAutomatingThought,
+        activatingEvent: editActivatingEvent,
+        automatingThoughts: editAutomatingThought,
         // consequences: consequences
       })
     }
@@ -78,7 +81,8 @@ const Note = () => {
           
           <NotesWrapper>
             {!!editTitle ?  
-                    <form htmlFor="title" onSubmit={onEditNoteSubmit}>
+            <div>
+                    <form htmlFor="title" onSubmit={onEditNoteSubmit} >
                         <TitleInput
                         type="text"
                         maxLength={25}
@@ -89,6 +93,7 @@ const Note = () => {
                     <button type="submit" onClick={()=> setEditTitle(null)}>Submit</button>
                     <button type="button" onClick={()=> setEditTitle(null)}>Cancel</button>
                     </form> 
+                    </div>
                     :
                   
                     <div>
@@ -108,13 +113,13 @@ const Note = () => {
                     >
                       </Textarea>
                      <button type="submit" onClick={()=> setEditActivatingEvent(null)}>Submit</button>
-                     <button type="reset" onClick={()=> setEditActivatingEvent(null)}>Cancel</button>
+                     <button type="button" onClick={()=> setEditActivatingEvent(null)}>Cancel</button>
                      </form>
                     </div>
                      :
                          <div>
                          <p>Activating event: {note.activatingEvent}
-                         <EditBtn onClick={() => setEditActivatingEvent(note)}>
+                         <EditBtn type="button" onClick={() => setEditActivatingEvent(note)}>
                          <Icon role="img" src="/icons/pen.png" alt="pen" /> 
                          </EditBtn></p>
                          </div>
@@ -135,16 +140,18 @@ const Note = () => {
                     :             
              <div>
             <p>Automating thoughts: {note.automatingThoughts}
-            <EditBtn onClick={() => setEditAutomatingThought(note)}>
+            <EditBtn type="button" onClick={() => setEditAutomatingThought(note)}>
             <Icon role="img" src="/icons/pen.png" alt="pen" /> 
             </EditBtn></p>
             </div>}
+            <Checkboxes checkedData={consequences} />
+          
 
-
+{/* 
             <div>
             {note.consequences.positiveEmotions.length > 0 ? 
             <p>Positive emotions: <>{note.consequences.positiveEmotions}
-            <EditBtn>
+            <EditBtn type="button">
             <Icon role="img" src="/icons/pen.png" alt="pen" /> 
             </EditBtn></></p> 
             : null }
@@ -153,7 +160,7 @@ const Note = () => {
             <div>
             {note.consequences.negativeEmotions.length > 0 ? 
             <p>Negative emotions: <>{note.consequences.negativeEmotions}
-            <EditBtn>
+            <EditBtn type="button">
             <Icon role="img" src="/icons/pen.png" alt="pen" /> 
             </EditBtn></></p> 
             : null }
@@ -162,11 +169,11 @@ const Note = () => {
             <div>
             {note.consequences.physicalReactions.length > 0 ? 
             <p>Physical reactions: <>{note.consequences.physicalReactions}
-            <EditBtn>
+            <EditBtn type="button">
             <Icon role="img" src="/icons/pen.png" alt="pen" /> 
             </EditBtn></></p> 
             : null }
-            </div>
+            </div> */}
 
           <DeleteBtn type="submit" onClick={() => {deleteNote(note._id)}}>Delete</DeleteBtn>
           </NotesWrapper>
