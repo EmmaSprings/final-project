@@ -1,5 +1,10 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import { Provider } from "react-redux";
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import {noteConsequences} from "./reducers/noteConsequences";
+
+
 import styled from 'styled-components'
 
 import AddNote from './components/AddNote';
@@ -15,9 +20,17 @@ import Demo from './components/Demo';
 
 
 
+const reducer = combineReducers({
+  notes: noteConsequences.reducer,
+});
+
+const store = configureStore({ reducer });
+
+
 function App() {
 
   return (
+    <Provider store={store}>
     <BrowserRouter>
     <Main>
     <Routes>
@@ -31,23 +44,10 @@ function App() {
       <Route path="/success" element={<SignUpSuccess />}/>
       <Route path="/welcome" element={<Welcome />}/>
       <Route path="/demo" element={<Demo />}/>
-    
-
-
-      
-
-
-
-
-
-      
-
-
-
     </Routes>
     </Main>
     </BrowserRouter>
-   
+    </Provider>
   );
 }
 
