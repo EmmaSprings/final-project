@@ -1,18 +1,12 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { negativeEmotions, positiveEmotions, physicalReactions } from '../data'
-import { noteConsequences } from '../reducers/noteConsequences'
-import { useDispatch } from 'react-redux';
 
-const Checkboxes = () => {
-    const [consequences, setConsequences] = useState({
-        negativeEmotions: [],
-        positiveEmotions: [],
-        physicalReactions: []
-    })
 
-    console.log(consequences)
+const Checkboxes = ({consequences, setConsequences, goodMood, badMood, reaction}) => {
 
+    // console.log(selectedConsequences.map(item => item.positiveEmotions))
+    console.log(badMood)
     const onPositiveEmotionsChange = (event) => {
         event.preventDefault()
         const { value, checked } = event.target
@@ -86,13 +80,13 @@ const Checkboxes = () => {
                                     onChange={onNegativeEmotionsChange}
                                     value={negEmo.emotion}
                                     key={negEmo.id}
+                                    checked={badMood}
                                 />
                             </label>
 
                         </div>
                     )
                 })}
-
             </Emotions>
 
             <Reaction >

@@ -3,14 +3,19 @@ import styled from 'styled-components/macro'
 import { Link, useNavigate } from 'react-router-dom'
 import { negativeEmotions, positiveEmotions, physicalReactions } from '../data'
 import { API_URL } from '../urls/api'
+
 import Checkboxes from './Checkboxes'
 
-import { noteConsequences } from '../reducers/noteConsequences'
-import { useDispatch } from 'react-redux';
-
 const AddNote = () => {
-    const navigate = useNavigate()
     const accessToken = sessionStorage.getItem("accessToken")
+
+    const [consequences, setConsequences] = useState({
+        negativeEmotions: [],
+        positiveEmotions: [],
+        physicalReactions: []
+    })
+
+    console.log(consequences)
 
     const [newNote, setNewNote] = useState({
         title: "",
@@ -18,7 +23,7 @@ const AddNote = () => {
         automatingThoughts: "",
     })
 
-    const dispatch = useDispatch()
+    const navigate = useNavigate()
 
       const onNewNoteValueChange = (event) => {
         const { name, value } = event.target
@@ -29,7 +34,6 @@ const AddNote = () => {
           }
         })
       }
-
       
     useEffect(() => {
         if (!accessToken) {
@@ -57,7 +61,6 @@ const AddNote = () => {
             .then(res => res.json())
             navigate("/diary")
  }
-
 
     return (
         <MainWrapper>
@@ -92,7 +95,7 @@ const AddNote = () => {
                     >
                     </Textarea>
 
-                <Checkboxes />
+                <Checkboxes consequences={consequences} setConsequences={setConsequences} />
 
                 <button type="submit">Add</button>
                 </Form>

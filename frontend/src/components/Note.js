@@ -7,13 +7,15 @@ import Checkboxes from './Checkboxes'
 
 const Note = () => {
   const accessToken = sessionStorage.getItem("accessToken")
-  const consequences = sessionStorage.getItem("CheckBoxesData")
   const navigate = useNavigate()
   const [notes, setNotes] = useState([])
   const [editTitle, setEditTitle] = useState(null)
   const [editActivatingEvent, setEditActivatingEvent] = useState(null)
   const [editAutomatingThought, setEditAutomatingThought] = useState(null)
-  
+  const [selectedConsequences, setSelectedConsequences] = useState(null)
+  // const [goodMood, setGoodMood] = useState(null)
+  // const [badMood, setBadMood] = useState(null)
+  // const [reaction, setReaction] = useState(null)
 
   const { noteId } = useParams()
 
@@ -31,9 +33,23 @@ const Note = () => {
   useEffect(() => {
     fetch(GET_NOTE(noteId), options)
       .then(res => res.json())
-      .then(data => setNotes(data))
+      .then(data => {setNotes(data)
+        setSelectedConsequences(data.map(note=> note.consequences))
+      })
+      // .finally(() => {
+      //   setGoodMood(selectedConsequences.map(item => item.positiveEmotions))
+      //   setBadMood(selectedConsequences.map(item => item.negativeEmotions))
+      //   setReaction(selectedConsequences.map(item => item.physicalReactions))
+      // })   
+
   }, [])
-  console.log(notes)
+  console.log(selectedConsequences)
+
+    // const goodMood = selectedConsequences.map(item => item.positiveEmotions)
+    // const badMood = selectedConsequences.map(item => item.negativeEmotions)
+    // const reaction = selectedConsequences.map(item => item.physicalReactions)
+
+
 
   const onEditNoteSubmit = (event) => {
 
@@ -144,7 +160,14 @@ const Note = () => {
             <Icon role="img" src="/icons/pen.png" alt="pen" /> 
             </EditBtn></p>
             </div>}
-            <Checkboxes checkedData={consequences} />
+{/* 
+            <p>Positive emotion: {goodMood}</p>
+            <p>Negative emotion: {badMood}</p>
+            <p>Physical reaction: {reaction}</p> */}
+            <p>Positive emotion: {selectedConsequences.map(item => item.positiveEmotions)}</p>
+            <p>Negative emotion: {selectedConsequences.map(item => item.negativeEmotions)}</p>
+            <p>Physical reaction: {selectedConsequences.map(item => item.physicalReactions)}</p>
+            <Checkboxes badMood={selectedConsequences.map(item => item.negativeEmotions)} />
           
 
 {/* 
