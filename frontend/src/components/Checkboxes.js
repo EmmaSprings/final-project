@@ -3,10 +3,8 @@ import styled from 'styled-components'
 import { negativeEmotions, positiveEmotions, physicalReactions } from '../data'
 
 
-const Checkboxes = ({consequences, setConsequences, goodMood, badMood, reaction}) => {
+const CheckBoxes = ({ consequences, setConsequences }) => {
 
-    // console.log(selectedConsequences.map(item => item.positiveEmotions))
-    console.log(badMood)
     const onPositiveEmotionsChange = (event) => {
         event.preventDefault()
         const { value, checked } = event.target
@@ -72,15 +70,13 @@ const Checkboxes = ({consequences, setConsequences, goodMood, badMood, reaction}
             <Emotions >
                 {negativeEmotions.map(negEmo => {
                     return (
-                        <div>
-                            <label>  {negEmo.emotion}
+                        <div key={negEmo.id}>
+                            <label htmlFor={negEmo.emotion}>  {negEmo.emotion}
                                 <input
                                     type="checkbox"
                                     name="negativeEmotions"
                                     onChange={onNegativeEmotionsChange}
                                     value={negEmo.emotion}
-                                    key={negEmo.id}
-                                    checked={badMood}
                                 />
                             </label>
 
@@ -92,14 +88,13 @@ const Checkboxes = ({consequences, setConsequences, goodMood, badMood, reaction}
             <Reaction >
                 {positiveEmotions.map(posEmo => {
                     return (
-                        <div>
-                            <label>{posEmo.emotion}
+                        <div key={posEmo.id}>
+                            <label htmlFor={posEmo.emotion}> {posEmo.emotion}
                                 <input
                                     name="positiveEmotions"
                                     type="checkbox"
                                     onChange={onPositiveEmotionsChange}
                                     value={posEmo.emotion}
-                                    key={posEmo.id}
                                 />
                             </label>
                         </div>
@@ -110,14 +105,13 @@ const Checkboxes = ({consequences, setConsequences, goodMood, badMood, reaction}
             <Emotions >
                 {physicalReactions.map(reaction => {
                     return (
-                        <div>
-                            <label>{reaction.reaction}
+                        <div key={reaction.id}>
+                            <label htmlFor={reaction.reaction}>{reaction.reaction}
                                 <input
                                     type="checkbox"
                                     name="physicalReactions"
                                     onChange={onPhysicalReactionsChange}
                                     value={reaction.reaction}
-                                    key={reaction.id}
                                 />
                             </label>
                         </div>
@@ -136,4 +130,4 @@ border: 1px solid black;
 const Reaction = styled(Emotions)`
 `
 
-export default Checkboxes
+export default CheckBoxes

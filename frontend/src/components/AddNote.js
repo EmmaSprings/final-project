@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { negativeEmotions, positiveEmotions, physicalReactions } from '../data'
 import { API_URL } from '../urls/api'
 
-import Checkboxes from './Checkboxes'
+import CheckBoxes from './CheckBoxes'
 
 const AddNote = () => {
     const accessToken = sessionStorage.getItem("accessToken")
@@ -95,7 +95,7 @@ const AddNote = () => {
                     >
                     </Textarea>
 
-                <Checkboxes consequences={consequences} setConsequences={setConsequences} />
+                <CheckBoxes consequences={consequences} setConsequences={setConsequences} />
 
                 <button type="submit">Add</button>
                 </Form>
