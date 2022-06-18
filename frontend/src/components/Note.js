@@ -28,13 +28,17 @@ const Note = () => {
     headers: { Authorization: accessToken }
   }
 
-  useEffect(() => {
+
+  const fetchNote = () => {
     fetch(GET_NOTE(noteId), options)
-      .then(res => res.json())
-      .then(data => {
-        setNotes(data)
-        setEmotionArr(data.map(note => note.consequences))
-      })
+    .then(res => res.json())
+    .then(data => {
+      setNotes(data)
+      setEmotionArr(data.map(note => note.consequences))
+    })
+  }
+  useEffect(() => {
+    fetchNote()
   }, [])
   console.log(emotionArr)
   console.log(notes)
@@ -62,10 +66,6 @@ const Note = () => {
     }
   };
 
-
-  const editButtonHandler = () => {
-
-  }
 
   const onEditNoteSubmit = (event) => {
 
@@ -114,9 +114,10 @@ const Note = () => {
     options.body = JSON.stringify(body)
 
 
+
     fetch(GET_NOTE(noteId), options)
       .then(res => res.json())
-      .then(data => setNotes(data))
+      .then(() => fetchNote())
 
   }
 
