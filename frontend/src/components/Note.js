@@ -13,6 +13,7 @@ const Note = () => {
   const [editActivatingEvent, setEditActivatingEvent] = useState(null)
   const [editAutomatingThought, setEditAutomatingThought] = useState(null)
   const [emotionArr, setEmotionArr] = useState(null)
+  // const [emotionObj, setEmotionObj] = useState(null)
   const [editConsequences, setEditConsequences] = useState(null)
 
   const { noteId } = useParams()
@@ -28,43 +29,75 @@ const Note = () => {
     headers: { Authorization: accessToken }
   }
 
-
   const fetchNote = () => {
     fetch(GET_NOTE(noteId), options)
     .then(res => res.json())
-    .then(data => {
-      setNotes(data)
-      setEmotionArr(data.map(note => note.consequences))
-    })
+    .then(data => {setNotes(data)
+      setEmotionArr(data.map(data => data.consequences))})
+    // .finally(() => setEmotionObj(emotionArr.reduce((obj, item) => (obj[item.key] = item.value, obj) ,{})))
   }
+
   useEffect(() => {
     fetchNote()
   }, [])
+
+
   console.log(emotionArr)
   console.log(notes)
-  // console.log(editConsequences)
-  // console.log(editConsequences[0])
-
+  console.log(editConsequences)
 
   const onPositiveEmotionsEdit = (event) => {
-    event.preventDefault()
     const { value, checked } = event.target
     const { positiveEmotions } = editConsequences[0]
     if (checked) {
       setEditConsequences((prev) => ({
         ...prev,
-        positiveEmotions: positiveEmotions.push(value)
+        positiveEmotions: [...positiveEmotions, value]
       }))
     }
-    // Case 2  : The user unchecks the box
-    // remove the id from the array
     else {
       setEditConsequences((prev => ({
         ...prev,
         positiveEmotions: positiveEmotions.filter((e) => e !== value)
       })))
     }
-  };
+  }
+
+  const onNegativeEmotionsEdit = (event) => {
+    const { value, checked } = event.target
+    const { negativeEmotions } = editConsequences[0]
+    if (checked) {
+      setEditConsequences((prev) => ({
+        ...prev,
+        negativeEmotions : [...negativeEmotions, value]
+      }))
+    }
+    else {
+      setEditConsequences((prev => ({
+        ...prev,
+        negativeEmotions: negativeEmotions.filter((e) => e !== value)
+      })))
+    }
+  }
+
+  const onPhysicalReactionsEdit = (event) => {
+    const { value, checked } = event.target
+    const { physicalReactions } = editConsequences[0]
+    if (checked) {
+      setEditConsequences((prev) => ({
+        ...prev,
+        physicalReactions : [...physicalReactions, value]
+      }))
+    }
+    else {
+      setEditConsequences((prev => ({
+        ...prev,
+        physicalReactions: physicalReactions.filter((e) => e !== value)
+      })))
+    }
+  }
+
+
 
 
   const onEditNoteSubmit = (event) => {
@@ -107,7 +140,7 @@ const Note = () => {
     if (editConsequences !== null) {
       body.consequences = editConsequences
     } else {
-      body.consequences = notes[0].consequences
+      body.consequences = notes[0].consequences[0]
     }
 
 
@@ -220,7 +253,7 @@ const Note = () => {
                         name="negativeEmotions"
                         value={item.emotion}
                         defaultChecked={editConsequences[0].negativeEmotions.includes(item.emotion)}
-                      // onChange={onNegativeEmotionsEdit}
+                      onChange={onNegativeEmotionsEdit}
                       />
                     </div>
                   );
@@ -256,7 +289,7 @@ const Note = () => {
                           name="physicalReactions"
                           value={item.reaction}
                           defaultChecked={editConsequences[0].physicalReactions.includes(item.reaction)}
-                        // onChange={onPhysicalReactionsEdit}
+                        onChange={onPhysicalReactionsEdit}
                         />
 
                       </div>

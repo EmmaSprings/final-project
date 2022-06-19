@@ -6,7 +6,6 @@ import { negativeEmotions, positiveEmotions, physicalReactions } from '../data'
 const CheckBoxes = ({ consequences, setConsequences }) => {
 
     const onPositiveEmotionsChange = (event) => {
-        event.preventDefault()
         const { value, checked } = event.target
         const { positiveEmotions } = consequences
         if (checked) {
@@ -26,7 +25,6 @@ const CheckBoxes = ({ consequences, setConsequences }) => {
     };
 
     const onNegativeEmotionsChange = (event) => {
-        event.preventDefault()
         const { value, checked } = event.target
         const { negativeEmotions } = consequences
         if (checked) {
@@ -46,7 +44,6 @@ const CheckBoxes = ({ consequences, setConsequences }) => {
         }
     };
     const onPhysicalReactionsChange = (event) => {
-        event.preventDefault()
         const { value, checked } = event.target
         const { physicalReactions } = consequences
         if (checked) {
