@@ -8,12 +8,10 @@ import { negativeEmotions, positiveEmotions, physicalReactions } from '../data'
 const Note = () => {
   const accessToken = sessionStorage.getItem("accessToken")
   const navigate = useNavigate()
-  const [notes, setNotes] = useState([])
+  const [note, setNote] = useState({})
   const [editTitle, setEditTitle] = useState(null)
   const [editActivatingEvent, setEditActivatingEvent] = useState(null)
   const [editAutomatingThought, setEditAutomatingThought] = useState(null)
-  const [emotionArr, setEmotionArr] = useState(null)
-  // const [emotionObj, setEmotionObj] = useState(null)
   const [editConsequences, setEditConsequences] = useState(null)
 
   const { noteId } = useParams()
@@ -32,23 +30,21 @@ const Note = () => {
   const fetchNote = () => {
     fetch(GET_NOTE(noteId), options)
     .then(res => res.json())
-    .then(data => {setNotes(data)
-      setEmotionArr(data.map(data => data.consequences))})
-    // .finally(() => setEmotionObj(emotionArr.reduce((obj, item) => (obj[item.key] = item.value, obj) ,{})))
+    .then(data => setNote(data))
   }
+
 
   useEffect(() => {
     fetchNote()
   }, [])
 
 
-  console.log(emotionArr)
-  console.log(notes)
+  console.log(note)
   console.log(editConsequences)
 
   const onPositiveEmotionsEdit = (event) => {
     const { value, checked } = event.target
-    const { positiveEmotions } = editConsequences[0]
+    const { positiveEmotions } = editConsequences
     if (checked) {
       setEditConsequences((prev) => ({
         ...prev,
@@ -65,7 +61,7 @@ const Note = () => {
 
   const onNegativeEmotionsEdit = (event) => {
     const { value, checked } = event.target
-    const { negativeEmotions } = editConsequences[0]
+    const { negativeEmotions } = editConsequences
     if (checked) {
       setEditConsequences((prev) => ({
         ...prev,
@@ -82,7 +78,7 @@ const Note = () => {
 
   const onPhysicalReactionsEdit = (event) => {
     const { value, checked } = event.target
-    const { physicalReactions } = editConsequences[0]
+    const { physicalReactions } = editConsequences
     if (checked) {
       setEditConsequences((prev) => ({
         ...prev,
@@ -124,23 +120,23 @@ const Note = () => {
     if (editTitle !== null) {
       body.title = editTitle
     } else {
-      body.title = notes[0].title
+      body.title = note.title
     }
     if (editActivatingEvent !== null) {
       body.activatingEvent = editActivatingEvent
     } else {
-      body.activatingEvent = notes[0].activatingEvent
+      body.activatingEvent = note.activatingEvent
     }
     if (editAutomatingThought !== null) {
       body.automatingThoughts = editAutomatingThought
     } else {
-      body.automatingThoughts = notes[0].automatingThought
+      body.automatingThoughts = note.automatingThought
     }
 
     if (editConsequences !== null) {
       body.consequences = editConsequences
     } else {
-      body.consequences = notes[0].consequences[0]
+      body.consequences = note.consequences
     }
 
 
@@ -158,24 +154,17 @@ const Note = () => {
 
     fetch(GET_NOTE(noteId), { method: "DELETE" })
       .then(res => res.json())
-      .then(data => setNotes(data))
+      .then(data => setNote(data))
 
     navigate("/diary")
   }
-
-
 
   return (
     <MainWrapper>
       <div>
         <h1>My note</h1>
       </div>
-
-      {notes.map(note => {
-
-        return (
-
-          <NotesWrapper key={note._id}>
+          <NotesWrapper>
             {!!editTitle ?
               <div>
                 <TitleInput
@@ -195,7 +184,8 @@ const Note = () => {
                   <EditBtn type="button" onClick={() => setEditTitle(note)}>
                     <Icon role="img" src="/icons/pen.png" alt="pen" />
                   </EditBtn></p>
-              </div>}
+              </div>
+             } 
 
             {!!editActivatingEvent ?
               <div>
@@ -235,12 +225,13 @@ const Note = () => {
                   <EditBtn type="button" onClick={() => setEditAutomatingThought(note)}>
                     <Icon role="img" src="/icons/pen.png" alt="pen" />
                   </EditBtn></p>
-              </div>}
+              </div>
+            } 
 
 
             {!!editConsequences ?
               <>
-                <h3>Emotions and reactions     <EditBtn type="button" onClick={() => setEditConsequences(emotionArr)}>
+                <h3>Emotions and reactions     <EditBtn type="button" onClick={() => setEditConsequences(note.consequences)}>
                   <Icon role="img" src="/icons/pen.png" alt="pen" />
                 </EditBtn></h3>
                 <EmotionInput>{negativeEmotions.map((item) => {
@@ -252,7 +243,7 @@ const Note = () => {
                         type="checkbox"
                         name="negativeEmotions"
                         value={item.emotion}
-                        defaultChecked={editConsequences[0].negativeEmotions.includes(item.emotion)}
+                        defaultChecked={editConsequences.negativeEmotions.includes(item.emotion)}
                       onChange={onNegativeEmotionsEdit}
                       />
                     </div>
@@ -270,7 +261,7 @@ const Note = () => {
                           type="checkbox"
                           name="positiveEmotions"
                           value={item.emotion}
-                          defaultChecked={editConsequences[0].positiveEmotions.includes(item.emotion)}
+                          defaultChecked={editConsequences.positiveEmotions.includes(item.emotion)}
                           onChange={onPositiveEmotionsEdit}
                         />
 
@@ -288,7 +279,7 @@ const Note = () => {
                           type="checkbox"
                           name="physicalReactions"
                           value={item.reaction}
-                          defaultChecked={editConsequences[0].physicalReactions.includes(item.reaction)}
+                          defaultChecked={editConsequences.physicalReactions.includes(item.reaction)}
                         onChange={onPhysicalReactionsEdit}
                         />
 
@@ -302,7 +293,7 @@ const Note = () => {
               :
 
               <>
-                <h3>Emotions and reactions     <EditBtn type="button" onClick={() => setEditConsequences(emotionArr)}>
+                <h3>Emotions and reactions     <EditBtn type="button" onClick={() => setEditConsequences(note.consequences)}>
                   <Icon role="img" src="/icons/pen.png" alt="pen" />
                 </EditBtn></h3>
                 <EmotionInput>{negativeEmotions.map((item) => {
@@ -314,7 +305,7 @@ const Note = () => {
                           type="checkbox"
                           name="negativeEmotions"
                           value={item.emotion}
-                          checked={emotionArr[0].negativeEmotions.includes(item.emotion)}
+                          checked={note?.consequences?.negativeEmotions.includes(item.emotion)}
                         />
                       </label>
                     </div>
@@ -331,7 +322,7 @@ const Note = () => {
                             type="checkbox"
                             name="positiveEmotions"
                             value={item.emotion}
-                            checked={emotionArr[0].positiveEmotions.includes(item.emotion)}
+                            checked={note?.consequences?.positiveEmotions.includes(item.emotion)}
                           />
                         </label>
                       </div>
@@ -347,7 +338,7 @@ const Note = () => {
                             type="checkbox"
                             name="physicalReactions"
                             value={item.reaction}
-                            checked={emotionArr[0].physicalReactions.includes(item.reaction)}
+                            checked={note?.consequences?.physicalReactions.includes(item.reaction)}
                           />
                         </label>
                       </div>
@@ -359,12 +350,9 @@ const Note = () => {
             <DeleteBtn type="submit" onClick={() => { deleteNote(note._id) }}>Delete</DeleteBtn>
           </NotesWrapper>
 
-        )
-      })}
-
       <Link to="/diary">Diary</Link>
       <Link to="/welcome">Profile</Link>
-      <Link to="/">Home</Link>
+      <Link to="/">Home</Link> 
 
     </MainWrapper>
   )
