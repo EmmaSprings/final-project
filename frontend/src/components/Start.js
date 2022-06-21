@@ -5,11 +5,12 @@ import { Link } from 'react-router-dom'
 const Start = () => {
 
   return(
-    <div>
+    <MainWrapper>
     <TextWrap>
     <StartWrap>
-      <ABC>CBT/<HeadSpan>easy as</HeadSpan></ABC>
-      <CBT>ABC</CBT>
+      <CBT>CBT</CBT>
+      <HeadSpan>/</HeadSpan>
+      <ABC>ABC</ABC>
       </StartWrap>
 
       <LoginWrap>
@@ -22,7 +23,7 @@ const Start = () => {
       </TextWrap>
 <AboutWrap>
       <AboutText>
-      This app is based on the CBT, cognitive behavioral therapy, model ABC where you keep track of your
+      This app is based on the ABC, cognitive behavioral therapy, model ABC where you keep track of your
           emotions by dividing them into three different parts- activating event
           (what happened) Beliefs - What did it make you think or believe?
           (Irrational and/or rational?) and consequences - emotions it gave you,
@@ -37,59 +38,114 @@ const Start = () => {
       </AboutText>
       </AboutWrap>
 
-      <OceanImg src="./images/ocean-css.jpg" alt="ocean" />
+      {/* <OceanImg src="./images/ocean-css.jpg" alt="ocean" /> */}
 
-    </div>
+    </MainWrapper>
   )
 }
+
+const MainWrapper = styled.div`
+background-image: url(./images/ocean-css.jpg);
+display: flex;
+flex-direction: column;
+background-size:70vh;
+background-position: center;
+background-repeat: no-repeat;
+height: 100vh;
+width: 40vw;
+
+@media (min-width: 992px) {
+  background-image: url(./images/ocean-css.jpg);
+background-size: 100%;
+}
+`
 
 const StartWrap = styled.div`
 display: flex;
 flex-direction: column;
 position: relative;
 
+@media (min-width: 992px)  {
+
+}
+
 `
 
 const TextWrap = styled.div`
-margin-left: 224px;
-margin-top: 40px;
+position: relative;
+top: -5vh;
+left: 1.8vw;
+
+
+
+@media (min-width: 992px)  {
+
+}
 `
-const ABC = styled.h1`
+const CBT = styled.h1`
 font-family: 'Heebo', sans-serif;
 font-weight: 300;
-font-size: 150px;
-margin: 50px 0 0 80px;
-line-height: 80px;
-letter-spacing: -15px;
+color: #fffffa;
+  font-size: 80px;
+  /* margin: 20px 0 0 10px; */
+  line-height: 80px;
+  letter-spacing: -5px;
+
+
+@media (min-width: 992px)  {
+  font-weight: 300;
+  font-size: 150px;
+  margin: 50px 0 0 80px;
+  line-height: 80px;
+  letter-spacing: -15px;
+
+}
 `
 
-const CBT = styled(ABC)`
-margin-left: 32vw;
+const ABC = styled(CBT)`
+position: absolute;
+left: 40vw;
+top: 1.8vh;
 color: blue;
 font-style: italic;
+font-size: 110px;
+
+
+@media (min-width: 992px)  {
+
+}
 
 `
 
 const HeadSpan = styled.span`
+position: absolute;
+top:6.8vh;
+left: 33.7vw;
 font-family: 'Cormorant Garamond', serif;
-font-weight:lighter;
+font-weight: lighter;
 font-style: italic;
-font-size: 120px;
-letter-spacing: -3px;
+font-size: 100px;
 
 
+@media (min-width: 992px)  {
+
+}
 `
 
 const LoginWrap = styled.div`
+position: absolute;
 display: flex;
-margin-top: 20px;
-margin-left: 20vw;
+top: 79vh;
+left: 32vw;
 
+@media (min-width: 992px)  {
+
+}
 `
 
 const Login = styled(Link)`
 font-family: 'Cormorant Garamond', serif;
-font-size: 150px;
+font-size: 70px;
 font-weight: 200;
 margin: 0;
 text-decoration: none;
@@ -101,17 +157,26 @@ color: black;
 
 &:hover {
   font-style: italic;
+  color: blue;
+}
+
+@media (min-width: 992px)  {
+
 }
 `
 
 const DemoWrap = styled.div`
-
+display: flex;
+position: absolute;
+bottom: -75vh;
+left: 18.5vw;
 `
 
 const Demo = styled(Link)`
 margin-left: 50vw;
 font-family: 'Heebo', sans-serif;
-font-size: 100px;
+font-size: 45px;
+letter-spacing: -5px;
 font-weight: 100;
 text-decoration: none;
 
@@ -123,27 +188,33 @@ text-decoration: none;
   /* font-style: italic; */
   text-decoration: underline;
 }
+
+@media (min-width: 992px)  {
+margin-left: 50vw;
+font-size: 100px;
+font-weight: 100;
+}
 `
 
 const AboutWrap = styled.div`
 position: absolute;
-top: 60px;
-left: 70vw;
-width: 25vw;
+top: 20.2vh;
+left: 42.8vw;
+width: 54.5vw;
 `
 
 const AboutText = styled.p`
 font-family: 'Cormorant Garamond', serif;
-font-size: 16px;
+font-size: 14px;
 `
 
-const OceanImg = styled.img`
-position: absolute;
-width: 40vw;
-z-index: -1;
-top: 0;
+// const OceanImg = styled.img`
+// position: absolute;
+// width: 40vw;
+// z-index: -1;
+// top: 0;
 
-`
+// `
 
 export default Start
 

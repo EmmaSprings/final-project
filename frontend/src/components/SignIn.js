@@ -98,10 +98,10 @@ const SignIn = () => {
 
   return (
     <MainWrapper>
-    <ImageWrap>
+    {/* <ImageWrap>
     <Image  src="./images/forest-css.jpg" alt="forest"/>
-    </ImageWrap>
-
+    </ImageWrap> */}
+    <Wrapper>
       <Title>CBT /</Title>
       <TitleSpan>ABC</TitleSpan>
       <InputWrapper>
@@ -146,21 +146,18 @@ const SignIn = () => {
       <StartLink to="/">Start</StartLink>
       </LinkWrapper>
 
-      {/* <div>
-        <button>Demo</button>
-      </div> */}
-
+</Wrapper>
     </MainWrapper>
   )
 }
 
 const MainWrapper = styled.div`
-
+background-image: url(./images/forest-css.jpg);
 display: flex;
 flex-direction: column;
-justify-content: center;
-align-items: center;
-width: 100vw;
+background-size:70vh;
+background-position: center;
+background-repeat: no-repeat;
 height: 100vh;
 
 @media (min-width: 992px) {
@@ -169,24 +166,28 @@ background-size: 100%;
 }
 `
 
-const ImageWrap = styled.div`
+const Wrapper = styled.div`
 display: flex;
-justify-content: center;
-height: 100vh;
-width: 100vw;
-object-fit: fill;
-overflow: hidden;
-position: absolute;
-z-index: -1;
-
-
-
+flex-direction: column;
+align-items: center;
 
 `
-const Image = styled.img`
 
-filter: opacity(80%);
-`
+// const ImageWrap = styled.div`
+// display: flex;
+// justify-content: center;
+// height: 100vh;
+// width: 100vw;
+// object-fit: fill;
+// overflow: hidden;
+// position: absolute;
+// z-index: -1;
+
+// `
+// const Image = styled.img`
+
+// filter: opacity(80%);
+// `
 
 const Title = styled.h1`
 font-family: 'Heebo', sans-serif;
@@ -230,7 +231,7 @@ background-color: #FFFFFA;
 border: .3px solid #5E5E5E;
 width: 70vw;
 height: 40vh;
-margin: 20px 0 20px 0;
+margin: 160px 0 20px 0;
 
 @media (min-width: 992px) {
   width: 25vw;

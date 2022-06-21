@@ -162,12 +162,14 @@ background-color: palegreen;`
 
 const TitleInput = styled.input`
 width: 80vw;
-border-top: none;
+/* border-top: none;
 border-right:none;
-border-left: none;
-border-bottom: 1px dashed gray;
+border-left: none; */
+/* border-bottom: 1px dashed gray; */
+border: none;
 margin-bottom: 10px;
-background: none;
+/* background: none; */
+background-color: #fffffa;
 font-family: 'Heebo', sans-serif;
 text-transform: uppercase;
 
@@ -189,13 +191,14 @@ border-right: none;
 border-left: none;
 border-bottom: none;
 font-family: 'Cormorant Garamond', serif;
+background-color: #fffffa;
 
 &:focus {
     outline: none;
 }
 
 &::placeholder {
-    font-family: 'Heebo', sans-serif;
+    font-family: 'Cormorant Garamond', serif;
 }
 `
 

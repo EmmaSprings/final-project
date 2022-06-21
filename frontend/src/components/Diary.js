@@ -65,7 +65,7 @@ const Diary = () => {
             <Icon role="img" src="./icons/pen.png" alt="pen" /> 
             </button> */}
             
-             <DeleteBtn onClick={() => deleteNote(note._id)}></DeleteBtn>
+             {/* <DeleteBtn onClick={() => deleteNote(note._id)}></DeleteBtn> */}
           </Note>
         )
       })}
