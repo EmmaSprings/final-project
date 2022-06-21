@@ -1,0 +1,15 @@
+Questions:
+
+1. I added a new object in the Notes Model:
+
+when: {
+    type: String,
+    required: true
+}
+
+but when I test with postman (just added a random string)
+it's not saved in the database. It ignored the "when" completely.
+
+2. how to send date object from react-datepicker npm package to MongoDB?
+
+3. Modifying the date data object that has a default of Date.now()?

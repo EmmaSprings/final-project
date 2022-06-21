@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components/macro'
 import { Link, useNavigate } from 'react-router-dom'
-import { negativeEmotions, positiveEmotions, physicalReactions } from '../data'
 import { API_URL } from '../urls/api'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
+
 
 import Checkboxes from './Checkboxes'
 
 const AddNote = () => {
     const accessToken = sessionStorage.getItem("accessToken")
+    const [dateInput, setDateInput] = useState(new Date())
 
     const [consequences, setConsequences] = useState({
         negativeEmotions: [],
@@ -25,87 +28,99 @@ const AddNote = () => {
 
     const navigate = useNavigate()
 
-      const onNewNoteValueChange = (event) => {
+    const onNewNoteValueChange = (event) => {
         const { name, value } = event.target
         setNewNote((prev) => {
-          return {
-              ...prev,
-            [name]: value
-          }
+            return {
+                ...prev,
+                [name]: value
+            }
         })
-      }
-      
+    }
+
     useEffect(() => {
         if (!accessToken) {
             navigate("/signin");
         }
     }, [])
 
- const onNoteSubmit = () => {   
 
-    const options = {
-        method: "POST",
-        headers: {
-            "Authorization": accessToken,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            title: newNote.title,
-            activatingEvent: newNote.activatingEvent,
-            automatingThoughts: newNote.automatingThoughts,
-            consequences: consequences
-          })
 
-    };
+    console.log(dateInput.toDateString())
+
+    const onNoteSubmit = () => {
+        const options = {
+            method: "POST",
+            headers: {
+                "Authorization": accessToken,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                title: newNote.title,
+                activatingEvent: newNote.activatingEvent,
+                automatingThoughts: newNote.automatingThoughts,
+                consequences: consequences,
+                when: dateInput.toDateString()
+            })
+
+        };
         fetch(API_URL("notes"), options)
             .then(res => res.json())
-            navigate("/diary")
- }
+        navigate("/diary")
+    }
+
 
     return (
         <MainWrapper>
-        <Wrapper>
-            <div>
-                <h1>Add note</h1>
-            </div>
+            <Wrapper>
+                <div>
+                    <h1>Add note</h1>
+                </div>
 
-            <NotesWrapper>
-                <Form onSubmit={onNoteSubmit}>
-                    <TitleInput
-                        type="text"
-                        placeholder="Title"
-                        maxLength={25}
-                        name="title"
-                        value={newNote.title}
-                        onChange={onNewNoteValueChange}
-                        required={true}
-                    />
+                <NotesWrapper>
+                    <Form onSubmit={onNoteSubmit}>
 
-                    <Textarea 
-                    placeholder="Activating event" 
-                    name="activatingEvent"
-                    value={newNote.activatingEvent}
-                    onChange={onNewNoteValueChange}
-                    >
+                        <TitleInput
+                            type="text"
+                            placeholder="Title"
+                            maxLength={25}
+                            name="title"
+                            value={newNote.title}
+                            onChange={onNewNoteValueChange}
+                            required={true}
+                        />
+            
+                        <DatePicker 
+                        selected={dateInput}
+                        onChange={(date) => setDateInput(date)}
 
-                    </Textarea>
-                    <Textarea 
-                    placeholder="Beliefs" 
-                    name="automatingThoughts"
-                    value={newNote.automatingThoughts}
-                    onChange={onNewNoteValueChange}
-                    >
-                    </Textarea>
+                        />
 
-                <Checkboxes consequences={consequences} setConsequences={setConsequences} />
-                <AddBtnWrapper>
-                <AddBtn type="submit">Add</AddBtn>
-                </AddBtnWrapper>
-                </Form>
+                        <Textarea
+                            placeholder="Activating event"
+                            name="activatingEvent"
+                            value={newNote.activatingEvent}
+                            onChange={onNewNoteValueChange}
+                        >
 
-            </NotesWrapper>
-            <Link to="/welcome">Back</Link>
-            <Link to="/">Home</Link>
+                        </Textarea>
+                        <Textarea
+                            placeholder="Beliefs"
+                            name="automatingThoughts"
+                            value={newNote.automatingThoughts}
+                            onChange={onNewNoteValueChange}
+                        >
+                        </Textarea>
+
+                        <Checkboxes consequences={consequences} setConsequences={setConsequences} />
+                        <AddBtnWrapper>
+                            <AddBtn type="submit">Add</AddBtn>
+                        </AddBtnWrapper>
+                    </Form>
+
+                </NotesWrapper>
+                <Link to="/welcome">Back</Link>
+                <Link to="/">Home</Link>
 
             </Wrapper>
         </MainWrapper>

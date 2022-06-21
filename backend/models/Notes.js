@@ -11,9 +11,9 @@ const noteTemplate = new mongoose.Schema({
     },
     date: {
         type: Date,
-        default: Date.now(),
+        default: Date.now,
         required: true
-    },
+    }, 
     activatingEvent: {
         type: String,
         required: true
@@ -29,6 +29,9 @@ const noteTemplate = new mongoose.Schema({
     isPinned: {
         type: Boolean,
         default: false
+    },
+    when: {
+        type: String
     }
 })
 

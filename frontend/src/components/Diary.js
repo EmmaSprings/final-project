@@ -60,7 +60,7 @@ const Diary = () => {
         return (
           <Note>
             <LinkTitle key={note._id} to={`/note/${note._id}`}>{note.title}</LinkTitle>
-            <DateText>{formatDistance(new Date(note.date), Date.now(), { addSuffix: true, })}</DateText>
+            <DateText>{note.when}</DateText>
             {/* <button>
             <Icon role="img" src="./icons/pen.png" alt="pen" /> 
             </button> */}
