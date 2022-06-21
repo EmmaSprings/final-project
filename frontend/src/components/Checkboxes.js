@@ -4,7 +4,9 @@ import { negativeEmotions, positiveEmotions, physicalReactions } from '../data'
 
 
 const CheckBoxes = ({ consequences, setConsequences }) => {
-
+    const [isOpenNeg, setIsOpenNeg] = useState(false)
+    const [isOpenPos, setIsOpenPos] = useState(false)
+    const [isOpenReactions, setIsOpenReactions] = useState(false)
     const onPositiveEmotionsChange = (event) => {
         const { value, checked } = event.target
         const { positiveEmotions } = consequences
@@ -64,7 +66,9 @@ const CheckBoxes = ({ consequences, setConsequences }) => {
 
     return (
         <div>
-            <Emotions >
+      
+            <button type="button" onClick={() => setIsOpenNeg((s) => !s)}>Negative Emotions</button>
+            <NegEmotions isOpenNeg={isOpenNeg}>
                 {negativeEmotions.map(negEmo => {
                     return (
                         <div key={negEmo.id}>
@@ -80,9 +84,10 @@ const CheckBoxes = ({ consequences, setConsequences }) => {
                         </div>
                     )
                 })}
-            </Emotions>
+            </NegEmotions>
 
-            <Reaction >
+            <button type="button" onClick={() => setIsOpenPos((s) => !s)}>Positive Emotions</button>
+            <PosEmotions isOpenPos={isOpenPos}>
                 {positiveEmotions.map(posEmo => {
                     return (
                         <div key={posEmo.id}>
@@ -97,9 +102,10 @@ const CheckBoxes = ({ consequences, setConsequences }) => {
                         </div>
                     )
                 })}
-            </Reaction>
+            </PosEmotions>
 
-            <Emotions >
+            <button type="button" onClick={() => setIsOpenReactions((s) => !s)}>Physical Reactions</button>
+            <Reactions isOpenReactions={isOpenReactions}>
                 {physicalReactions.map(reaction => {
                     return (
                         <div key={reaction.id}>
@@ -114,20 +120,81 @@ const CheckBoxes = ({ consequences, setConsequences }) => {
                         </div>
                     )
                 })}
-            </Emotions>
+            </Reactions>
         </div>
     )
 }
 
-const Emotions = styled.div`
+// const Emotions = styled.div`
+//     display: grid;
+// grid-template-columns: repeat(3, 1fr); 
+// flex-wrap: wrap;
+// align-content: center;
+// border: .3px solid black;
+// width: 80vw;
+// `
+
+
+
+const NegEmotions = styled.div`
+${props => {
+        if (props.isOpenNeg) {
+            return `
+            display: grid;
+grid-template-columns: repeat(3, 1fr); 
+flex-wrap: wrap;
+align-content: center;
+border: .3px solid black;
+width: 80vw;
+    
+  `;
+        } else {
+            return `
+  display: none;
+`;
+        }
+    }}
+`
+
+const PosEmotions = styled.div`
+${props => {
+        if (props.isOpenPos) {
+            return `
 display: grid;
 grid-template-columns: repeat(3, 1fr); 
 flex-wrap: wrap;
 align-content: center;
 border: .3px solid black;
 width: 80vw;
-`
-
+    
+  `;
+        } else {
+            return `
+            display: none;
+            `;
+        }
+    }}
+    `
+    
+    const Reactions = styled.div`
+    ${props => {
+        if (props.isOpenReactions) {
+            return `
+            display: grid;
+grid-template-columns: repeat(3, 1fr); 
+flex-wrap: wrap;
+align-content: center;
+border: .3px solid black;
+width: 80vw;
+    
+  `;
+        } else {
+            return `
+            display: none;
+            `;
+        }
+    }}
+    `
 const CheckboxWrap = styled.div`
 /* height: 40px; */
 /* display: grid;
@@ -136,24 +203,6 @@ flex-wrap: wrap;
 border: 1px solid green; */
 `
 
-const ToggleEmotions = styled.button`
-${props => {
-  if (props.toggleEmotions) {
-    return `
-    width: 100;
-    font-family: 'Cormorant Garamond', serif;
-    color: #9E4D4D;
-    font-style: italic;
-    font-size: 14px;
-    
-  `;
-  } else {
-    return `
-  display: none;
-`;
-  }
-}}
-`;
 
 
 const NegLabel = styled.label`
@@ -175,7 +224,5 @@ const PhysicalLabel = styled(NegLabel)`
 
 `
 
-const Reaction = styled(Emotions)`
-`
 
 export default CheckBoxes

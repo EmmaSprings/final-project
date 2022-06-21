@@ -402,6 +402,7 @@ border: 1px solid gray;
 const Thought = styled(Event)`
 `
 
+
 const EditBtn = styled.button`
 width: 40px;
 height: 25px;
