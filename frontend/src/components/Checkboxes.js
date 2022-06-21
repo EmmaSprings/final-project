@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { negativeEmotions, positiveEmotions, physicalReactions } from '../data'
 
 const Checkboxes = () => {
+    const [toggleEmotions, setToggleEmotions] = useState(true)
     const [consequences, setConsequences] = useState({
         negativeEmotions: [],
         positiveEmotions: [],
@@ -82,12 +83,14 @@ const onPhysicalReactionsChange = (event) => {
    };
 
   return (
-    <div>
-       <Emotions >
+    <div >
+<ToggleEmotions toggleEmotions={toggleEmotions} onChange={() => setToggleEmotions((s) => !s)}>Negative emotions
+       <Emotions  >
                     {negativeEmotions.map(negEmo => {
                         return (
-                            <div>
-                                <label>  {negEmo.emotion}
+                        
+                            <CheckboxWrap>
+                                <NegLabel>  {negEmo.emotion}
                                 <input
                                 type="checkbox"
                                 name="negativeEmotions"
@@ -95,19 +98,20 @@ const onPhysicalReactionsChange = (event) => {
                                 value={negEmo.emotion} 
                                 key={negEmo.id}
                                 />
-                                  </label>
+                                  </NegLabel>
                                 
-                            </div>
+                            </CheckboxWrap>
                         )
                     })}
 
                 </Emotions>
-
+                </ToggleEmotions>
+                <div><p>Positive emotions</p></div>
                 <Reaction >
                     {positiveEmotions.map(posEmo => {
                         return (
-                            <div>
-                            <label>{posEmo.emotion}
+                            <CheckboxWrap>
+                            <PosLabel>{posEmo.emotion}
                                 <input
                                  name="positiveEmotions"
                                  type="checkbox"
@@ -115,17 +119,18 @@ const onPhysicalReactionsChange = (event) => {
                                  value={posEmo.emotion} 
                                  key={posEmo.id}
                                  />
-                                 </label>
-                                 </div>
+                                 </PosLabel>
+                                 </CheckboxWrap>
                         )
                     })}
                 </Reaction>
 
+                <div><p>Physical reactions</p></div>
                 <Emotions >
                     {physicalReactions.map(reaction => {
                         return (
-                            <div>
-                                <label>{reaction.reaction}
+                            <CheckboxWrap>
+                                <PhysicalLabel>{reaction.reaction}
                                 <input 
                                  type="checkbox"
                                  name="physicalReactions"
@@ -133,8 +138,8 @@ const onPhysicalReactionsChange = (event) => {
                                  value={reaction.reaction} 
                                  key={reaction.id} 
                               />
-                              </label>
-                            </div>
+                              </PhysicalLabel>
+                            </CheckboxWrap>
                         )
                     })}
                 </Emotions>
@@ -143,8 +148,59 @@ const onPhysicalReactionsChange = (event) => {
 }
 
 const Emotions = styled.div`
+display: grid;
+grid-template-columns: repeat(3, 1fr); 
+flex-wrap: wrap;
+align-content: center;
+border: .3px solid black;
+width: 80vw;
+`
+
+const CheckboxWrap = styled.div`
+/* height: 40px; */
+/* display: grid;
+grid-template-columns: repeat(1, 1fr);
+flex-wrap: wrap;
+border: 1px solid green; */
+`
+
+const ToggleEmotions = styled.button`
+${props => {
+  if (props.toggleEmotions) {
+    return `
+    width: 100;
+    font-family: 'Cormorant Garamond', serif;
+    color: #9E4D4D;
+    font-style: italic;
+    font-size: 14px;
+    
+  `;
+  } else {
+    return `
+  display: none;
+`;
+  }
+}}
+`;
+
+
+const NegLabel = styled.label`
 display: flex;
-border: 1px solid black;
+flex-direction: column;
+align-items: center;
+font-family: 'Heebo', sans-serif;
+font-size:14px;
+padding: 2px;
+/* text-transform: uppercase; */
+/* border: 1px solid red; */
+`
+
+const PosLabel = styled(NegLabel)`
+
+`
+
+const PhysicalLabel = styled(NegLabel)`
+
 `
 
 const Reaction = styled(Emotions)`

@@ -57,6 +57,7 @@ const AddNote = () => {
 
     return (
         <MainWrapper>
+        <Wrapper>
             <div>
                 <h1>Add note</h1>
             </div>
@@ -70,6 +71,7 @@ const AddNote = () => {
                         name="title"
                         value={newNote.title}
                         onChange={onNewNoteValueChange}
+                        required={true}
                     />
 
                     <Textarea 
@@ -89,21 +91,35 @@ const AddNote = () => {
                     </Textarea>
 
                 <Checkboxes />
+                <AddBtnWrapper>
 
-                <button type="submit">Add</button>
+                <AddBtn type="submit">Add</AddBtn>
+                </AddBtnWrapper>
                 </Form>
 
             </NotesWrapper>
             <Link to="/welcome">Back</Link>
             <Link to="/">Home</Link>
+
+            </Wrapper>
         </MainWrapper>
     )
 }
 
 const MainWrapper = styled.div`
+background-image: url(./images/daycloudsportrait-css.jpg);
+background-size:110%;
+background-position: center;
+background-repeat: no-repeat;
+height: 100vh;
+
+`
+
+const Wrapper = styled.div`
 display: flex;
 flex-direction: column;
 align-items: center;
+
 `
 
 const NotesWrapper = styled.div`
@@ -144,6 +160,16 @@ border-left: none;
 border-bottom: 1px dashed gray;
 margin-bottom: 10px;
 background: none;
+font-family: 'Heebo', sans-serif;
+text-transform: uppercase;
+
+&:focus {
+    outline: none;
+}
+
+&::placeholder {
+    font-family: 'Cormorant Garamond', serif;
+}
 `
 
 const Textarea = styled.textarea`
@@ -154,6 +180,39 @@ background: none;
 border-right: none;
 border-left: none;
 border-bottom: none;
+font-family: 'Cormorant Garamond', serif;
+
+&:focus {
+    outline: none;
+}
+
+&::placeholder {
+    font-family: 'Heebo', sans-serif;
+}
+`
+
+const AddBtnWrapper = styled.div`
+display: flex;
+justify-content: center;
+`
+
+const AddBtn = styled.button`
+
+font-family: 'Cormorant Garamond', serif;
+background: none;
+border: none;
+margin: 20px 0 20px 10px;
+font-size: 16px;
+
+
+&:hover {
+font-style: italic;
+}
+
+@media (min-width: 992px) {
+  font-size: 18px;
+}
+
 `
 
 const Form = styled.form`

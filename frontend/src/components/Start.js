@@ -8,8 +8,8 @@ const Start = () => {
     <div>
     <TextWrap>
     <StartWrap>
-      <ABC>ABC/<HeadSpan>easy as</HeadSpan></ABC>
-      <CBT>CBT</CBT>
+      <ABC>CBT/<HeadSpan>easy as</HeadSpan></ABC>
+      <CBT>ABC</CBT>
       </StartWrap>
 
       <LoginWrap>
@@ -32,7 +32,7 @@ const Start = () => {
        <AboutText>
           Disclaimer: This is not created by proffessional therapists and is not made
           for proffessional use. It is created in
-          the hope of helping everyone who wants to sort their thoghts and
+          the hope of helping anyone who wants to sort their thoghts and
           emotions out in an easy and effective way.
       </AboutText>
       </AboutWrap>

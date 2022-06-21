@@ -99,14 +99,14 @@ const SignIn = () => {
   return (
     <MainWrapper>
     <ImageWrap>
-    <Image  src="./images/cloud-css.jpg" alt="forest"/>
+    <Image  src="./images/forest-css.jpg" alt="forest"/>
     </ImageWrap>
 
-      <Title>ABC /</Title>
-      <TitleSpan>CBT</TitleSpan>
+      <Title>CBT /</Title>
+      <TitleSpan>ABC</TitleSpan>
       <InputWrapper>
         <Form onSubmit={onUserSubmit}>
-          <UserLabel>Username or email</UserLabel>
+          <UserLabel>Username or Email</UserLabel>
           <UserInput
             type="text"
             placeholder="Please enter"
@@ -137,58 +137,89 @@ const SignIn = () => {
 
         </Form>
       </InputWrapper>
-      <div>
-        <Link to="/signup">Don't have an account? Sign up here</Link>
-      </div>
+      <SignUpWrapper>
+        <SignUpLink to="/signup">Don't have an account? Sign up here</SignUpLink>
+      </SignUpWrapper>
 
-      <div>
-      <Link to="/about">About</Link>
-      <Link to="/">Start</Link>
-      </div>
-      <div>
+      <LinkWrapper>
+      <DemoLink to="/demo">Demo</DemoLink>
+      <StartLink to="/">Start</StartLink>
+      </LinkWrapper>
+
+      {/* <div>
         <button>Demo</button>
-      </div>
+      </div> */}
+
     </MainWrapper>
   )
 }
 
 const MainWrapper = styled.div`
-/* background-image: url('./images/forest-css.jpg'); */
+
 display: flex;
-position: relative;
 flex-direction: column;
 justify-content: center;
 align-items: center;
+width: 100vw;
+height: 100vh;
+
+@media (min-width: 992px) {
+  background-image: url(./images/mountains-css.jpg);
+background-size: 100%;
+}
 `
 
 const ImageWrap = styled.div`
-min-width: 375px;
-min-height: 667px;
+display: flex;
+justify-content: center;
+height: 100vh;
+width: 100vw;
 object-fit: fill;
+overflow: hidden;
 position: absolute;
 z-index: -1;
 
 
+
+
 `
 const Image = styled.img`
-z-index: -1;
-width: 600px;
-filter: opacity(50%)
+
+filter: opacity(80%);
 `
 
 const Title = styled.h1`
 font-family: 'Heebo', sans-serif;
 font-weight: 200;
-margin: 20px 0 0 0;
-font-size: 70px;
-`
+margin: 0 0 0 0;
+padding: 0;
+font-size: 90px;
+position: absolute;
+top: 0;
+left: 8vw;
+letter-spacing: -6px;
 
+@media (min-width: 992px) {
+font-size: 140px;
+font-weight: 400;
+left: 30vw;
+color: #6197A8;
+letter-spacing: -11px;
+
+}
+`
 const TitleSpan = styled(Title)`
 margin: 0;
-color: yellow;
+color: #00513A;
 position: absolute;
-top: 40px;
-left: 240px;
+top: 5vh;
+left: 53vw;
+font-style: italic;
+font-weight: 300;
+
+@media (min-width: 992px) {
+left: 50vw;
+}
 `
 
 const InputWrapper = styled.div`
@@ -196,10 +227,16 @@ display: flex;
 flex-direction: column;
 justify-content: center;
 background-color: #FFFFFA;
-border: .3px solid black;
+border: .3px solid #5E5E5E;
 width: 70vw;
 height: 40vh;
 margin: 20px 0 20px 0;
+
+@media (min-width: 992px) {
+  width: 25vw;
+  height: 50vh;
+  margin-top: 75px;
+}
 `
 
 const Form = styled.form`
@@ -211,7 +248,12 @@ margin: 10px;
 
 const UserLabel = styled.label`
 font-family: 'Cormorant Garamond', serif;
-font-size: 14px;
+font-size: 16px;
+color: #212121;
+
+@media (min-width: 992px) {
+  font-size: 18px;
+}
 
 `
 
@@ -226,8 +268,20 @@ background: none;
 margin-top: 10px;
 padding-bottom: 5px;
 
+&::placeholder {
+  color: lightgrey;
+  font-style: italic;
+}
+
 &:focus {
   outline: none;
+}
+
+@media (min-width: 992px) {
+  margin-bottom: 20px;
+  font-size: 16px;
+  
+
 }
 `
 const PasswordInput = styled(UserInput)`
@@ -238,18 +292,61 @@ const SignInBtn = styled.button`
 font-family: 'Cormorant Garamond', serif;
 background: none;
 border: none;
-margin: 10px 0 0 10px;
+margin: 20px 0 0 10px;
+font-size: 16px;
 
 &:hover {
 font-style: italic;
 }
+
+@media (min-width: 992px) {
+  font-size: 18px;
+}
+`
+
+const SignUpWrapper = styled.div`
+
+`
+
+const SignUpLink = styled(Link)`
+font-family: 'Cormorant Garamond', serif;
+text-decoration: none;
+font-size: 16px;
+color: #fffffa;
+
+@media (min-width: 992px) {
+ font-size: 22px;
+}
+
+`
+
+const LinkWrapper = styled.div`
+display: flex;
+flex-direction: row;
+justify-content: space-evenly;
+position: absolute;
+z-index: 1;
+bottom: 20px;
+width: 50vw;
+
+@media (min-width: 992px) {
+  bottom: 40px;
+}
+`
+
+
+const DemoLink = styled(SignUpLink)`
+
+`
+
+const StartLink = styled(SignUpLink)`
 `
 
 const ShowPassword = styled.button`
  background: none;
   border: none;
   font-size: 16px;
-  margin: 2px 0 0 0;
+  margin: 2px 0 0 8px;
   padding: 0;
   text-decoration: none;
 `
@@ -266,6 +363,11 @@ ${props => {
     } else {
       return `
     width: 100;
+    width: 100;
+    font-family: 'Cormorant Garamond', serif;
+    color: #9E4D4D;
+    font-style: italic;
+    font-size: 14px;
     `;
     }
   }
