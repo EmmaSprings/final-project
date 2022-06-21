@@ -118,9 +118,8 @@ router.get('/notes', async (req, res) => {
 router.get('/notes/:noteId', authenticateUser)
 router.get('/notes/:noteId', async (req, res) => {
     const getNotes = await Note.findOne({ _id: req.params.noteId })
-    res.json([
-       getNotes
-    ])
+    res.json(
+      getNotes)
 })
 
 router.patch('/notes/:noteId', async (req, res) => {

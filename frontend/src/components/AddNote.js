@@ -3,18 +3,27 @@ import styled from 'styled-components/macro'
 import { Link, useNavigate } from 'react-router-dom'
 import { negativeEmotions, positiveEmotions, physicalReactions } from '../data'
 import { API_URL } from '../urls/api'
-import Checkboxes from './Checkboxes'
+
+import CheckBoxes from './CheckBoxes'
 
 const AddNote = () => {
-    const navigate = useNavigate()
     const accessToken = sessionStorage.getItem("accessToken")
-    const consequences = JSON.parse(sessionStorage.getItem("CheckBoxesData"))
+
+    const [consequences, setConsequences] = useState({
+        negativeEmotions: [],
+        positiveEmotions: [],
+        physicalReactions: []
+    })
+
     console.log(consequences)
+
     const [newNote, setNewNote] = useState({
         title: "",
         activatingEvent: "",
         automatingThoughts: "",
     })
+
+    const navigate = useNavigate()
 
       const onNewNoteValueChange = (event) => {
         const { name, value } = event.target
@@ -25,7 +34,6 @@ const AddNote = () => {
           }
         })
       }
-
       
     useEffect(() => {
         if (!accessToken) {
@@ -34,7 +42,7 @@ const AddNote = () => {
     }, [])
 
  const onNoteSubmit = () => {   
-    const consequences = JSON.parse(sessionStorage.getItem("CheckBoxesData"))
+
     const options = {
         method: "POST",
         headers: {
@@ -53,7 +61,6 @@ const AddNote = () => {
             .then(res => res.json())
             navigate("/diary")
  }
-
 
     return (
         <MainWrapper>
@@ -90,9 +97,8 @@ const AddNote = () => {
                     >
                     </Textarea>
 
-                <Checkboxes />
+                <CheckBoxes consequences={consequences} setConsequences={setConsequences} />
                 <AddBtnWrapper>
-
                 <AddBtn type="submit">Add</AddBtn>
                 </AddBtnWrapper>
                 </Form>

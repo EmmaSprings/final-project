@@ -2,18 +2,17 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components/macro'
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import { GET_NOTE } from '../urls/api'
-import Checkboxes from './Checkboxes'
+import { negativeEmotions, positiveEmotions, physicalReactions } from '../data'
 // import pen from './icons/pen.png'
 
 const Note = () => {
   const accessToken = sessionStorage.getItem("accessToken")
-  const consequences = sessionStorage.getItem("CheckBoxesData")
   const navigate = useNavigate()
-  const [notes, setNotes] = useState([])
+  const [note, setNote] = useState({})
   const [editTitle, setEditTitle] = useState(null)
   const [editActivatingEvent, setEditActivatingEvent] = useState(null)
   const [editAutomatingThought, setEditAutomatingThought] = useState(null)
-  
+  const [editConsequences, setEditConsequences] = useState(null)
 
   const { noteId } = useParams()
 
@@ -28,180 +27,342 @@ const Note = () => {
     headers: { Authorization: accessToken }
   }
 
-  useEffect(() => {
+  const fetchNote = () => {
     fetch(GET_NOTE(noteId), options)
-      .then(res => res.json())
-      .then(data => setNotes(data))
+    .then(res => res.json())
+    .then(data => setNote(data))
+  }
+
+
+  useEffect(() => {
+    fetchNote()
   }, [])
-  console.log(notes)
+
+
+  console.log(note)
+  console.log(editConsequences)
+
+  const onPositiveEmotionsEdit = (event) => {
+    const { value, checked } = event.target
+    const { positiveEmotions } = editConsequences
+    if (checked) {
+      setEditConsequences((prev) => ({
+        ...prev,
+        positiveEmotions: [...positiveEmotions, value]
+      }))
+    }
+    else {
+      setEditConsequences((prev => ({
+        ...prev,
+        positiveEmotions: positiveEmotions.filter((e) => e !== value)
+      })))
+    }
+  }
+
+  const onNegativeEmotionsEdit = (event) => {
+    const { value, checked } = event.target
+    const { negativeEmotions } = editConsequences
+    if (checked) {
+      setEditConsequences((prev) => ({
+        ...prev,
+        negativeEmotions : [...negativeEmotions, value]
+      }))
+    }
+    else {
+      setEditConsequences((prev => ({
+        ...prev,
+        negativeEmotions: negativeEmotions.filter((e) => e !== value)
+      })))
+    }
+  }
+
+  const onPhysicalReactionsEdit = (event) => {
+    const { value, checked } = event.target
+    const { physicalReactions } = editConsequences
+    if (checked) {
+      setEditConsequences((prev) => ({
+        ...prev,
+        physicalReactions : [...physicalReactions, value]
+      }))
+    }
+    else {
+      setEditConsequences((prev => ({
+        ...prev,
+        physicalReactions: physicalReactions.filter((e) => e !== value)
+      })))
+    }
+  }
+
+
+
 
   const onEditNoteSubmit = (event) => {
 
     event.preventDefault()
-
+    setEditTitle(null)
+    setEditAutomatingThought(null)
+    setEditActivatingEvent(null)
+    setEditConsequences(null)
     const options = {
       method: "PATCH",
       headers: {
-          "Authorization": accessToken,
-          'Content-Type': 'application/json'
+        "Authorization": accessToken,
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        title: editTitle,
-        activatingEvent: editActivatingEvent,
-        automatingThoughts: editAutomatingThought,
-        // consequences: consequences
-      })
     }
 
-      fetch(GET_NOTE(noteId), options)
+    const body = {
+      title: editTitle,
+      activatingEvent: editActivatingEvent,
+      automatingThoughts: editAutomatingThought,
+      consequences: editConsequences
+    }
+    if (editTitle !== null) {
+      body.title = editTitle
+    } else {
+      body.title = note.title
+    }
+    if (editActivatingEvent !== null) {
+      body.activatingEvent = editActivatingEvent
+    } else {
+      body.activatingEvent = note.activatingEvent
+    }
+    if (editAutomatingThought !== null) {
+      body.automatingThoughts = editAutomatingThought
+    } else {
+      body.automatingThoughts = note.automatingThought
+    }
+
+    if (editConsequences !== null) {
+      body.consequences = editConsequences
+    } else {
+      body.consequences = note.consequences
+    }
+
+
+    options.body = JSON.stringify(body)
+
+
+
+    fetch(GET_NOTE(noteId), options)
       .then(res => res.json())
-      .then(data => setNotes(data))
+      .then(() => fetchNote())
 
   }
 
   const deleteNote = () => {
 
-    fetch(GET_NOTE(noteId), {method: "DELETE"})
-    .then(res => res.json())
-    .then(data => setNotes(data))
-    
+    fetch(GET_NOTE(noteId), { method: "DELETE" })
+      .then(res => res.json())
+      .then(data => setNote(data))
+
     navigate("/diary")
   }
-
 
   return (
     <MainWrapper>
       <div>
         <h1>My note</h1>
       </div>
-
-      {notes.map(note => {
-
-        return (
-          
           <NotesWrapper>
-            {!!editTitle ?  
-            <div>
-                    <form htmlFor="title" onSubmit={onEditNoteSubmit} >
-                        <TitleInput
-                        type="text"
-                        maxLength={25}
-                        name="title"
-                        value={editTitle.title}
-                        onChange={(event) => setEditTitle(event.target.value)}  
-                    /> 
-                    <button type="submit" onClick={()=> setEditTitle(null)}>Submit</button>
-                    <button type="button" onClick={()=> setEditTitle(null)}>Cancel</button>
-                    </form> 
+            {!!editTitle ?
+              <div>
+                <TitleInput
+                  type="text"
+                  maxLength={25}
+                  name="title"
+                  value={editTitle.title}
+                  onChange={(event) => setEditTitle(event.target.value)}
+                />
+                <button type="submit" onClick={onEditNoteSubmit}>Submit</button>
+                <button type="button" onClick={() => setEditTitle(null)}>Cancel</button>
+              </div>
+              :
+
+              <div>
+                <p>{note.title}
+                  <EditBtn type="button" onClick={() => setEditTitle(note)}>
+                    <Icon role="img" src="/icons/pen.png" alt="pen" />
+                  </EditBtn></p>
+              </div>
+             } 
+
+            {!!editActivatingEvent ?
+              <div>
+                <Textarea
+                  name="activatingEvent"
+                  value={editActivatingEvent.activatingEvent}
+                  onChange={(event) => setEditActivatingEvent(event.target.value)}
+                >
+                </Textarea>
+                <button type="submit" onClick={onEditNoteSubmit}>Submit</button>
+                <button type="button" onClick={() => setEditActivatingEvent(null)}>Cancel</button>
+              </div>
+              :
+              <div>
+                <p>Activating event: {note.activatingEvent}
+                  <EditBtn type="button" onClick={() => setEditActivatingEvent(note)}>
+                    <Icon role="img" src="/icons/pen.png" alt="pen" />
+                  </EditBtn></p>
+              </div>
+            }
+
+            {!!editAutomatingThought ?
+              <>
+                <Textarea
+                  placeholder="Beliefs"
+                  name="automatingThoughts"
+                  value={editAutomatingThought.automatingThoughts}
+                  onChange={(event) => setEditAutomatingThought(event.target.value)}
+                >
+                </Textarea>
+                <button type="submit" onClick={onEditNoteSubmit}>Submit</button>
+                <button type="button" onClick={() => setEditAutomatingThought(null)}>Cancel</button>
+              </>
+              :
+              <div>
+                <p>Automating thoughts: {note.automatingThoughts}
+                  <EditBtn type="button" onClick={() => setEditAutomatingThought(note)}>
+                    <Icon role="img" src="/icons/pen.png" alt="pen" />
+                  </EditBtn></p>
+              </div>
+            } 
+
+
+            {!!editConsequences ?
+              <>
+                <h3>Emotions and reactions     <EditBtn type="button" onClick={() => setEditConsequences(note.consequences)}>
+                  <Icon role="img" src="/icons/pen.png" alt="pen" />
+                </EditBtn></h3>
+                <EmotionInput>{negativeEmotions.map((item) => {
+                  return (
+                    <div className="wrapper" key={item.id}>
+                      <label htmlFor={item.emotion}>          </label>
+                      {item.emotion}
+                      <input
+                        type="checkbox"
+                        name="negativeEmotions"
+                        value={item.emotion}
+                        defaultChecked={editConsequences.negativeEmotions.includes(item.emotion)}
+                      onChange={onNegativeEmotionsEdit}
+                      />
                     </div>
-                    :
-                  
-                    <div>
-                    <p>{note.title}
-                    <EditBtn type="button" onClick={() => setEditTitle(note)}>
-                    <Icon role="img" src="/icons/pen.png" alt="pen" /> 
-                    </EditBtn></p>
-                    </div>}
+                  );
+                })}
+                </EmotionInput>
 
-             {!!editActivatingEvent?
-             <div>
-              <form  htmlFor="activatingEvent" onSubmit={onEditNoteSubmit}>
-                    <Textarea 
-                    name="activatingEvent"
-                    value={editActivatingEvent.activatingEvent}
-                    onChange={(event) => setEditActivatingEvent(event.target.value)}
-                    >
-                      </Textarea>
-                     <button type="submit" onClick={()=> setEditActivatingEvent(null)}>Submit</button>
-                     <button type="button" onClick={()=> setEditActivatingEvent(null)}>Cancel</button>
-                     </form>
+                <EmotionInput>
+                  {positiveEmotions.map((item) => {
+                    return (
+                      <div className="wrapper" key={item.id}>
+                        <label htmlFor={item.emotion}>        </label>
+                        {item.emotion}
+                        <input
+                          type="checkbox"
+                          name="positiveEmotions"
+                          value={item.emotion}
+                          defaultChecked={editConsequences.positiveEmotions.includes(item.emotion)}
+                          onChange={onPositiveEmotionsEdit}
+                        />
+
+                      </div>
+                    );
+                  })}   </EmotionInput>
+
+                <EmotionInput>
+                  {physicalReactions.map((item) => {
+                    return (
+                      <div className="wrapper" key={item.id}>
+                        <label htmlFor={item.emotion}>    </label>
+                        {item.reaction}
+                        <input
+                          type="checkbox"
+                          name="physicalReactions"
+                          value={item.reaction}
+                          defaultChecked={editConsequences.physicalReactions.includes(item.reaction)}
+                        onChange={onPhysicalReactionsEdit}
+                        />
+
+                      </div>
+                    );
+                  })}</EmotionInput>
+                <button type="button" onClick={() => setEditConsequences(null)}>Cancel edit</button>
+                <button type="submit" onClick={onEditNoteSubmit}>Submit</button>
+              </>
+
+              :
+
+              <>
+                <h3>Emotions and reactions     <EditBtn type="button" onClick={() => setEditConsequences(note.consequences)}>
+                  <Icon role="img" src="/icons/pen.png" alt="pen" />
+                </EditBtn></h3>
+                <EmotionInput>{negativeEmotions.map((item) => {
+                  return (
+                    <div className="wrapper" key={item.id}>
+                      <label htmlFor="negativeEmotions">
+                        {item.emotion}
+                        <input
+                          type="checkbox"
+                          name="negativeEmotions"
+                          value={item.emotion}
+                          checked={note?.consequences?.negativeEmotions.includes(item.emotion)}
+                        />
+                      </label>
                     </div>
-                     :
-                         <div>
-                         <p>Activating event: {note.activatingEvent}
-                         <EditBtn type="button" onClick={() => setEditActivatingEvent(note)}>
-                         <Icon role="img" src="/icons/pen.png" alt="pen" /> 
-                         </EditBtn></p>
-                         </div>
-             }       
+                  );
+                })}
+                </EmotionInput>
+                <EmotionInput>
+                  {positiveEmotions.map((item) => {
+                    return (
+                      <div className="wrapper" key={item.id}>
+                        <label htmlFor="positiveEmotions">
+                          {item.emotion}
+                          <input
+                            type="checkbox"
+                            name="positiveEmotions"
+                            value={item.emotion}
+                            checked={note?.consequences?.positiveEmotions.includes(item.emotion)}
+                          />
+                        </label>
+                      </div>
+                    );
+                  })}   </EmotionInput>
+                <EmotionInput>
+                  {physicalReactions.map((item) => {
+                    return (
+                      <div className="wrapper" key={item.id}>
+                        <label htmlFor="physicalReactions">
+                          {item.reaction}
+                          <input
+                            type="checkbox"
+                            name="physicalReactions"
+                            value={item.reaction}
+                            checked={note?.consequences?.physicalReactions.includes(item.reaction)}
+                          />
+                        </label>
+                      </div>
+                    );
+                  })}</EmotionInput>
+              </>
+            }
 
-             {!!editAutomatingThought ? 
-             
-             <form htmlFor="automatingThoughts" onSubmit={onEditNoteSubmit}>
-             <Textarea 
-                    placeholder="Beliefs" 
-                    name="automatingThoughts"
-                    value={editAutomatingThought.automatingThoughts}
-                    onChange={(event) => setEditAutomatingThought(event.target.value)} 
-                    >
-            </Textarea>
-            <button type="submit" onClick={()=> setEditAutomatingThought(null)}>Submit</button>
-                    </form> 
-                    :             
-             <div>
-            <p>Automating thoughts: {note.automatingThoughts}
-            <EditBtn type="button" onClick={() => setEditAutomatingThought(note)}>
-            <Icon role="img" src="/icons/pen.png" alt="pen" /> 
-            </EditBtn></p>
-            </div>}
-            <Checkboxes checkedData={consequences} />
-          
-
-{/* 
-            <div>
-            {note.consequences.positiveEmotions.length > 0 ? 
-            <p>Positive emotions: <>{note.consequences.positiveEmotions}
-            <EditBtn type="button">
-            <Icon role="img" src="/icons/pen.png" alt="pen" /> 
-            </EditBtn></></p> 
-            : null }
-            </div>
-
-            <div>
-            {note.consequences.negativeEmotions.length > 0 ? 
-            <p>Negative emotions: <>{note.consequences.negativeEmotions}
-            <EditBtn type="button">
-            <Icon role="img" src="/icons/pen.png" alt="pen" /> 
-            </EditBtn></></p> 
-            : null }
-            </div>
-
-            <div>
-            {note.consequences.physicalReactions.length > 0 ? 
-            <p>Physical reactions: <>{note.consequences.physicalReactions}
-            <EditBtn type="button">
-            <Icon role="img" src="/icons/pen.png" alt="pen" /> 
-            </EditBtn></></p> 
-            : null }
-            </div> */}
-
-          <DeleteBtn type="submit" onClick={() => {deleteNote(note._id)}}>Delete</DeleteBtn>
+            <DeleteBtn type="submit" onClick={() => { deleteNote(note._id) }}>Delete</DeleteBtn>
           </NotesWrapper>
-         
-        )
-      })}
 
-            {/* <div>
-            <EditBtn>
-            <Icon role="img" src="/icons/pen.png" alt="pen" /> 
-            </EditBtn>
-            </div> */}
-      {/* <NotesWrapper>
-        <h4>hello `${username}`</h4>
-            <p>T {title}</p>
-            <Event><p>A {activatingEvent}</p></Event>
-            <Thought><p>B {beliefs}</p></Thought>
-            <Emotions>Emotions</Emotions>
-        </NotesWrapper> */}
-
-        <Link to="/diary">Diary</Link>
+      <Link to="/diary">Diary</Link>
       <Link to="/welcome">Profile</Link>
-      <Link to="/">Home</Link>
+      <Link to="/">Home</Link> 
 
     </MainWrapper>
   )
 }
 
+
+const EmotionInput = styled.div`
+display: flex;
+border: 1px solid black;
+`
 
 const TitleInput = styled.input`
 width: 80vw;

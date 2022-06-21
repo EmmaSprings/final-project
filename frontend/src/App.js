@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+
 import styled from 'styled-components'
 
 import AddNote from './components/AddNote';
@@ -15,8 +16,7 @@ import Demo from './components/Demo';
 
 
 
-function App() {
-
+const App = () => {
   return (
     <BrowserRouter>
     <Main>
@@ -31,23 +31,9 @@ function App() {
       <Route path="/success" element={<SignUpSuccess />}/>
       <Route path="/welcome" element={<Welcome />}/>
       <Route path="/demo" element={<Demo />}/>
-    
-
-
-      
-
-
-
-
-
-      
-
-
-
     </Routes>
     </Main>
     </BrowserRouter>
-   
   );
 }
 
