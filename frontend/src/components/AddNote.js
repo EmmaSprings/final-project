@@ -65,9 +65,9 @@ const AddNote = () => {
     return (
         <MainWrapper>
         <Wrapper>
-            <div>
-                <h1>Add note</h1>
-            </div>
+        <TitleWrapper>
+        <Title>My note</Title>
+      </TitleWrapper>
 
             <NotesWrapper>
                 <Form onSubmit={onNoteSubmit}>
@@ -104,8 +104,10 @@ const AddNote = () => {
                 </Form>
 
             </NotesWrapper>
-            <Link to="/welcome">Back</Link>
-            <Link to="/">Home</Link>
+            <LinkWrapper>
+      <LinkBack to="/welcome">Back</LinkBack>
+      <LinkHome to="/">Home</LinkHome>
+      </LinkWrapper>
 
             </Wrapper>
         </MainWrapper>
@@ -128,6 +130,18 @@ align-items: center;
 
 `
 
+const TitleWrapper = styled.div`
+
+`
+
+const Title = styled.h1`
+font-family: 'Cormorant Garamond', serif;
+/* text-transform: uppercase; */
+font-size: 50px;
+font-weight: 400;
+margin: 10px 0 10px 0;
+`
+
 const NotesWrapper = styled.div`
 display: flex;
 flex-direction: column;
@@ -144,34 +158,30 @@ const Reaction = styled(Emotions)`
 
 
 
-const EmoBtn = styled.button`
-width: 60px;
-height: 60px;
-background-color: paleturquoise;
-border-radius: 50%;
-border:none;
-margin: 3px;
-cursor: pointer;
-`
-const ReactionBtn = styled(EmoBtn)`
-background-color: palevioletred;
-`
+// const EmoBtn = styled.button`
+// width: 60px;
+// height: 60px;
+// background-color: paleturquoise;
+// border-radius: 50%;
+// border:none;
+// margin: 3px;
+// cursor: pointer;
+// `
+// const ReactionBtn = styled(EmoBtn)`
+// background-color: palevioletred;
+// `
 
-const GoodBtn = styled(EmoBtn)`
-background-color: palegreen;`
+// const GoodBtn = styled(EmoBtn)`
+// background-color: palegreen;`
 
 const TitleInput = styled.input`
 width: 80vw;
-/* border-top: none;
-border-right:none;
-border-left: none; */
-/* border-bottom: 1px dashed gray; */
+font-family: 'Cormorant Garamond', serif;
 border: none;
 margin-bottom: 10px;
-/* background: none; */
 background-color: #fffffa;
 font-family: 'Heebo', sans-serif;
-text-transform: uppercase;
+/* text-transform: uppercase; */
 
 &:focus {
     outline: none;
@@ -187,9 +197,7 @@ resize: none;
 height: 20vh;
 width: 80vw;
 background: none;
-border-right: none;
-border-left: none;
-border-bottom: none;
+border:none;
 font-family: 'Cormorant Garamond', serif;
 background-color: #fffffa;
 
@@ -227,6 +235,34 @@ font-style: italic;
 `
 
 const Form = styled.form`
+`
+
+const LinkWrapper = styled.div`
+display: flex;
+flex-direction: row;
+justify-content: space-evenly;
+position: absolute;
+z-index: 1;
+bottom: 20px;
+width: 50vw;
+
+@media (min-width: 992px) {
+  bottom: 40px;
+}
+`
+
+const LinkBack = styled(Link)`
+font-family: 'Cormorant Garamond', serif;
+text-decoration: none;
+font-size: 16px;
+color: #000;
+
+@media (min-width: 992px) {
+ font-size: 22px;
+}
+`
+
+const LinkHome = styled(LinkBack)`
 `
 
 export default AddNote

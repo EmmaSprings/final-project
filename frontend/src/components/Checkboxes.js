@@ -65,63 +65,68 @@ const CheckBoxes = ({ consequences, setConsequences }) => {
     };
 
     return (
-        <div>
-      
-            <button type="button" onClick={() => setIsOpenNeg((s) => !s)}>Negative Emotions</button>
+        <EmotionsWrapper>
+      <AllEmotions>
+            <NegSelectionsBtn type="button" onClick={() => setIsOpenNeg((s) => !s)}>Add Negative Emotions</NegSelectionsBtn>
             <NegEmotions isOpenNeg={isOpenNeg}>
                 {negativeEmotions.map(negEmo => {
                     return (
-                        <div key={negEmo.id}>
-                            <label htmlFor={negEmo.emotion}>  {negEmo.emotion}
+                        <StyleBoxes key={negEmo.id}>
+                            <NegLabel htmlFor={negEmo.emotion}>  {negEmo.emotion}
                                 <input
                                     type="checkbox"
                                     name="negativeEmotions"
                                     onChange={onNegativeEmotionsChange}
                                     value={negEmo.emotion}
                                 />
-                            </label>
+                            </NegLabel>
 
-                        </div>
+                        </StyleBoxes>
                     )
                 })}
             </NegEmotions>
+            </AllEmotions>
 
-            <button type="button" onClick={() => setIsOpenPos((s) => !s)}>Positive Emotions</button>
+            <AllEmotions>
+            <PosSelectionBtn type="button" onClick={() => setIsOpenPos((s) => !s)}>Add Positive Emotions</PosSelectionBtn>
             <PosEmotions isOpenPos={isOpenPos}>
                 {positiveEmotions.map(posEmo => {
                     return (
-                        <div key={posEmo.id}>
-                            <label htmlFor={posEmo.emotion}> {posEmo.emotion}
+                        <StyleBoxes key={posEmo.id}>
+                            <PosLabel htmlFor={posEmo.emotion}> {posEmo.emotion}
                                 <input
                                     name="positiveEmotions"
                                     type="checkbox"
                                     onChange={onPositiveEmotionsChange}
                                     value={posEmo.emotion}
                                 />
-                            </label>
-                        </div>
+                            </PosLabel>
+                        </StyleBoxes>
                     )
                 })}
             </PosEmotions>
+           </AllEmotions>
 
-            <button type="button" onClick={() => setIsOpenReactions((s) => !s)}>Physical Reactions</button>
+           <AllEmotions>
+            <ReactionSelectionBtn type="button" onClick={() => setIsOpenReactions((s) => !s)}>Add Physical Reactions</ReactionSelectionBtn>
             <Reactions isOpenReactions={isOpenReactions}>
                 {physicalReactions.map(reaction => {
                     return (
-                        <div key={reaction.id}>
-                            <label htmlFor={reaction.reaction}>{reaction.reaction}
+                        <StyleBoxes key={reaction.id}>
+                            <PhysicalLabel htmlFor={reaction.reaction}>{reaction.reaction}
                                 <input
                                     type="checkbox"
                                     name="physicalReactions"
                                     onChange={onPhysicalReactionsChange}
                                     value={reaction.reaction}
                                 />
-                            </label>
-                        </div>
+                            </PhysicalLabel>
+                        </StyleBoxes>
                     )
                 })}
             </Reactions>
-        </div>
+            </AllEmotions>
+        </EmotionsWrapper>
     )
 }
 
@@ -134,6 +139,23 @@ const CheckBoxes = ({ consequences, setConsequences }) => {
 // width: 80vw;
 // `
 
+const EmotionsWrapper = styled.div`
+display: flex;
+flex-direction: column;
+/* align-content: center; */
+
+`
+
+const AllEmotions = styled.div`
+display: flex;
+flex-direction: column;
+margin-top: 10px;
+`
+
+const StyleBoxes = styled.div`
+margin:5px;
+
+`
 
 
 const NegEmotions = styled.div`
@@ -146,6 +168,9 @@ flex-wrap: wrap;
 align-content: center;
 border: .3px solid black;
 width: 80vw;
+min-height: 30vh;
+
+background-color: #fffffa;
     
   `;
         } else {
@@ -166,6 +191,7 @@ flex-wrap: wrap;
 align-content: center;
 border: .3px solid black;
 width: 80vw;
+background-color: #fffffa;
     
   `;
         } else {
@@ -186,6 +212,7 @@ flex-wrap: wrap;
 align-content: center;
 border: .3px solid black;
 width: 80vw;
+background-color: #fffffa;
     
   `;
         } else {
@@ -195,6 +222,18 @@ width: 80vw;
         }
     }}
     `
+
+    const NegSelectionsBtn = styled.button`
+    background: none;
+    border:none;
+    `
+
+    const PosSelectionBtn = styled(NegSelectionsBtn)`
+    `
+    const ReactionSelectionBtn = styled(NegSelectionsBtn)`
+    `
+
+
 const CheckboxWrap = styled.div`
 /* height: 40px; */
 /* display: grid;
@@ -207,9 +246,10 @@ border: 1px solid green; */
 
 const NegLabel = styled.label`
 display: flex;
-flex-direction: column;
+flex-direction: row;
 align-items: center;
-font-family: 'Heebo', sans-serif;
+/* font-family: 'Heebo', sans-serif; */
+font-family: 'Cormorant Garamond', serif;
 font-size:14px;
 padding: 2px;
 /* text-transform: uppercase; */
