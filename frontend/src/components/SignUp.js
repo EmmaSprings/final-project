@@ -113,7 +113,7 @@ const SignUp = () => {
           <Validation isDuplicate={isDuplicate}>
             <p>
               The username or email has already been taken.
-              Please use different username or information.
+              Please use a different username or information.
             </p>
           </Validation>
           
@@ -180,6 +180,12 @@ top: 0;
 left: 8vw;
 letter-spacing: -6px;
 
+@media (min-width: 768px) {
+font-size: 150px;
+left: 14vw;
+color: #fffffa;
+}
+
 @media (min-width: 992px) {
 font-size: 140px;
 font-weight: 400;
@@ -203,10 +209,6 @@ left: 50vw;
 }
 `
 
-// const Title = styled.h1`
-//   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-// `;
-
 const InputWrapper = styled.div`
 display: flex;
 flex-direction: column;
@@ -216,6 +218,11 @@ border: .3px solid #5E5E5E;
 width: 70vw;
 min-height: 50vh;
 margin: 120px 0 20px 0;
+
+@media (min-width: 768px) {
+  width: 50vw;
+margin-top: 240px;
+}
 
 @media (min-width: 992px) {
   width: 25vw;
@@ -293,9 +300,6 @@ color: #707070;
 font-size: 16px;
 margin: 20px 0 0 0;
 
-/* &:active {
-  font-style: italic;
-} */
 `
 
 const TermsTextInfo = styled(TermsText)`
@@ -368,6 +372,10 @@ font-family: 'Cormorant Garamond', serif;
 text-decoration: none;
 color: black;
 background-color: #fffffa;
+
+@media (min-width: 768px) {
+font-size: 22px;   
+}
 `
 
 const LinkHome = styled(LinkSignIn)`

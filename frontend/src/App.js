@@ -14,6 +14,9 @@ import Welcome from './components/Welcome';
 import Start from './components/Start';
 import Demo from './components/Demo';
 
+
+
+
 const App = () => {
   return (
     <BrowserRouter>
@@ -29,6 +32,7 @@ const App = () => {
       <Route path="/success" element={<SignUpSuccess />}/>
       <Route path="/welcome" element={<Welcome />}/>
       <Route path="/demo" element={<Demo />}/>
+  
     </Routes>
     </Main>
     </BrowserRouter>

@@ -72,55 +72,56 @@ const AddNote = () => {
 
     return (
         <MainWrapper>
-            <Wrapper>
-                <div>
-                    <h1>Add note</h1>
-                </div>
+        <Wrapper>
+        <TitleWrapper>
+        <Title>My note</Title>
+      </TitleWrapper>
 
-                <NotesWrapper>
-                    <Form onSubmit={onNoteSubmit}>
+            <NotesWrapper>
+                <Form onSubmit={onNoteSubmit}>
+                    <TitleInput
+                        type="text"
+                        placeholder="Title"
+                        maxLength={25}
+                        name="title"
+                        value={newNote.title}
+                        onChange={onNewNoteValueChange}
+                        required={true}
+                    />
 
-                        <TitleInput
-                            type="text"
-                            placeholder="Title"
-                            maxLength={25}
-                            name="title"
-                            value={newNote.title}
-                            onChange={onNewNoteValueChange}
-                            required={true}
-                        />
-            
-                        <DatePicker 
+
+                       <DatePicker 
                         selected={dateInput}
                         onChange={(date) => setDateInput(date)}
 
                         />
+                    <Textarea 
+                    placeholder="Activating event - describe what you were doing and/or where your were at or going to do" 
+                    name="activatingEvent"
+                    value={newNote.activatingEvent}
+                    onChange={onNewNoteValueChange}
+                    >
 
-                        <Textarea
-                            placeholder="Activating event"
-                            name="activatingEvent"
-                            value={newNote.activatingEvent}
-                            onChange={onNewNoteValueChange}
-                        >
+                    </Textarea>
+                    <Textarea 
+                    placeholder="Beliefs - describe the thoughts it gave you, irrational and/or rational" 
+                    name="automatingThoughts"
+                    value={newNote.automatingThoughts}
+                    onChange={onNewNoteValueChange}
+                    >
+                    </Textarea>
 
-                        </Textarea>
-                        <Textarea
-                            placeholder="Beliefs"
-                            name="automatingThoughts"
-                            value={newNote.automatingThoughts}
-                            onChange={onNewNoteValueChange}
-                        >
-                        </Textarea>
+                <Checkboxes consequences={consequences} setConsequences={setConsequences} />
+                <AddBtnWrapper>
+                <AddBtn type="submit">Add</AddBtn>
+                </AddBtnWrapper>
+                </Form>
 
-                        <Checkboxes consequences={consequences} setConsequences={setConsequences} />
-                        <AddBtnWrapper>
-                            <AddBtn type="submit">Add</AddBtn>
-                        </AddBtnWrapper>
-                    </Form>
-
-                </NotesWrapper>
-                <Link to="/welcome">Back</Link>
-                <Link to="/">Home</Link>
+            </NotesWrapper>
+            <LinkWrapper>
+      <LinkBack to="/welcome">Profile</LinkBack>
+      <LinkHome to="/diary">Diary</LinkHome>
+      </LinkWrapper>
 
             </Wrapper>
         </MainWrapper>
@@ -129,10 +130,10 @@ const AddNote = () => {
 
 const MainWrapper = styled.div`
 background-image: url(./images/daycloudsportrait-css.jpg);
-background-size:110%;
+background-size:200%;
 background-position: center;
 background-repeat: no-repeat;
-height: 100vh;
+min-height: 100vh;
 
 `
 
@@ -141,12 +142,40 @@ display: flex;
 flex-direction: column;
 align-items: center;
 
+
+`
+
+const TitleWrapper = styled.div`
+
+`
+
+const Title = styled.h1`
+font-family: 'Cormorant Garamond', serif;
+text-transform: uppercase;
+font-style: italic;
+font-size: 50px;
+font-weight: 300;
+margin: 10px 0 10px 0;
+color: #154B5B;
+
+@media (min-width:992px) {
+    font-size: 50px;
+
+}
 `
 
 const NotesWrapper = styled.div`
 display: flex;
 flex-direction: column;
 width: 80vw;
+align-items: center;
+min-height: calc(94vh - 70px);
+
+
+@media (min-width: 992px) {
+ 
+   
+}
 `
 
 const Emotions = styled.div`
@@ -154,39 +183,16 @@ display: flex;
 border: 1px solid black;
 `
 
-const Reaction = styled(Emotions)`
-`
-
-
-
-const EmoBtn = styled.button`
-width: 60px;
-height: 60px;
-background-color: paleturquoise;
-border-radius: 50%;
-border:none;
-margin: 3px;
-cursor: pointer;
-`
-const ReactionBtn = styled(EmoBtn)`
-background-color: palevioletred;
-`
-
-const GoodBtn = styled(EmoBtn)`
-background-color: palegreen;`
 
 const TitleInput = styled.input`
 width: 80vw;
-/* border-top: none;
-border-right:none;
-border-left: none; */
-/* border-bottom: 1px dashed gray; */
+font-family: 'Cormorant Garamond', serif;
 border: none;
-margin-bottom: 10px;
-/* background: none; */
+margin-bottom: 3.5px;
 background-color: #fffffa;
-font-family: 'Heebo', sans-serif;
+padding-left: 5px;
 text-transform: uppercase;
+
 
 &:focus {
     outline: none;
@@ -194,6 +200,26 @@ text-transform: uppercase;
 
 &::placeholder {
     font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+}
+
+@media (min-width: 768px) {
+    width: 70vw;
+    height: 3vh;
+    
+    &::placeholder {
+   font-size: 20px;
+}
+}
+
+@media (min-width: 992px) {
+    width: 40vw;
+    height: 5vh;
+    align-content: center;
+
+    &::placeholder {
+   font-size: 18px;
+}
 }
 `
 
@@ -202,11 +228,11 @@ resize: none;
 height: 20vh;
 width: 80vw;
 background: none;
-border-right: none;
-border-left: none;
-border-bottom: none;
+border:none;
 font-family: 'Cormorant Garamond', serif;
 background-color: #fffffa;
+padding-left: 5px;
+margin-bottom: 5px;
 
 &:focus {
     outline: none;
@@ -214,6 +240,26 @@ background-color: #fffffa;
 
 &::placeholder {
     font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+}
+
+@media (min-width: 768px) {
+    width: 70vw;
+    height: 25vh;
+
+    &::placeholder {
+   font-size: 20px;
+}
+}
+
+@media (min-width: 992px) {
+    width: 40vw;
+    height: 25vh;
+    
+    &::placeholder {
+   font-size: 18px;
+}
+    
 }
 `
 
@@ -227,21 +273,57 @@ const AddBtn = styled.button`
 font-family: 'Cormorant Garamond', serif;
 background: none;
 border: none;
-margin: 20px 0 20px 10px;
-font-size: 16px;
+margin: 60px 0 100px 10px;
+font-size: 20px;
+cursor: pointer;
 
 
 &:hover {
 font-style: italic;
 }
 
+@media (min-width: 768px) {
+font-size:22px;
+}
 @media (min-width: 992px) {
-  font-size: 18px;
+  font-size: 22px;
 }
 
 `
 
 const Form = styled.form`
+display: flex;
+flex-direction: column;
+`
+
+const LinkWrapper = styled.footer`
+display: inline-flex;
+flex-direction: row;
+justify-content: space-evenly;
+position: sticky;
+background-color: #fffffa;
+z-index: 1;
+padding: 10px;
+width: 100vw;
+bottom: 10px;
+
+@media (min-width: 992px) {
+  bottom: 40px;
+}
+`
+
+const LinkBack = styled(Link)`
+font-family: 'Cormorant Garamond', serif;
+text-decoration: none;
+font-size: 20px;
+color: #000;
+
+@media (min-width: 768px) {
+ font-size: 22px;
+}
+`
+
+const LinkHome = styled(LinkBack)`
 `
 
 export default AddNote

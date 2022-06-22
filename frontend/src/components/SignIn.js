@@ -102,8 +102,8 @@ const SignIn = () => {
     <Image  src="./images/forest-css.jpg" alt="forest"/>
     </ImageWrap> */}
     <Wrapper>
-      <Title>CBT /</Title>
-      <TitleSpan>ABC</TitleSpan>
+      <CBT>CBT/</CBT>
+      <ABC>ABC</ABC>
       <InputWrapper>
         <Form onSubmit={onUserSubmit}>
           <UserLabel>Username or Email</UserLabel>
@@ -160,6 +160,12 @@ background-position: center;
 background-repeat: no-repeat;
 height: 100vh;
 
+@media (min-width: 768px) {
+background-image: url(./images/forest-css.jpg);
+background-size: 100%;
+
+}
+
 @media (min-width: 992px) {
   background-image: url(./images/mountains-css.jpg);
 background-size: 100%;
@@ -173,23 +179,8 @@ align-items: center;
 
 `
 
-// const ImageWrap = styled.div`
-// display: flex;
-// justify-content: center;
-// height: 100vh;
-// width: 100vw;
-// object-fit: fill;
-// overflow: hidden;
-// position: absolute;
-// z-index: -1;
 
-// `
-// const Image = styled.img`
-
-// filter: opacity(80%);
-// `
-
-const Title = styled.h1`
+const CBT = styled.h1`
 font-family: 'Heebo', sans-serif;
 font-weight: 200;
 margin: 0 0 0 0;
@@ -200,26 +191,40 @@ top: 0;
 left: 8vw;
 letter-spacing: -6px;
 
+@media (min-width: 768px) {
+font-size: 150px;
+left: 14vw;
+}
+
 @media (min-width: 992px) {
 font-size: 140px;
-font-weight: 400;
 left: 30vw;
-color: #6197A8;
+color: #fffffa;
 letter-spacing: -11px;
 
 }
 `
-const TitleSpan = styled(Title)`
+const ABC = styled(CBT)`
 margin: 0;
-color: #00513A;
+color: #fffffa;
 position: absolute;
 top: 5vh;
 left: 53vw;
 font-style: italic;
 font-weight: 300;
 
+@media (min-width: 768px) {
+font-size: 140px;
+font-weight: 400;
+left: 50vw;
+top: 4vh;
+}
+
+
 @media (min-width: 992px) {
 left: 50vw;
+top: 0;
+color: #6197A8;
 }
 `
 
@@ -233,10 +238,15 @@ width: 70vw;
 height: 40vh;
 margin: 160px 0 20px 0;
 
+@media (min-width: 768px) {
+width: 50vw;
+margin-top: 240px;
+}
+
 @media (min-width: 992px) {
   width: 25vw;
   height: 50vh;
-  margin-top: 75px;
+  margin-top: 190px;
 }
 `
 
@@ -315,6 +325,11 @@ text-decoration: none;
 font-size: 16px;
 color: #fffffa;
 
+@media (min-width: 768px) {
+font-size: 22px;
+    
+}
+
 @media (min-width: 992px) {
  font-size: 22px;
 }
@@ -337,6 +352,7 @@ width: 50vw;
 
 
 const DemoLink = styled(SignUpLink)`
+
 
 `
 
