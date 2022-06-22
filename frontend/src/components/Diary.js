@@ -71,8 +71,8 @@ const Diary = () => {
       })}
 
       <LinkWrapper>
-      <LinkBack to="/welcome">Back</LinkBack>
-      <LinkHome to="/">Home</LinkHome>
+      <LinkBack to="/welcome">Profile</LinkBack>
+      <LinkHome to="/addnote">Add Note</LinkHome>
       </LinkWrapper>
 </Wrapper>
     </MainWrapper>
@@ -110,7 +110,9 @@ const TitleWrapper = styled.div`
 
 const Title = styled.h1`
 font-family: 'Cormorant Garamond', serif;
-/* text-transform: uppercase; */
+text-transform: uppercase;
+font-style: italic;
+color: #154B5B;
 font-size: 50px;
 font-weight: 400;
 margin: 10px 0 10px 0;
@@ -149,7 +151,7 @@ const DateText = styled.p`
 font-family: 'Cormorant Garamond', serif;
 text-transform: uppercase;
 font-weight: 300;
-color: darkgray;
+color: #282828;
 font-size: 14px;
 
 `
@@ -171,26 +173,33 @@ background-color: rgba(255, 255, 250, 0.20);
 const LinkWrapper = styled.div`
 display: flex;
 flex-direction: row;
-justify-content: space-evenly;
+justify-content: space-between;
 position: absolute;
 z-index: 1;
 bottom: 20px;
 width: 50vw;
 
-@media (min-width: 992px) {
-  bottom: 40px;
+@media (min-width: 768px) {
+  bottom: 50px;
 }
 `
 
 const LinkBack = styled(Link)`
 font-family: 'Cormorant Garamond', serif;
 text-decoration: none;
-font-size: 16px;
-color: #000;
+font-size: 20px;
+color: #154B5B;
+
+@media (min-width: 768px) {
+  bottom: 50px;
+  font-size: 22px;
+}
 
 @media (min-width: 992px) {
- font-size: 22px;
+  font-size: 22px;
+  color: #fffffa;
 }
+
 `
 
 const LinkHome = styled(LinkBack)`

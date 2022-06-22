@@ -23,22 +23,19 @@ const Start = () => {
       </TextWrap>
 <AboutWrap>
       <AboutText>
-      This app is based on the ABC, cognitive behavioral therapy, model ABC where you keep track of your
-          emotions by dividing them into three different parts- activating event
-          (what happened) Beliefs - What did it make you think or believe?
-          (Irrational and/or rational?) and consequences - emotions it gave you,
-          so that you can sort them instead of let them be there and not knowing
-          why.
+      <AboutSpan>This app is based on</AboutSpan> the Cognitive Behavioral Therapy model <ABCSpan>ABC</ABCSpan>, that helps you keep track of your
+          emotions by dividing them into three different parts - <ABCSpan>A</ABCSpan>ctivating event, <ABCSpan>B</ABCSpan>eliefs and <ABCSpan>C</ABCSpan>onsequences -
+          so that you can see patterns between your emotions and behavior, to better understand yourself and improve your mental health.
           </AboutText>
        <AboutText>
-          Disclaimer: This is not created by proffessional therapists and is not made
+       <AboutSpan>Disclaimer:</AboutSpan> This is not created by proffessional therapists and it's not made
           for proffessional use. It is created in
-          the hope of helping anyone who wants to sort their thoghts and
+          the hope of helping anyone who wants to sort their thoughts and
           emotions out in an easy and effective way.
       </AboutText>
       </AboutWrap>
 
-      {/* <OceanImg src="./images/ocean-css.jpg" alt="ocean" /> */}
+     
 
     </MainWrapper>
   )
@@ -76,10 +73,14 @@ position: relative;
 top: -5vh;
 left: 1.8vw;
 
-
+@media (min-width: 768px) {
+top: -3vh;
+left: 4vw;
+}
 
 @media (min-width: 992px)  {
-
+top: 5vh;
+left: 8vw;
 }
 `
 const CBT = styled.h1`
@@ -91,10 +92,14 @@ color: #fffffa;
   line-height: 80px;
   letter-spacing: -5px;
 
+  @media (min-width: 768px) {
+  font-size: 140px;
+  
+  }
 
 @media (min-width: 992px)  {
   font-weight: 300;
-  font-size: 150px;
+  font-size: 220px;
   margin: 50px 0 0 80px;
   line-height: 80px;
   letter-spacing: -15px;
@@ -110,9 +115,16 @@ color: blue;
 font-style: italic;
 font-size: 110px;
 
+@media (min-width: 768px) {
+font-size: 180px;
+left: 39vw;
+    
+}
 
 @media (min-width: 992px)  {
-
+font-size: 240px;
+left: 34vw;
+top: 4vh;
 }
 
 `
@@ -126,20 +138,31 @@ font-weight: lighter;
 font-style: italic;
 font-size: 100px;
 
+@media (min-width: 768px) {
+font-size: 180px;
+top: 3vh;
+}
 
 @media (min-width: 992px)  {
-
+font-size: 220px;
+top: -6vh;
+left: 29.5vw;
 }
 `
 
 const LoginWrap = styled.div`
 position: absolute;
 display: flex;
-top: 79vh;
+top: 81vh;
 left: 32vw;
 
-@media (min-width: 992px)  {
+@media (min-width: 768px) {
+   top: 70vh; 
+}
 
+@media (min-width: 992px)  {
+top: 60vh;
+left: 36vw;
 }
 `
 
@@ -160,8 +183,13 @@ color: black;
   color: blue;
 }
 
-@media (min-width: 992px)  {
+@media (min-width: 768px) {
+font-size: 120px;
+    
+}
 
+@media (min-width: 992px)  {
+font-size: 140px;
 }
 `
 
@@ -170,12 +198,20 @@ display: flex;
 position: absolute;
 bottom: -75vh;
 left: 18.5vw;
+
+@media (min-width: 768px) {
+bottom: -70vh;
+}
+
+@media (min-width: 992px)  {
+left: 20vw;
+}
 `
 
 const Demo = styled(Link)`
 margin-left: 50vw;
 font-family: 'Heebo', sans-serif;
-font-size: 45px;
+font-size: 40px;
 letter-spacing: -5px;
 font-weight: 100;
 text-decoration: none;
@@ -188,33 +224,61 @@ text-decoration: none;
   /* font-style: italic; */
   text-decoration: underline;
 }
+@media (min-width: 768px) {
+font-size: 60px;
+    
+}
 
 @media (min-width: 992px)  {
 margin-left: 50vw;
-font-size: 100px;
+font-size: 80px;
 font-weight: 100;
 }
 `
 
 const AboutWrap = styled.div`
 position: absolute;
-top: 20.2vh;
+top: 20.8vh;
 left: 42.8vw;
 width: 54.5vw;
+
+@media (min-width: 768px) {
+width: 49vw;
+top: 28vh;
+left: 45vw;
+    
+}
+
+@media (min-width: 992px) {
+  width: 38vw;
+  top: 34vh;
+  left: 54vw;
+}
 `
 
 const AboutText = styled.p`
 font-family: 'Cormorant Garamond', serif;
-font-size: 14px;
+font-size: 15px;
+
+@media (min-width: 768px) {
+  font-size: 21px;
+}
+
+@media (min-width: 992px) {
+font-size: 20px;
+}
 `
 
-// const OceanImg = styled.img`
-// position: absolute;
-// width: 40vw;
-// z-index: -1;
-// top: 0;
+const AboutSpan = styled(AboutText)`
+display: inline;
+font-style: italic;
+font-weight: 600;
+`
 
-// `
+const ABCSpan = styled(AboutSpan)`
+font-style: normal;
+font-weight: 800;
+`
 
 export default Start
 

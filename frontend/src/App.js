@@ -13,7 +13,7 @@ import SignUpSuccess from './components/SignUpSuccess';
 import Welcome from './components/Welcome';
 import Start from './components/Start';
 import Demo from './components/Demo';
-import Summary from './components/Summary';
+
 
 
 
@@ -32,7 +32,7 @@ const App = () => {
       <Route path="/success" element={<SignUpSuccess />}/>
       <Route path="/welcome" element={<Welcome />}/>
       <Route path="/demo" element={<Demo />}/>
-      <Route path="/summary" element={<Summary />}/>
+  
     </Routes>
     </Main>
     </BrowserRouter>

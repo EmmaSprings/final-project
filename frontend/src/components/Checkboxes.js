@@ -130,14 +130,6 @@ const CheckBoxes = ({ consequences, setConsequences }) => {
     )
 }
 
-// const Emotions = styled.div`
-//     display: grid;
-// grid-template-columns: repeat(3, 1fr); 
-// flex-wrap: wrap;
-// align-content: center;
-// border: .3px solid black;
-// width: 80vw;
-// `
 
 const EmotionsWrapper = styled.div`
 display: flex;
@@ -157,7 +149,6 @@ margin:5px;
 
 `
 
-
 const NegEmotions = styled.div`
 ${props => {
         if (props.isOpenNeg) {
@@ -166,11 +157,18 @@ ${props => {
 grid-template-columns: repeat(3, 1fr); 
 flex-wrap: wrap;
 align-content: center;
-border: .3px solid black;
+border: none;
 width: 80vw;
-min-height: 30vh;
-
+min-height: 28vh;
 background-color: #fffffa;
+
+@media (min-width: 768px) {
+    width: 70vw;
+}
+
+@media (min-width: 992px) {
+    width: 40vw;
+}
     
   `;
         } else {
@@ -189,9 +187,18 @@ display: grid;
 grid-template-columns: repeat(3, 1fr); 
 flex-wrap: wrap;
 align-content: center;
-border: .3px solid black;
+border: none;
 width: 80vw;
+min-height: 28vh;
 background-color: #fffffa;
+
+@media (min-width: 768px) {
+    width: 70vw;
+}
+
+@media (min-width: 992px) {
+    width: 40vw;
+}
     
   `;
         } else {
@@ -210,10 +217,18 @@ background-color: #fffffa;
 grid-template-columns: repeat(3, 1fr); 
 flex-wrap: wrap;
 align-content: center;
-border: .3px solid black;
+border: none;
 width: 80vw;
+min-height: 28vh;
 background-color: #fffffa;
-    
+
+@media (min-width: 768px) {
+    width: 70vw;
+}
+
+@media (min-width: 992px) {
+    width: 40vw;
+}
   `;
         } else {
             return `
@@ -226,6 +241,7 @@ background-color: #fffffa;
     const NegSelectionsBtn = styled.button`
     background: none;
     border:none;
+    color:#154B5B;
     `
 
     const PosSelectionBtn = styled(NegSelectionsBtn)`
@@ -233,27 +249,17 @@ background-color: #fffffa;
     const ReactionSelectionBtn = styled(NegSelectionsBtn)`
     `
 
-
-const CheckboxWrap = styled.div`
-/* height: 40px; */
-/* display: grid;
-grid-template-columns: repeat(1, 1fr);
-flex-wrap: wrap;
-border: 1px solid green; */
-`
-
-
-
 const NegLabel = styled.label`
 display: flex;
 flex-direction: row;
 align-items: center;
-/* font-family: 'Heebo', sans-serif; */
 font-family: 'Cormorant Garamond', serif;
 font-size:14px;
 padding: 2px;
-/* text-transform: uppercase; */
-/* border: 1px solid red; */
+
+@media (min-width: 768px) {
+    font-size: 20px;
+}
 `
 
 const PosLabel = styled(NegLabel)`

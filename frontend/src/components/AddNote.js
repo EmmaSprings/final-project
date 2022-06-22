@@ -82,7 +82,7 @@ const AddNote = () => {
                     />
 
                     <Textarea 
-                    placeholder="Activating event" 
+                    placeholder="Activating event - describe what you were doing and/or where your were at or going to do" 
                     name="activatingEvent"
                     value={newNote.activatingEvent}
                     onChange={onNewNoteValueChange}
@@ -90,7 +90,7 @@ const AddNote = () => {
 
                     </Textarea>
                     <Textarea 
-                    placeholder="Beliefs" 
+                    placeholder="Beliefs - describe the thoughts it gave you, irrational and/or rational" 
                     name="automatingThoughts"
                     value={newNote.automatingThoughts}
                     onChange={onNewNoteValueChange}
@@ -105,8 +105,8 @@ const AddNote = () => {
 
             </NotesWrapper>
             <LinkWrapper>
-      <LinkBack to="/welcome">Back</LinkBack>
-      <LinkHome to="/">Home</LinkHome>
+      <LinkBack to="/welcome">Profile</LinkBack>
+      <LinkHome to="/diary">Diary</LinkHome>
       </LinkWrapper>
 
             </Wrapper>
@@ -116,10 +116,10 @@ const AddNote = () => {
 
 const MainWrapper = styled.div`
 background-image: url(./images/daycloudsportrait-css.jpg);
-background-size:110%;
+background-size:200%;
 background-position: center;
 background-repeat: no-repeat;
-height: 100vh;
+min-height: 100vh;
 
 `
 
@@ -127,6 +127,7 @@ const Wrapper = styled.div`
 display: flex;
 flex-direction: column;
 align-items: center;
+
 
 `
 
@@ -136,16 +137,31 @@ const TitleWrapper = styled.div`
 
 const Title = styled.h1`
 font-family: 'Cormorant Garamond', serif;
-/* text-transform: uppercase; */
+text-transform: uppercase;
+font-style: italic;
 font-size: 50px;
-font-weight: 400;
+font-weight: 300;
 margin: 10px 0 10px 0;
+color: #154B5B;
+
+@media (min-width:992px) {
+    font-size: 50px;
+
+}
 `
 
 const NotesWrapper = styled.div`
 display: flex;
 flex-direction: column;
 width: 80vw;
+align-items: center;
+min-height: calc(94vh - 70px);
+
+
+@media (min-width: 992px) {
+ 
+   
+}
 `
 
 const Emotions = styled.div`
@@ -153,35 +169,16 @@ display: flex;
 border: 1px solid black;
 `
 
-const Reaction = styled(Emotions)`
-`
-
-
-
-// const EmoBtn = styled.button`
-// width: 60px;
-// height: 60px;
-// background-color: paleturquoise;
-// border-radius: 50%;
-// border:none;
-// margin: 3px;
-// cursor: pointer;
-// `
-// const ReactionBtn = styled(EmoBtn)`
-// background-color: palevioletred;
-// `
-
-// const GoodBtn = styled(EmoBtn)`
-// background-color: palegreen;`
 
 const TitleInput = styled.input`
 width: 80vw;
 font-family: 'Cormorant Garamond', serif;
 border: none;
-margin-bottom: 10px;
+margin-bottom: 3.5px;
 background-color: #fffffa;
-font-family: 'Heebo', sans-serif;
-/* text-transform: uppercase; */
+padding-left: 5px;
+text-transform: uppercase;
+
 
 &:focus {
     outline: none;
@@ -189,6 +186,26 @@ font-family: 'Heebo', sans-serif;
 
 &::placeholder {
     font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+}
+
+@media (min-width: 768px) {
+    width: 70vw;
+    height: 3vh;
+    
+    &::placeholder {
+   font-size: 20px;
+}
+}
+
+@media (min-width: 992px) {
+    width: 40vw;
+    height: 5vh;
+    align-content: center;
+
+    &::placeholder {
+   font-size: 18px;
+}
 }
 `
 
@@ -200,6 +217,8 @@ background: none;
 border:none;
 font-family: 'Cormorant Garamond', serif;
 background-color: #fffffa;
+padding-left: 5px;
+margin-bottom: 5px;
 
 &:focus {
     outline: none;
@@ -207,6 +226,26 @@ background-color: #fffffa;
 
 &::placeholder {
     font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+}
+
+@media (min-width: 768px) {
+    width: 70vw;
+    height: 25vh;
+
+    &::placeholder {
+   font-size: 20px;
+}
+}
+
+@media (min-width: 992px) {
+    width: 40vw;
+    height: 25vh;
+    
+    &::placeholder {
+   font-size: 18px;
+}
+    
 }
 `
 
@@ -220,31 +259,39 @@ const AddBtn = styled.button`
 font-family: 'Cormorant Garamond', serif;
 background: none;
 border: none;
-margin: 20px 0 20px 10px;
-font-size: 16px;
+margin: 60px 0 100px 10px;
+font-size: 20px;
+cursor: pointer;
 
 
 &:hover {
 font-style: italic;
 }
 
+@media (min-width: 768px) {
+font-size:22px;
+}
 @media (min-width: 992px) {
-  font-size: 18px;
+  font-size: 22px;
 }
 
 `
 
 const Form = styled.form`
+display: flex;
+flex-direction: column;
 `
 
-const LinkWrapper = styled.div`
-display: flex;
+const LinkWrapper = styled.footer`
+display: inline-flex;
 flex-direction: row;
 justify-content: space-evenly;
-position: absolute;
+position: sticky;
+background-color: #fffffa;
 z-index: 1;
-bottom: 20px;
-width: 50vw;
+padding: 10px;
+width: 100vw;
+bottom: 10px;
 
 @media (min-width: 992px) {
   bottom: 40px;
@@ -254,10 +301,10 @@ width: 50vw;
 const LinkBack = styled(Link)`
 font-family: 'Cormorant Garamond', serif;
 text-decoration: none;
-font-size: 16px;
+font-size: 20px;
 color: #000;
 
-@media (min-width: 992px) {
+@media (min-width: 768px) {
  font-size: 22px;
 }
 `
