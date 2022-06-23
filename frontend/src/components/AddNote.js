@@ -146,10 +146,13 @@ align-items: center;
 
 `
 
-const DateWrapper = styled(TitleInput)`
+const DateWrapper = styled(Wrapper)`
 margin-top: 10px;
 margin-bottom: 10px;
-
+text-align: center;
+font-family: 'Cormorant Garamond', serif;
+border: none;
+background-color: #fffffa;
 `
 
 const TitleWrapper = styled.div`
