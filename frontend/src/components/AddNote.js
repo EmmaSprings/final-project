@@ -72,56 +72,58 @@ const AddNote = () => {
 
     return (
         <MainWrapper>
-        <Wrapper>
-        <TitleWrapper>
-        <Title>My note</Title>
-      </TitleWrapper>
+            <Wrapper>
+                <TitleWrapper>
+                    <Title>My note</Title>
+                </TitleWrapper>
 
-            <NotesWrapper>
-                <Form onSubmit={onNoteSubmit}>
-                    <TitleInput
-                        type="text"
-                        placeholder="Title"
-                        maxLength={25}
-                        name="title"
-                        value={newNote.title}
-                        onChange={onNewNoteValueChange}
-                        required={true}
-                    />
+                <NotesWrapper>
+                    <Form onSubmit={onNoteSubmit}>
 
-
-                       <DatePicker 
-                        selected={dateInput}
-                        onChange={(date) => setDateInput(date)}
-
+                        <TitleInput
+                            type="text"
+                            placeholder="Title"
+                            maxLength={25}
+                            name="title"
+                            value={newNote.title}
+                            onChange={onNewNoteValueChange}
+                            required={true}
                         />
-                    <Textarea 
-                    placeholder="Activating event - describe what you were doing and/or where your were at or going to do" 
-                    name="activatingEvent"
-                    value={newNote.activatingEvent}
-                    onChange={onNewNoteValueChange}
-                    >
 
-                    </Textarea>
-                    <Textarea 
-                    placeholder="Beliefs - describe the thoughts it gave you, irrational and/or rational" 
-                    name="automatingThoughts"
-                    value={newNote.automatingThoughts}
-                    onChange={onNewNoteValueChange}
-                    >
-                    </Textarea>
+                        <DateWrapper>
+                            <DatePicker
+                                selected={dateInput}
+                                onChange={(date) => setDateInput(date)}
 
-                <Checkboxes consequences={consequences} setConsequences={setConsequences} />
-                <AddBtnWrapper>
-                <AddBtn type="submit">Add</AddBtn>
-                </AddBtnWrapper>
-                </Form>
+                            />
+                        </DateWrapper>
+                        <Textarea
+                            placeholder="Activating event - describe what you were doing and/or where your were at or going to do"
+                            name="activatingEvent"
+                            value={newNote.activatingEvent}
+                            onChange={onNewNoteValueChange}
+                        >
 
-            </NotesWrapper>
-            <LinkWrapper>
-      <LinkBack to="/welcome">Profile</LinkBack>
-      <LinkHome to="/diary">Diary</LinkHome>
-      </LinkWrapper>
+                        </Textarea>
+                        <Textarea
+                            placeholder="Beliefs - describe the thoughts it gave you, irrational and/or rational"
+                            name="automatingThoughts"
+                            value={newNote.automatingThoughts}
+                            onChange={onNewNoteValueChange}
+                        >
+                        </Textarea>
+
+                        <Checkboxes consequences={consequences} setConsequences={setConsequences} />
+                        <AddBtnWrapper>
+                            <AddBtn type="submit">Add</AddBtn>
+                        </AddBtnWrapper>
+                    </Form>
+
+                </NotesWrapper>
+                <LinkWrapper>
+                    <LinkBack to="/welcome">Profile</LinkBack>
+                    <LinkHome to="/diary">Diary</LinkHome>
+                </LinkWrapper>
 
             </Wrapper>
         </MainWrapper>
@@ -142,6 +144,11 @@ display: flex;
 flex-direction: column;
 align-items: center;
 
+`
+
+const DateWrapper = styled(TitleInput)`
+margin-top: 10px;
+margin-bottom: 10px;
 
 `
 
@@ -177,12 +184,6 @@ min-height: calc(94vh - 70px);
    
 }
 `
-
-const Emotions = styled.div`
-display: flex;
-border: 1px solid black;
-`
-
 
 const TitleInput = styled.input`
 width: 80vw;
