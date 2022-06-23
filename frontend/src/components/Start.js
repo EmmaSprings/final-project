@@ -3,40 +3,36 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
 const Start = () => {
-
-  return(
+  return (
     <MainWrapper>
-    <TextWrap>
-    <StartWrap>
-      <CBT>CBT</CBT>
-      <HeadSpan>/</HeadSpan>
-      <ABC>ABC</ABC>
-      </StartWrap>
+      <TextWrap>
+        <StartWrap>
+          <CBT>CBT</CBT>
+          <HeadSpan>/</HeadSpan>
+          <ABC>ABC</ABC>
+        </StartWrap>
 
-      <LoginWrap>
-        <Login to="/signin">Login</Login>
-      </LoginWrap>
+        <LoginWrap>
+          <Login to="/signin">Login</Login>
+        </LoginWrap>
 
-      <DemoWrap>
-        <Demo to="/demo">Demo</Demo>
-      </DemoWrap>
+        <DemoWrap>
+          <Demo to="/demo">Demo</Demo>
+        </DemoWrap>
       </TextWrap>
-<AboutWrap>
-      <AboutText>
-      <AboutSpan>This app is based on</AboutSpan> the Cognitive Behavioral Therapy model <ABCSpan>ABC</ABCSpan>, that helps you keep track of your
+      <AboutWrap>
+        <AboutText>
+          <AboutSpan>This app is based on</AboutSpan> the Cognitive Behavioral Therapy model <ABCSpan>ABC</ABCSpan>, that helps you keep track of your
           emotions by dividing them into three different parts - <ABCSpan>A</ABCSpan>ctivating event, <ABCSpan>B</ABCSpan>eliefs and <ABCSpan>C</ABCSpan>onsequences -
           so that you can see patterns between your emotions and behavior, to better understand yourself and improve your mental health.
-          </AboutText>
-       <AboutText>
-       <AboutSpan>Disclaimer:</AboutSpan> This is not created by proffessional therapists and it's not made
+        </AboutText>
+        <AboutText>
+          <AboutSpan>Disclaimer:</AboutSpan> This is not created by proffessional therapists and it's not made
           for proffessional use. It is created in
           the hope of helping anyone who wants to sort their thoughts and
           emotions out in an easy and effective way.
-      </AboutText>
+        </AboutText>
       </AboutWrap>
-
-     
-
     </MainWrapper>
   )
 }
@@ -55,6 +51,7 @@ width: 40vw;
   background-image: url(./images/ocean-css.jpg);
 background-size: 100%;
 }
+
 `
 
 const StartWrap = styled.div`
@@ -88,7 +85,6 @@ font-family: 'Heebo', sans-serif;
 font-weight: 300;
 color: #fffffa;
   font-size: 80px;
-  /* margin: 20px 0 0 10px; */
   line-height: 80px;
   letter-spacing: -5px;
 
@@ -221,7 +217,6 @@ text-decoration: none;
 }
 
 &:hover {
-  /* font-style: italic; */
   text-decoration: underline;
 }
 @media (min-width: 768px) {

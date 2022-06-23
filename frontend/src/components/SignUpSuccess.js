@@ -45,32 +45,12 @@ font-family: 'Heebo', sans-serif;
 font-weight: 300;
 font-size: 40px;
 text-transform: uppercase;
-/* animation: pulse 2s ease-in-out;
-
-
-@keyframes pulse {
-  0% {
-    transform: scale(0.95);
-    
-  }
-  
-  70% {
-    transform: scale(2);
-    
-  }
-  
-  100% {
-    transform: scale(0.95);
-    
-  }
-} */
 
 `
 
 const RedirectText = styled.h3`
 font-family: 'Cormorant Garamond', serif;
 animation: pulse 4s infinite;
-
 
 @keyframes pulse {
   0% {
@@ -93,12 +73,12 @@ animation: pulse 4s infinite;
 const IfNotWorkingWrapper = styled.div`
 display: flex;
 
-
 `
 
 const NotWorkingText = styled.p`
 font-family: 'Cormorant Garamond', serif;
 margin: 0;
+
 `
 
 const LinkHome = styled(Link)`

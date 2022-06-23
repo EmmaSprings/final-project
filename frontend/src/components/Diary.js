@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components/macro'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { formatDistance } from 'date-fns'
 
 import { API_URL, GET_NOTE } from '../urls/api'
 
@@ -61,11 +60,6 @@ const Diary = () => {
           <Note>
             <LinkTitle key={note._id} to={`/note/${note._id}`}>{note.title}</LinkTitle>
             <DateText>{note.when}</DateText>
-            {/* <button>
-            <Icon role="img" src="./icons/pen.png" alt="pen" /> 
-            </button> */}
-            
-             {/* <DeleteBtn onClick={() => deleteNote(note._id)}></DeleteBtn> */}
           </Note>
         )
       })}
@@ -130,10 +124,6 @@ border-bottom: .3px solid black;
 background-color: rgba(255, 255, 250, 0.80);
 `
 
-const Icon = styled.img`
-width: 5%;
-`
-
 const LinkTitle = styled(Link)`
 font-family: 'Heebo', sans-serif;
 text-transform: uppercase;
@@ -147,27 +137,12 @@ color: #000;
 `
 
 const DateText = styled.p`
-/* font-family: 'Heebo', sans-serif; */
 font-family: 'Cormorant Garamond', serif;
 text-transform: uppercase;
 font-weight: 300;
 color: #282828;
 font-size: 14px;
 
-`
-
-const DeleteBtn = styled.button`
-display: flex;
-background-image:url(./icons/delete.png);
-background-size: 100%;
-background-repeat: no-repeat;
-filter: opacity(50%);
-align-self: center;
-width: 20px;
-height: 20px;
-border: none;
-background-color: rgba(255, 255, 250, 0.20);
-/* background: none; */
 `
 
 const LinkWrapper = styled.div`
