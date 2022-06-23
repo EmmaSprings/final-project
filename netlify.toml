@@ -3,7 +3,7 @@
 [build]
   base = "frontend/"
   publish = "build/"
-  command = "CI=npm run build"
+  command = "npm run build"
 
 [[redirects]]
   from = "/*"
