@@ -397,8 +397,6 @@ const Note = () => {
 }
 
 const MainWrapper = styled.div`
-/* background-image: url(./images/green-css.jpg); */
-
 display: flex;
 justify-content: center;
 background-size:100vh;
@@ -429,6 +427,10 @@ color: #154B5B;
 font-size: 30px;
 font-weight: 400;
 margin: 10px 0 10px 0;
+width: 80vw;
+min-height: 5vh;
+text-align: center;
+
 
 @media (min-width: 768px) {
  font-size: 35px;
@@ -440,6 +442,7 @@ filter: opacity(40%);
 margin:10px 0 0 0;
 font-size: 14px;
 color: forestgreen;
+
 
 @media (min-width: 768px) {
  font-size: 20px;
@@ -478,14 +481,10 @@ flex-direction: column;
 width: 80vw;
 min-height: calc(160vh - 70px);
 background-color: #fffffa;
-
-
 `
 
 const TitleWrapper = styled.div`
 font-family: 'Cormorant Garamond', serif;
-/* text-transform: uppercase; */
-
 `
 
 const TitleInput = styled.input`
@@ -557,12 +556,10 @@ background: none;
 color: inherit;
 border: none;
 padding: 0;
-
 font: inherit;
 cursor: pointer;
 outline: inherit;
 filter: opacity(40%);
-
 `
 
 const DeleteBtn = styled.button`
@@ -574,7 +571,8 @@ font-size:18px;
 filter: opacity(50%);
 cursor: pointer;
 align-self: center;
-margin-top: 40px;
+margin-top: 140px;
+margin-bottom: 100px;
 height: 20px;
 border: none;
 padding:0;
@@ -587,6 +585,7 @@ background-color: rgba(255, 255, 250, 0.20);
 
 @media (min-width: 768px) {
     font-size: 22px;
+    margin-top: 180px;
 }
 `
 
@@ -606,7 +605,6 @@ margin-bottom: 8px;
 &:hover {
   font-style: italic;
 }
-
 `
 
 const CancelBtn = styled(SubmitBtn) `
@@ -651,11 +649,9 @@ padding: 2px;
 `
 
 const PosLabel = styled(NegLabel)`
-
 `
 
 const PhysicalLabel = styled(NegLabel)`
-
 `
 
 const NegLabelEdit = styled(NegLabel)`

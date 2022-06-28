@@ -19,7 +19,7 @@ useEffect(() => {
     <Wrapper>
 
       <UserWrapper>
-      <UserName>Welcome {`${username}`}<UserSpan>, you're worth it</UserSpan></UserName>
+      <UserName>Welcome {`${username}`}<UserSpan>you're worth it</UserSpan></UserName>
       </UserWrapper> 
       <LinkWrapper>
       <LinkTo to="/diary">Diary</LinkTo>
@@ -66,32 +66,53 @@ justify-content: flex-start;
 
 
 const UserName = styled.h5`
-display: inline;
-font-family: 'Cormorant Garamond', serif;
-font-size: 40px;
-font-weight: 300;
+display: block;
+font-family: 'Heebo', sans-serif;
+font-size:30px;
+font-weight: 600;
 color: #154B5B;
+
+@media (min-width: 768px) {
+  font-size: 40px;
+}
 `
 
-const UserSpan = styled(UserName)`
+const UserSpan = styled.span`
+font-family: 'Heebo', sans-serif;
+display: block;
+font-size:30px;
 font-style: italic;
+margin-top: 0;
+font-weight: 300;
+
+@media (min-width: 768px) {
+  font-size: 40px;
+}
 `
 
 const LinkWrapper = styled.div`
 display: flex;
 flex-direction: column;
+margin-top: 40px;
 `
 
 const LinkTo = styled(Link)`
-font-family: 'Heebo', sans-serif;
+font-family: 'Cormorant Garamond', serif;
 margin-bottom: 20px;
 text-decoration: none;
-font-weight: 300;
+font-weight: 600;
 color: #fffffa;
 font-size: 40px;
+text-transform: uppercase;
 
 &:hover {
   font-style: italic;
+  background-color: #fffffa;
+  color: #154B5B;
+}
+
+@media (min-width: 768px) {
+  font-size: 60px;
 }
 `
 
@@ -115,7 +136,7 @@ bottom: 40px;
 }
 
 @media (min-width: 768px) {
-  font-size: 22px;
+  font-size: 24px;
 }
 
 `

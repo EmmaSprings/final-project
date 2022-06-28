@@ -79,6 +79,7 @@ const AddNote = () => {
 
             <NotesWrapper>
                 <Form onSubmit={onNoteSubmit}>
+               
                     <TitleInput
                         type="text"
                         placeholder="Title"
@@ -90,11 +91,12 @@ const AddNote = () => {
                     />
 
 
-                       <DatePicker 
+                       <DatePicker
                         selected={dateInput}
                         onChange={(date) => setDateInput(date)}
 
                         />
+               
                     <Textarea 
                     placeholder="Activating event - describe what you were doing and/or where your were at or going to do" 
                     name="activatingEvent"
@@ -169,7 +171,7 @@ display: flex;
 flex-direction: column;
 width: 80vw;
 align-items: center;
-min-height: calc(94vh - 70px);
+min-height: calc(100vh - 70px);
 
 
 @media (min-width: 992px) {
@@ -178,20 +180,14 @@ min-height: calc(94vh - 70px);
 }
 `
 
-const Emotions = styled.div`
-display: flex;
-border: 1px solid black;
-`
-
-
 const TitleInput = styled.input`
 width: 80vw;
 font-family: 'Cormorant Garamond', serif;
 border: none;
 margin-bottom: 3.5px;
-background-color: #fffffa;
 padding-left: 5px;
 text-transform: uppercase;
+background-color: #fffffa;
 
 
 &:focus {
@@ -317,6 +313,10 @@ font-family: 'Cormorant Garamond', serif;
 text-decoration: none;
 font-size: 20px;
 color: #000;
+
+&:hover {
+  font-style: italic;
+}
 
 @media (min-width: 768px) {
  font-size: 22px;

@@ -29,7 +29,6 @@ const SignUpSuccess = () => {
 }
 
 const MainWrapper = styled.div`
-
 `
 
 const Wrapper = styled.div`
@@ -45,26 +44,6 @@ font-family: 'Heebo', sans-serif;
 font-weight: 300;
 font-size: 40px;
 text-transform: uppercase;
-/* animation: pulse 2s ease-in-out;
-
-
-@keyframes pulse {
-  0% {
-    transform: scale(0.95);
-    
-  }
-  
-  70% {
-    transform: scale(2);
-    
-  }
-  
-  100% {
-    transform: scale(0.95);
-    
-  }
-} */
-
 `
 
 const RedirectText = styled.h3`

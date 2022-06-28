@@ -134,8 +134,6 @@ const CheckBoxes = ({ consequences, setConsequences }) => {
 const EmotionsWrapper = styled.div`
 display: flex;
 flex-direction: column;
-/* align-content: center; */
-
 `
 
 const AllEmotions = styled.div`

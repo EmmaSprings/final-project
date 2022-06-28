@@ -206,6 +206,8 @@ font-weight: 300;
 
 @media (min-width: 992px) {
 left: 50vw;
+top:1vh;
+
 }
 `
 
@@ -317,9 +319,6 @@ ${props => {
    margin:0;
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
-    
-
-    
 `;
   }
 }}
@@ -372,6 +371,10 @@ font-family: 'Cormorant Garamond', serif;
 text-decoration: none;
 color: black;
 background-color: #fffffa;
+
+&:hover {
+  font-style: italic;
+}
 
 @media (min-width: 768px) {
 font-size: 22px;   

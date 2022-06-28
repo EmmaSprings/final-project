@@ -61,11 +61,6 @@ const Diary = () => {
           <Note>
             <LinkTitle key={note._id} to={`/note/${note._id}`}>{note.title}</LinkTitle>
             <DateText>{note.when}</DateText>
-            {/* <button>
-            <Icon role="img" src="./icons/pen.png" alt="pen" /> 
-            </button> */}
-            
-             {/* <DeleteBtn onClick={() => deleteNote(note._id)}></DeleteBtn> */}
           </Note>
         )
       })}
@@ -147,7 +142,6 @@ color: #000;
 `
 
 const DateText = styled.p`
-/* font-family: 'Heebo', sans-serif; */
 font-family: 'Cormorant Garamond', serif;
 text-transform: uppercase;
 font-weight: 300;
@@ -167,7 +161,6 @@ width: 20px;
 height: 20px;
 border: none;
 background-color: rgba(255, 255, 250, 0.20);
-/* background: none; */
 `
 
 const LinkWrapper = styled.div`
@@ -189,6 +182,10 @@ font-family: 'Cormorant Garamond', serif;
 text-decoration: none;
 font-size: 20px;
 color: #154B5B;
+
+&:hover {
+  font-style: italic;
+}
 
 @media (min-width: 768px) {
   bottom: 50px;

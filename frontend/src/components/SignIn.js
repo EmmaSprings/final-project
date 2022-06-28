@@ -98,9 +98,6 @@ const SignIn = () => {
 
   return (
     <MainWrapper>
-    {/* <ImageWrap>
-    <Image  src="./images/forest-css.jpg" alt="forest"/>
-    </ImageWrap> */}
     <Wrapper>
       <CBT>CBT/</CBT>
       <ABC>ABC</ABC>
@@ -265,11 +262,8 @@ color: #212121;
 @media (min-width: 992px) {
   font-size: 18px;
 }
-
 `
-
 const PasswordLabel = styled(UserLabel)`
-
 `
 const UserInput = styled.input`
 font-family: 'Cormorant Garamond', serif;
@@ -291,12 +285,9 @@ padding-bottom: 5px;
 @media (min-width: 992px) {
   margin-bottom: 20px;
   font-size: 16px;
-  
-
 }
 `
 const PasswordInput = styled(UserInput)`
-
 `
 
 const SignInBtn = styled.button`
@@ -316,7 +307,6 @@ font-style: italic;
 `
 
 const SignUpWrapper = styled.div`
-
 `
 
 const SignUpLink = styled(Link)`
@@ -325,9 +315,12 @@ text-decoration: none;
 font-size: 16px;
 color: #fffffa;
 
+&:hover {
+  font-style: italic;
+}
+
 @media (min-width: 768px) {
-font-size: 22px;
-    
+font-size: 22px;   
 }
 
 @media (min-width: 992px) {

@@ -221,7 +221,6 @@ text-decoration: none;
 }
 
 &:hover {
-  /* font-style: italic; */
   text-decoration: underline;
 }
 @media (min-width: 768px) {
