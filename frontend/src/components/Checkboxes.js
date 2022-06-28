@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { negativeEmotions, positiveEmotions, physicalReactions } from '../data'
 
-
 const CheckBoxes = ({ consequences, setConsequences }) => {
     const [isOpenNeg, setIsOpenNeg] = useState(false)
     const [isOpenPos, setIsOpenPos] = useState(false)
@@ -15,10 +14,7 @@ const CheckBoxes = ({ consequences, setConsequences }) => {
                 ...prevState,
                 positiveEmotions: [...positiveEmotions, value]
             })))
-        }
-        // Case 2  : The user unchecks the box
-        //remove the id from the array
-        else {
+        } else {
             setConsequences((prevState => ({
                 ...prevState,
                 positiveEmotions: positiveEmotions.filter((e) => e !== value),
@@ -34,11 +30,7 @@ const CheckBoxes = ({ consequences, setConsequences }) => {
                 ...prevState,
                 negativeEmotions: [...negativeEmotions, value]
             })))
-        }
-
-        // Case 2  : The user unchecks the box
-        //remove the id from the array
-        else {
+        } else {
             setConsequences((prevState => ({
                 ...prevState,
                 negativeEmotions: negativeEmotions.filter((e) => e !== value),
@@ -53,10 +45,7 @@ const CheckBoxes = ({ consequences, setConsequences }) => {
                 ...prevState,
                 physicalReactions: [...physicalReactions, value]
             })))
-        }
-        // Case 2  : The user unchecks the box
-        //remove the id from the array
-        else {
+        } else {
             setConsequences((prevState => ({
                 ...prevState,
                 physicalReactions: physicalReactions.filter((e) => e !== value),
@@ -66,65 +55,65 @@ const CheckBoxes = ({ consequences, setConsequences }) => {
 
     return (
         <EmotionsWrapper>
-      <AllEmotions>
-            <NegSelectionsBtn type="button" onClick={() => setIsOpenNeg((s) => !s)}>Add Negative Emotions</NegSelectionsBtn>
-            <NegEmotions isOpenNeg={isOpenNeg}>
-                {negativeEmotions.map(negEmo => {
-                    return (
-                        <StyleBoxes key={negEmo.id}>
-                            <NegLabel htmlFor={negEmo.emotion}>  {negEmo.emotion}
-                                <input
-                                    type="checkbox"
-                                    name="negativeEmotions"
-                                    onChange={onNegativeEmotionsChange}
-                                    value={negEmo.emotion}
-                                />
-                            </NegLabel>
+            <AllEmotions>
+                <NegSelectionsBtn type="button" onClick={() => setIsOpenNeg((s) => !s)}>Add Negative Emotions</NegSelectionsBtn>
+                <NegEmotions isOpenNeg={isOpenNeg}>
+                    {negativeEmotions.map(negEmo => {
+                        return (
+                            <StyleBoxes key={negEmo.id}>
+                                <NegLabel htmlFor={negEmo.emotion}>  {negEmo.emotion}
+                                    <input
+                                        type="checkbox"
+                                        name="negativeEmotions"
+                                        onChange={onNegativeEmotionsChange}
+                                        value={negEmo.emotion}
+                                    />
+                                </NegLabel>
 
-                        </StyleBoxes>
-                    )
-                })}
-            </NegEmotions>
+                            </StyleBoxes>
+                        )
+                    })}
+                </NegEmotions>
             </AllEmotions>
 
             <AllEmotions>
-            <PosSelectionBtn type="button" onClick={() => setIsOpenPos((s) => !s)}>Add Positive Emotions</PosSelectionBtn>
-            <PosEmotions isOpenPos={isOpenPos}>
-                {positiveEmotions.map(posEmo => {
-                    return (
-                        <StyleBoxes key={posEmo.id}>
-                            <PosLabel htmlFor={posEmo.emotion}> {posEmo.emotion}
-                                <input
-                                    name="positiveEmotions"
-                                    type="checkbox"
-                                    onChange={onPositiveEmotionsChange}
-                                    value={posEmo.emotion}
-                                />
-                            </PosLabel>
-                        </StyleBoxes>
-                    )
-                })}
-            </PosEmotions>
-           </AllEmotions>
+                <PosSelectionBtn type="button" onClick={() => setIsOpenPos((s) => !s)}>Add Positive Emotions</PosSelectionBtn>
+                <PosEmotions isOpenPos={isOpenPos}>
+                    {positiveEmotions.map(posEmo => {
+                        return (
+                            <StyleBoxes key={posEmo.id}>
+                                <PosLabel htmlFor={posEmo.emotion}> {posEmo.emotion}
+                                    <input
+                                        name="positiveEmotions"
+                                        type="checkbox"
+                                        onChange={onPositiveEmotionsChange}
+                                        value={posEmo.emotion}
+                                    />
+                                </PosLabel>
+                            </StyleBoxes>
+                        )
+                    })}
+                </PosEmotions>
+            </AllEmotions>
 
-           <AllEmotions>
-            <ReactionSelectionBtn type="button" onClick={() => setIsOpenReactions((s) => !s)}>Add Physical Reactions</ReactionSelectionBtn>
-            <Reactions isOpenReactions={isOpenReactions}>
-                {physicalReactions.map(reaction => {
-                    return (
-                        <StyleBoxes key={reaction.id}>
-                            <PhysicalLabel htmlFor={reaction.reaction}>{reaction.reaction}
-                                <input
-                                    type="checkbox"
-                                    name="physicalReactions"
-                                    onChange={onPhysicalReactionsChange}
-                                    value={reaction.reaction}
-                                />
-                            </PhysicalLabel>
-                        </StyleBoxes>
-                    )
-                })}
-            </Reactions>
+            <AllEmotions>
+                <ReactionSelectionBtn type="button" onClick={() => setIsOpenReactions((s) => !s)}>Add Physical Reactions</ReactionSelectionBtn>
+                <Reactions isOpenReactions={isOpenReactions}>
+                    {physicalReactions.map(reaction => {
+                        return (
+                            <StyleBoxes key={reaction.id}>
+                                <PhysicalLabel htmlFor={reaction.reaction}>{reaction.reaction}
+                                    <input
+                                        type="checkbox"
+                                        name="physicalReactions"
+                                        onChange={onPhysicalReactionsChange}
+                                        value={reaction.reaction}
+                                    />
+                                </PhysicalLabel>
+                            </StyleBoxes>
+                        )
+                    })}
+                </Reactions>
             </AllEmotions>
         </EmotionsWrapper>
     )
@@ -134,6 +123,10 @@ const CheckBoxes = ({ consequences, setConsequences }) => {
 const EmotionsWrapper = styled.div`
 display: flex;
 flex-direction: column;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 12876d863fab228f97acad53ecf8026d65819eec
 `
 
 const AllEmotions = styled.div`
@@ -206,8 +199,8 @@ background-color: #fffffa;
         }
     }}
     `
-    
-    const Reactions = styled.div`
+
+const Reactions = styled.div`
     ${props => {
         if (props.isOpenReactions) {
             return `
@@ -235,17 +228,18 @@ background-color: #fffffa;
         }
     }}
     `
-
-    const NegSelectionsBtn = styled.button`
+const NegSelectionsBtn = styled.button`
     background: none;
     border:none;
     color:#154B5B;
-    `
+`
 
-    const PosSelectionBtn = styled(NegSelectionsBtn)`
-    `
-    const ReactionSelectionBtn = styled(NegSelectionsBtn)`
-    `
+const PosSelectionBtn = styled(NegSelectionsBtn)`
+    
+`
+const ReactionSelectionBtn = styled(NegSelectionsBtn)`
+
+`
 
 const NegLabel = styled.label`
 display: flex;

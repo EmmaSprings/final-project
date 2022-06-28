@@ -3,11 +3,10 @@ import styled from 'styled-components/macro'
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import { GET_NOTE } from '../urls/api'
 import { negativeEmotions, positiveEmotions, physicalReactions } from '../data'
-// import pen from './icons/pen.png'
+
 
 const Note = () => {
   const accessToken = sessionStorage.getItem("accessToken")
-  const title = sessionStorage.getItem("title")
   const navigate = useNavigate()
   const [note, setNote] = useState({})
   const [editTitle, setEditTitle] = useState(null)
@@ -30,8 +29,8 @@ const Note = () => {
 
   const fetchNote = () => {
     fetch(GET_NOTE(noteId), options)
-    .then(res => res.json())
-    .then(data => setNote(data))
+      .then(res => res.json())
+      .then(data => setNote(data))
   }
 
 
@@ -66,7 +65,7 @@ const Note = () => {
     if (checked) {
       setEditConsequences((prev) => ({
         ...prev,
-        negativeEmotions : [...negativeEmotions, value]
+        negativeEmotions: [...negativeEmotions, value]
       }))
     }
     else {
@@ -83,7 +82,7 @@ const Note = () => {
     if (checked) {
       setEditConsequences((prev) => ({
         ...prev,
-        physicalReactions : [...physicalReactions, value]
+        physicalReactions: [...physicalReactions, value]
       }))
     }
     else {
@@ -162,129 +161,129 @@ const Note = () => {
 
   return (
     <MainWrapper>
-    <Wrapper>
-      <TitleWrapper>
-        <Title>{`${note.title}`}</Title>
-      </TitleWrapper>
-          <NotesWrapper>
-            {!!editTitle ?
-              <TitleWrapper>
-                <TitleInput
-                  type="text"
-                  maxLength={25}
-                  name="title"
-                  value={editTitle.title}
-                  onChange={(event) => setEditTitle(event.target.value)}
-                />
-               <ButtonWrapper>
+      <Wrapper>
+        <TitleWrapper>
+          <Title>{`${note.title}`}</Title>
+        </TitleWrapper>
+        <NotesWrapper>
+          {!!editTitle ?
+            <TitleWrapper>
+              <TitleInput
+                type="text"
+                maxLength={25}
+                name="title"
+                value={editTitle.title}
+                onChange={(event) => setEditTitle(event.target.value)}
+              />
+              <ButtonWrapper>
                 <SubmitBtn type="submit" onClick={onEditNoteSubmit}>Submit</SubmitBtn>
                 <CancelBtn type="button" onClick={() => setEditTitle(null)}>Cancel</CancelBtn>
 
-                </ButtonWrapper>
-              </TitleWrapper>
-              :
+              </ButtonWrapper>
+            </TitleWrapper>
+            :
 
-              <TitleEditBtnWrap>
-                <NoteTitle>{note.title}</NoteTitle>
-                 <EditBtnWrapper>
-                  <EditBtn type="button" onClick={() => setEditTitle(note)}>
-                    <Icon role="img" src="/icons/pen.png" alt="pen" />
-                  </EditBtn>
-                  </EditBtnWrapper>
-              </TitleEditBtnWrap>
-             } 
+            <TitleEditBtnWrap>
+              <NoteTitle>{note.title}</NoteTitle>
+              <EditBtnWrapper>
+                <EditBtn type="button" onClick={() => setEditTitle(note)}>
+                  <Icon role="img" src="/icons/pen.png" alt="pen" />
+                </EditBtn>
+              </EditBtnWrapper>
+            </TitleEditBtnWrap>
+          }
 
-            {!!editActivatingEvent ?
-              <div>
-                <Textarea
-                  name="activatingEvent"
-                  value={editActivatingEvent.activatingEvent}
-                  onChange={(event) => setEditActivatingEvent(event.target.value)}
-                >
-                </Textarea>
-                <ButtonWrapper>
+          {!!editActivatingEvent ?
+            <div>
+              <Textarea
+                name="activatingEvent"
+                value={editActivatingEvent.activatingEvent}
+                onChange={(event) => setEditActivatingEvent(event.target.value)}
+              >
+              </Textarea>
+              <ButtonWrapper>
                 <SubmitBtn type="submit" onClick={onEditNoteSubmit}>Submit</SubmitBtn>
                 <CancelBtn type="button" onClick={() => setEditActivatingEvent(null)}>Cancel</CancelBtn>
-                </ButtonWrapper>
-              </div>
-              :
-              <>
+              </ButtonWrapper>
+            </div>
+            :
+            <>
               <TitleEditBtnWrap>
                 <NoteTitle>Activating event:</NoteTitle>
-                 <EditBtnWrapper>
+                <EditBtnWrapper>
                   <EditBtn type="button" onClick={() => setEditActivatingEvent(note)}>
                     <Icon role="img" src="/icons/pen.png" alt="pen" />
                   </EditBtn>
-                  </EditBtnWrapper>
+                </EditBtnWrapper>
               </TitleEditBtnWrap>
               <EventWrapper>
                 <Notes>{note.activatingEvent}</Notes>
-                </EventWrapper>
-                </>
-             
-            }
+              </EventWrapper>
+            </>
 
-            {!!editAutomatingThought ?
-              <>
-                <Textarea
-                  placeholder="Beliefs"
-                  name="automatingThoughts"
-                  value={editAutomatingThought.automatingThoughts}
-                  onChange={(event) => setEditAutomatingThought(event.target.value)}
-                >
-                </Textarea>
-                <ButtonWrapper>
+          }
+
+          {!!editAutomatingThought ?
+            <>
+              <Textarea
+                placeholder="Beliefs"
+                name="automatingThoughts"
+                value={editAutomatingThought.automatingThoughts}
+                onChange={(event) => setEditAutomatingThought(event.target.value)}
+              >
+              </Textarea>
+              <ButtonWrapper>
                 <SubmitBtn type="submit" onClick={onEditNoteSubmit}>Submit</SubmitBtn>
                 <CancelBtn type="button" onClick={() => setEditAutomatingThought(null)}>Cancel</CancelBtn>
-                </ButtonWrapper>
-              </>
-              :
+              </ButtonWrapper>
+            </>
+            :
 
-              <>
+            <>
               <TitleEditBtnWrap>
                 <NoteTitle>Beliefs:</NoteTitle>
-                 <EditBtnWrapper>
+                <EditBtnWrapper>
                   <EditBtn type="button" onClick={() => setEditAutomatingThought(note)}>
                     <Icon role="img" src="/icons/pen.png" alt="pen" />
                   </EditBtn>
-                  </EditBtnWrapper>
+                </EditBtnWrapper>
               </TitleEditBtnWrap>
               <EventWrapper>
                 <Notes>{note.automatingThoughts}</Notes>
-                </EventWrapper>
-                </>
-              
-            } 
+              </EventWrapper>
+            </>
+
+          }
 
 
-            {!!editConsequences ?
-              <>
-                <EmotionsTitle>Consequences <EditBtn type="button" onClick={() => setEditConsequences(note.consequences)}>
-                  <Icon role="img" src="/icons/pen.png" alt="pen" />
-                </EditBtn></EmotionsTitle>
-                <EmotionInput>{negativeEmotions.map((item) => {
-                  return (
-                    <div className="wrapper" key={item.id}>
-                      <NegLabelEdit htmlFor={item.emotion}>          
+          {!!editConsequences ?
+            <>
+              <EmotionsTitle>Consequences <EditBtn type="button" onClick={() => setEditConsequences(note.consequences)}>
+                <Icon role="img" src="/icons/pen.png" alt="pen" />
+              </EditBtn></EmotionsTitle>
+              <EmotionInput>{negativeEmotions.map((item) => {
+                return (
+                  <div className="wrapper" key={item.id}>
+                    <NegLabelEdit htmlFor={item.emotion}>
                       {item.emotion}
                       <input
                         type="checkbox"
                         name="negativeEmotions"
                         value={item.emotion}
                         defaultChecked={editConsequences.negativeEmotions.includes(item.emotion)}
-                      onChange={onNegativeEmotionsEdit}
+                        onChange={onNegativeEmotionsEdit}
                       />
-                      </NegLabelEdit>
-                    </div>
-                  );
-                })}
-                </EmotionInput>
+                    </NegLabelEdit>
+                  </div>
+                );
+              })}
+              </EmotionInput>
 
-                <EmotionInput>
-                  {positiveEmotions.map((item) => {
-                    return (
-                      <div className="wrapper" key={item.id}>
-                        <PosLabelEdit htmlFor={item.emotion}>
+              <EmotionInput>
+                {positiveEmotions.map((item) => {
+                  return (
+                    <div className="wrapper" key={item.id}>
+                      <PosLabelEdit htmlFor={item.emotion}>
                         {item.emotion}
                         <input
                           type="checkbox"
@@ -293,105 +292,105 @@ const Note = () => {
                           defaultChecked={editConsequences.positiveEmotions.includes(item.emotion)}
                           onChange={onPositiveEmotionsEdit}
                         />
-                        </PosLabelEdit>
-                      </div>
-                    );
-                  })}   </EmotionInput>
+                      </PosLabelEdit>
+                    </div>
+                  );
+                })}   </EmotionInput>
 
-                <EmotionInput>
-                  {physicalReactions.map((item) => {
-                    return (
-                      <div className="wrapper" key={item.id}>
-                        <PhysicalLabelEdit htmlFor={item.emotion}>
+              <EmotionInput>
+                {physicalReactions.map((item) => {
+                  return (
+                    <div className="wrapper" key={item.id}>
+                      <PhysicalLabelEdit htmlFor={item.emotion}>
                         {item.reaction}
                         <input
                           type="checkbox"
                           name="physicalReactions"
                           value={item.reaction}
                           defaultChecked={editConsequences.physicalReactions.includes(item.reaction)}
-                        onChange={onPhysicalReactionsEdit}
+                          onChange={onPhysicalReactionsEdit}
                         />
-                        </PhysicalLabelEdit>
-                      </div>
-                    );
-                  })}</EmotionInput>
-                  <ButtonWrapper>
+                      </PhysicalLabelEdit>
+                    </div>
+                  );
+                })}</EmotionInput>
+              <ButtonWrapper>
                 <CancelBtn type="button" onClick={() => setEditConsequences(null)}>Cancel edit</CancelBtn>
                 <SubmitBtn type="submit" onClick={onEditNoteSubmit}>Submit</SubmitBtn>
-                </ButtonWrapper>
-              </>
+              </ButtonWrapper>
+            </>
 
-              :
+            :
 
-              <>
-                <EmotionsTitle>Consequences    <EditBtn type="button" onClick={() => setEditConsequences(note.consequences)}>
-                  <Icon role="img" src="/icons/pen.png" alt="pen" />
-                </EditBtn>
+            <>
+              <EmotionsTitle>Consequences    <EditBtn type="button" onClick={() => setEditConsequences(note.consequences)}>
+                <Icon role="img" src="/icons/pen.png" alt="pen" />
+              </EditBtn>
 
-                </EmotionsTitle>
-                <EmotionInput>{negativeEmotions.map((item) => {
+              </EmotionsTitle>
+              <EmotionInput>{negativeEmotions.map((item) => {
+                return (
+                  <div className="wrapper" key={item.id}>
+                    <NegLabel htmlFor="negativeEmotions">
+                      {item.emotion}
+                      <input
+                        type="checkbox"
+                        name="negativeEmotions"
+                        value={item.emotion}
+                        checked={note?.consequences?.negativeEmotions.includes(item.emotion)}
+                      />
+                    </NegLabel>
+                  </div>
+                );
+              })}
+              </EmotionInput>
+              <EmotionInput>
+                {positiveEmotions.map((item) => {
                   return (
                     <div className="wrapper" key={item.id}>
-                      <NegLabel htmlFor="negativeEmotions">
+                      <PosLabel htmlFor="positiveEmotions">
                         {item.emotion}
                         <input
                           type="checkbox"
-                          name="negativeEmotions"
+                          name="positiveEmotions"
                           value={item.emotion}
-                          checked={note?.consequences?.negativeEmotions.includes(item.emotion)}
+                          checked={note?.consequences?.positiveEmotions.includes(item.emotion)}
                         />
-                      </NegLabel>
+                      </PosLabel>
                     </div>
                   );
-                })}
-                </EmotionInput>
-                <EmotionInput>
-                  {positiveEmotions.map((item) => {
-                    return (
-                      <div className="wrapper" key={item.id}>
-                        <PosLabel htmlFor="positiveEmotions">
-                          {item.emotion}
-                          <input
-                            type="checkbox"
-                            name="positiveEmotions"
-                            value={item.emotion}
-                            checked={note?.consequences?.positiveEmotions.includes(item.emotion)}
-                          />
-                        </PosLabel>
-                      </div>
-                    );
-                  })}   </EmotionInput>
-                <EmotionInput>
-                  {physicalReactions.map((item) => {
-                    return (
-                      <div className="wrapper" key={item.id}>
-                        <PhysicalLabel htmlFor="physicalReactions">
-                          {item.reaction}
-                          <input
-                            type="checkbox"
-                            name="physicalReactions"
-                            value={item.reaction}
-                            checked={note?.consequences?.physicalReactions.includes(item.reaction)}
-                          />
-                        </PhysicalLabel>
-                      </div>
-                    );
-                  })}</EmotionInput>
-              </>
-            }
+                })}   </EmotionInput>
+              <EmotionInput>
+                {physicalReactions.map((item) => {
+                  return (
+                    <div className="wrapper" key={item.id}>
+                      <PhysicalLabel htmlFor="physicalReactions">
+                        {item.reaction}
+                        <input
+                          type="checkbox"
+                          name="physicalReactions"
+                          value={item.reaction}
+                          checked={note?.consequences?.physicalReactions.includes(item.reaction)}
+                        />
+                      </PhysicalLabel>
+                    </div>
+                  );
+                })}</EmotionInput>
+            </>
+          }
 
-            <DeleteBtn type="submit" onClick={() => { deleteNote(note._id) }}>Delete Note</DeleteBtn>
-          </NotesWrapper>
+          <DeleteBtn type="submit" onClick={() => { deleteNote(note._id) }}>Delete Note</DeleteBtn>
+        </NotesWrapper>
 
-          <LinkWrapper>
+        <LinkWrapper>
 
-      <LinkTo to="/diary">Diary</LinkTo>
-      <LinkTo to="/welcome">Profile</LinkTo>
-      <LinkTo to="/">Home</LinkTo> 
+          <LinkTo to="/diary">Diary</LinkTo>
+          <LinkTo to="/welcome">Profile</LinkTo>
+          <LinkTo to="/">Home</LinkTo>
 
-      </LinkWrapper>
+        </LinkWrapper>
 
-</Wrapper>
+      </Wrapper>
     </MainWrapper>
   )
 }
@@ -607,7 +606,7 @@ margin-bottom: 8px;
 }
 `
 
-const CancelBtn = styled(SubmitBtn) `
+const CancelBtn = styled(SubmitBtn)`
 
 color: tomato;
 `

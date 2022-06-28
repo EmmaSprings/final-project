@@ -5,7 +5,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import { API_URL } from '../urls/api'
 
 const SignIn = () => {
-  const [password, setPassword] = useState("");
   const [passwordShown, setPasswordShown] = useState(false);
   const [loginInput, setLoginInput] = useState("")
   const [isCorrectCredentials, setIsCorrectCredentials] = useState(true)
@@ -34,8 +33,6 @@ const SignIn = () => {
     setIsCorrectCredentials(true)
   }
 
-  ////PAssword whon not shown
-
   const togglePassword = () => {
     setPasswordShown(!passwordShown);
   };
@@ -55,8 +52,6 @@ const SignIn = () => {
       );
     }
   };
-
-
 
   const onUserSubmit = (e) => {
     e.preventDefault()
@@ -98,6 +93,7 @@ const SignIn = () => {
 
   return (
     <MainWrapper>
+<<<<<<< HEAD
     <Wrapper>
       <CBT>CBT/</CBT>
       <ABC>ABC</ABC>
@@ -117,33 +113,54 @@ const SignIn = () => {
           <ShowPassword type="button" onClick={togglePassword}>
               {passwordIcon()}
             </ShowPassword>
+=======
+      <Wrapper>
+        <CBT>CBT/</CBT>
+        <ABC>ABC</ABC>
+        <InputWrapper>
+          <Form onSubmit={onUserSubmit}>
+            <UserLabel>Username or Email</UserLabel>
+            <UserInput
+              type="text"
+              placeholder="Please enter"
+              id="username"
+              required={true}
+              value={loginInput}
+              onChange={onLoginValueChange}
+            />
+            <div>
+              <PasswordLabel>Password</PasswordLabel>
+              <ShowPassword type="button" onClick={togglePassword}>
+                {passwordIcon()}
+              </ShowPassword>
+>>>>>>> 12876d863fab228f97acad53ecf8026d65819eec
             </div>
-          <PasswordInput
-            type={passwordShown ? "text" : "password"}
-            placeholder="Please enter"
-            id="password"
-            required={true}
-            value={passwordInput}
-            onChange={onPasswordValueChange}
-          />
-          <Validation isCorrectCredentials={isCorrectCredentials}>
-            <p>Wrong username, email or password. Please try again.</p>
-          </Validation>
+            <PasswordInput
+              type={passwordShown ? "text" : "password"}
+              placeholder="Please enter"
+              id="password"
+              required={true}
+              value={passwordInput}
+              onChange={onPasswordValueChange}
+            />
+            <Validation isCorrectCredentials={isCorrectCredentials}>
+              <p>Wrong username, email or password. Please try again.</p>
+            </Validation>
 
-          <SignInBtn>Sign in</SignInBtn>
+            <SignInBtn>Sign in</SignInBtn>
 
-        </Form>
-      </InputWrapper>
-      <SignUpWrapper>
-        <SignUpLink to="/signup">Don't have an account? Sign up here</SignUpLink>
-      </SignUpWrapper>
+          </Form>
+        </InputWrapper>
+        <SignUpWrapper>
+          <SignUpLink to="/signup">Don't have an account? Sign up here</SignUpLink>
+        </SignUpWrapper>
 
-      <LinkWrapper>
-      <DemoLink to="/demo">Demo</DemoLink>
-      <StartLink to="/">Start</StartLink>
-      </LinkWrapper>
+        <LinkWrapper>
+          <DemoLink to="/demo">Demo</DemoLink>
+          <StartLink to="/">Start</StartLink>
+        </LinkWrapper>
 
-</Wrapper>
+      </Wrapper>
     </MainWrapper>
   )
 }
@@ -175,7 +192,6 @@ flex-direction: column;
 align-items: center;
 
 `
-
 
 const CBT = styled.h1`
 font-family: 'Heebo', sans-serif;
@@ -216,7 +232,6 @@ font-weight: 400;
 left: 50vw;
 top: 4vh;
 }
-
 
 @media (min-width: 992px) {
 left: 50vw;
@@ -285,6 +300,10 @@ padding-bottom: 5px;
 @media (min-width: 992px) {
   margin-bottom: 20px;
   font-size: 16px;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 12876d863fab228f97acad53ecf8026d65819eec
 }
 `
 const PasswordInput = styled(UserInput)`
@@ -343,9 +362,7 @@ width: 50vw;
 }
 `
 
-
 const DemoLink = styled(SignUpLink)`
-
 
 `
 

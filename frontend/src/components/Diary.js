@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components/macro'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { formatDistance } from 'date-fns'
 
 import { API_URL, GET_NOTE } from '../urls/api'
 
@@ -125,10 +124,6 @@ border-bottom: .3px solid black;
 background-color: rgba(255, 255, 250, 0.80);
 `
 
-const Icon = styled.img`
-width: 5%;
-`
-
 const LinkTitle = styled(Link)`
 font-family: 'Heebo', sans-serif;
 text-transform: uppercase;
@@ -150,6 +145,7 @@ font-size: 14px;
 
 `
 
+<<<<<<< HEAD
 const DeleteBtn = styled.button`
 display: flex;
 background-image:url(./icons/delete.png);
@@ -163,6 +159,8 @@ border: none;
 background-color: rgba(255, 255, 250, 0.20);
 `
 
+=======
+>>>>>>> 12876d863fab228f97acad53ecf8026d65819eec
 const LinkWrapper = styled.div`
 display: flex;
 flex-direction: row;
