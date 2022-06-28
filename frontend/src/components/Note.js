@@ -586,6 +586,11 @@ background-color: rgba(255, 255, 250, 0.20);
     font-size: 22px;
     margin-top: 180px;
 }
+
+@media (min-width: 992px) {
+   margin-bottom: 120px;
+   margin-top: 120px;
+}
 `
 
 const SubmitBtn = styled.button`

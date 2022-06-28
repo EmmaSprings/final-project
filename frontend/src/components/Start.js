@@ -62,7 +62,6 @@ position: relative;
 @media (min-width: 992px)  {
 
 }
-
 `
 
 const TextWrap = styled.div`
@@ -105,8 +104,8 @@ color: #fffffa;
 
 const ABC = styled(CBT)`
 position: absolute;
-left: 40vw;
-top: 1.8vh;
+left: 39vw;
+top: .4vh;
 color: blue;
 font-style: italic;
 font-size: 110px;
@@ -119,7 +118,7 @@ left: 39vw;
 
 @media (min-width: 992px)  {
 font-size: 240px;
-left: 34vw;
+left: 28vw;
 top: 4vh;
 }
 
@@ -149,8 +148,9 @@ left: 29.5vw;
 const LoginWrap = styled.div`
 position: absolute;
 display: flex;
-top: 81vh;
+top: 85vh;
 left: 32vw;
+
 
 @media (min-width: 768px) {
    top: 70vh; 
@@ -158,17 +158,18 @@ left: 32vw;
 
 @media (min-width: 992px)  {
 top: 60vh;
-left: 36vw;
+left: 34vw;
 }
 `
 
 const Login = styled(Link)`
 font-family: 'Cormorant Garamond', serif;
-font-size: 70px;
+font-size: 65px;
 font-weight: 200;
 margin: 0;
 text-decoration: none;
 color: black;
+
 
 &:visited {
  color: black;
@@ -193,7 +194,7 @@ const DemoWrap = styled.div`
 display: flex;
 position: absolute;
 bottom: -75vh;
-left: 18.5vw;
+left: 21vw;
 
 @media (min-width: 768px) {
 bottom: -70vh;
@@ -207,8 +208,8 @@ left: 20vw;
 const Demo = styled(Link)`
 margin-left: 50vw;
 font-family: 'Heebo', sans-serif;
-font-size: 40px;
-letter-spacing: -5px;
+font-size: 34px;
+letter-spacing: -3px;
 font-weight: 100;
 text-decoration: none;
 
@@ -233,7 +234,7 @@ font-weight: 100;
 
 const AboutWrap = styled.div`
 position: absolute;
-top: 20.8vh;
+top: 19.5vh;
 left: 42.8vw;
 width: 54.5vw;
 

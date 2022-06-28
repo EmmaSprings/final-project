@@ -44,10 +44,6 @@ font-family: 'Heebo', sans-serif;
 font-weight: 300;
 font-size: 40px;
 text-transform: uppercase;
-<<<<<<< HEAD
-=======
-
->>>>>>> 12876d863fab228f97acad53ecf8026d65819eec
 `
 
 const RedirectText = styled.h3`

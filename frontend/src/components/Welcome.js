@@ -56,12 +56,15 @@ height: 100vh;
 const Wrapper = styled.div`
 display: flex;
 flex-direction: column;
-margin: 20px
+margin: 20px;
+
 `
 
 const UserWrapper = styled.div`
 display: flex;
-justify-content: flex-start;
+justify-content: center;
+text-align: center;
+
 `
 
 

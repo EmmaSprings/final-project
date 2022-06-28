@@ -93,27 +93,6 @@ const SignIn = () => {
 
   return (
     <MainWrapper>
-<<<<<<< HEAD
-    <Wrapper>
-      <CBT>CBT/</CBT>
-      <ABC>ABC</ABC>
-      <InputWrapper>
-        <Form onSubmit={onUserSubmit}>
-          <UserLabel>Username or Email</UserLabel>
-          <UserInput
-            type="text"
-            placeholder="Please enter"
-            id="username"
-            required={true}
-            value={loginInput}
-            onChange={onLoginValueChange}
-          />
-<div>
-          <PasswordLabel>Password</PasswordLabel>
-          <ShowPassword type="button" onClick={togglePassword}>
-              {passwordIcon()}
-            </ShowPassword>
-=======
       <Wrapper>
         <CBT>CBT/</CBT>
         <ABC>ABC</ABC>
@@ -133,7 +112,6 @@ const SignIn = () => {
               <ShowPassword type="button" onClick={togglePassword}>
                 {passwordIcon()}
               </ShowPassword>
->>>>>>> 12876d863fab228f97acad53ecf8026d65819eec
             </div>
             <PasswordInput
               type={passwordShown ? "text" : "password"}
@@ -197,6 +175,7 @@ const CBT = styled.h1`
 font-family: 'Heebo', sans-serif;
 font-weight: 200;
 margin: 0 0 0 0;
+color: #fffffa;
 padding: 0;
 font-size: 90px;
 position: absolute;
@@ -219,22 +198,21 @@ letter-spacing: -11px;
 `
 const ABC = styled(CBT)`
 margin: 0;
-color: #fffffa;
+color: #000;
 position: absolute;
-top: 5vh;
-left: 53vw;
+top: 0;
+left: 52vw;
 font-style: italic;
-font-weight: 300;
+font-weight: 400;
 
 @media (min-width: 768px) {
 font-size: 140px;
-font-weight: 400;
-left: 50vw;
-top: 4vh;
+left: 52.8vw;
+top: 1vh;
 }
 
 @media (min-width: 992px) {
-left: 50vw;
+left: 49vw;
 top: 0;
 color: #6197A8;
 }
@@ -300,10 +278,6 @@ padding-bottom: 5px;
 @media (min-width: 992px) {
   margin-bottom: 20px;
   font-size: 16px;
-<<<<<<< HEAD
-=======
-
->>>>>>> 12876d863fab228f97acad53ecf8026d65819eec
 }
 `
 const PasswordInput = styled(UserInput)`
@@ -315,6 +289,7 @@ background: none;
 border: none;
 margin: 20px 0 0 10px;
 font-size: 16px;
+cursor: pointer;
 
 &:hover {
 font-style: italic;

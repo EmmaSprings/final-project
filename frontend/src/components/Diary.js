@@ -145,22 +145,6 @@ font-size: 14px;
 
 `
 
-<<<<<<< HEAD
-const DeleteBtn = styled.button`
-display: flex;
-background-image:url(./icons/delete.png);
-background-size: 100%;
-background-repeat: no-repeat;
-filter: opacity(50%);
-align-self: center;
-width: 20px;
-height: 20px;
-border: none;
-background-color: rgba(255, 255, 250, 0.20);
-`
-
-=======
->>>>>>> 12876d863fab228f97acad53ecf8026d65819eec
 const LinkWrapper = styled.div`
 display: flex;
 flex-direction: row;

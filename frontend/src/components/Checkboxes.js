@@ -123,10 +123,6 @@ const CheckBoxes = ({ consequences, setConsequences }) => {
 const EmotionsWrapper = styled.div`
 display: flex;
 flex-direction: column;
-<<<<<<< HEAD
-=======
-
->>>>>>> 12876d863fab228f97acad53ecf8026d65819eec
 `
 
 const AllEmotions = styled.div`

@@ -72,60 +72,6 @@ const AddNote = () => {
 
     return (
         <MainWrapper>
-<<<<<<< HEAD
-        <Wrapper>
-        <TitleWrapper>
-        <Title>My note</Title>
-      </TitleWrapper>
-
-            <NotesWrapper>
-                <Form onSubmit={onNoteSubmit}>
-               
-                    <TitleInput
-                        type="text"
-                        placeholder="Title"
-                        maxLength={25}
-                        name="title"
-                        value={newNote.title}
-                        onChange={onNewNoteValueChange}
-                        required={true}
-                    />
-
-
-                       <DatePicker
-                        selected={dateInput}
-                        onChange={(date) => setDateInput(date)}
-
-                        />
-               
-                    <Textarea 
-                    placeholder="Activating event - describe what you were doing and/or where your were at or going to do" 
-                    name="activatingEvent"
-                    value={newNote.activatingEvent}
-                    onChange={onNewNoteValueChange}
-                    >
-
-                    </Textarea>
-                    <Textarea 
-                    placeholder="Beliefs - describe the thoughts it gave you, irrational and/or rational" 
-                    name="automatingThoughts"
-                    value={newNote.automatingThoughts}
-                    onChange={onNewNoteValueChange}
-                    >
-                    </Textarea>
-
-                <Checkboxes consequences={consequences} setConsequences={setConsequences} />
-                <AddBtnWrapper>
-                <AddBtn type="submit">Add</AddBtn>
-                </AddBtnWrapper>
-                </Form>
-
-            </NotesWrapper>
-            <LinkWrapper>
-      <LinkBack to="/welcome">Profile</LinkBack>
-      <LinkHome to="/diary">Diary</LinkHome>
-      </LinkWrapper>
-=======
             <Wrapper>
                 <TitleWrapper>
                     <Title>My note</Title>
@@ -178,7 +124,6 @@ const AddNote = () => {
                     <LinkBack to="/welcome">Profile</LinkBack>
                     <LinkHome to="/diary">Diary</LinkHome>
                 </LinkWrapper>
->>>>>>> 12876d863fab228f97acad53ecf8026d65819eec
 
             </Wrapper>
         </MainWrapper>

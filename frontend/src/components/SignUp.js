@@ -75,8 +75,8 @@ const SignUp = () => {
   return (
     <MainWrapper>
     <Wrapper>
-    <Title>CBT /</Title>
-      <TitleSpan>ABC</TitleSpan>
+    <CBT>CBT/</CBT>
+      <ABC>ABC</ABC>
 
       <InputWrapper>
         <Form onSubmit={onUserSubmit}>
@@ -169,7 +169,7 @@ align-items: center;
 
 `
 
-const Title = styled.h1`
+const CBT = styled.h1`
 font-family: 'Heebo', sans-serif;
 font-weight: 200;
 margin: 0 0 0 0;
@@ -195,18 +195,18 @@ letter-spacing: -11px;
 
 }
 `
-const TitleSpan = styled(Title)`
+const ABC = styled(CBT)`
 margin: 0;
 color: #002CDD;
 position: absolute;
-top: 5vh;
-left: 53vw;
+top: 0;
+left: 54vw;
 font-style: italic;
 font-weight: 300;
 
 @media (min-width: 992px) {
-left: 50vw;
-top:1vh;
+left: 49vw;
+
 
 }
 `
@@ -218,7 +218,7 @@ justify-content: center;
 background-color: #FFFFFA;
 border: .3px solid #5E5E5E;
 width: 70vw;
-min-height: 50vh;
+min-height: 40vh;
 margin: 120px 0 20px 0;
 
 @media (min-width: 768px) {
@@ -328,8 +328,9 @@ const SignUpBtn = styled.button`
 font-family: 'Cormorant Garamond', serif;
 background: none;
 border: none;
-margin: 20px 0 20px 10px;
+margin: 20px 0 10px 10px;
 font-size: 16px;
+cursor: pointer;
 
 &:hover {
 font-style: italic;
@@ -371,6 +372,7 @@ font-family: 'Cormorant Garamond', serif;
 text-decoration: none;
 color: black;
 background-color: #fffffa;
+margin-bottom: 20px;
 
 &:hover {
   font-style: italic;
@@ -382,6 +384,7 @@ font-size: 22px;
 `
 
 const LinkHome = styled(LinkSignIn)`
+margin-bottom: 0;
 `
 
 export default SignUp;
